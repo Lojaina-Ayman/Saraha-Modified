@@ -1,0 +1,94 @@
+# Visual Studio temporary files, build results, and user-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio build output
+bin/
+obj/
+[Bb]in/
+[Oo]bj/
+*.exe
+*.pdb
+*.dll
+*.lib
+*.exp
+*.ilk
+*.idb
+*.tlog
+*.log
+*.cache
+*.cachefile
+*.ipch
+*.db
+
+# Visual Studio project-specific files
+*.csproj.user
+*.vbproj.user
+*.vcxproj.user
+*.sdf
+*.opensdf
+*.aps
+*.VC.db
+*.VC.VC.opendb
+
+# Visual Studio Code Analysis and Testing
+*.coverage
+*.coveragexml
+*.testresults
+TestResults/
+CodeCoverage/
+
+# NuGet Packages
+*.nupkg
+packages/
+*.nuget.props
+*.nuget.targets
+
+# MSBuild and ReSharper
+_ReSharper*/
+*.dotCover
+*.resharper
+*.msbuild
+MSBuildArtifacts/
+
+# Visual Studio IntelliSense
+*.ncb
+*.NCB
+
+# Visual Studio Setup Projects
+*.msi
+*.msm
+*.msp
+*.msix
+*.appx
+
+# Visual Studio LightSwitch
+GeneratedArtifacts/
+_Pvt_Extensions/
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Miscellaneous
+.DS_Store
+Thumbs.db
+*.swp
+*.tmp
+*.temp
+*.vs/
+.vscode/
+*.code-workspace
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Ignore user-specific IDE settings
+*.vscode/
+*.vs/
+launchSettings.json
