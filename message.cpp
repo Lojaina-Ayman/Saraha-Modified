@@ -1,37 +1,24 @@
-#include <string>
-#include <vector>
-#include <ctime>
-using namespace std;
+#include "Message.h"
 
-class message {
-private:
-    string content;
-    int senderid;
-    int receiver;
-    time_t doc;
-    string dateintext;
+Message::Message(string s, int i, int r) {
+    content = s;
+    senderid = i;
+    receiver = r;
+    doc = time(0);
 
-public:
-    message(string s, int i,int r) {
-        content = s;
-        senderid = i;
-        receiver = r;
-        doc = time(0);
-        dateintext = ctime(&doc);
-        dateintext.pop_back();
-    }
+    char buffer[26];
+    ctime_s(buffer, sizeof(buffer), &doc);
+    dateintext = buffer;
+    dateintext.pop_back(); // remove trailing newline
+}
 
-    string getContent() const { return content; }
-    int getSenderId() const { return senderid; }
-    int getReceiver() const { return receiver; }
-    time_t getDoc() const { return doc; }
-    string getDateInText() const { return dateintext; }
+string Message::getContent() const { return content; }
+int Message::getSenderId() const { return senderid; }
+int Message::getReceiver() const { return receiver; }
+time_t Message::getDoc() const { return doc; }
+string Message::getDateInText() const { return dateintext; }
 
-    void setContent(string s) { content = s; }
-	void deleteContent(){content = "";}
-
-	void setSenderId(int i) { senderid = i; }
-	void setReceiver(int r) { receiver = r; }
-
-};
-
+void Message::setContent(string s) { content = s; }
+void Message::deleteContent() { content = ""; }
+void Message::setSenderId(int i) { senderid = i; }
+void Message::setReceiver(int r) { receiver = r; }

@@ -1,23 +1,23 @@
-
-#include "linkedlist.h"
+#pragma once
+#include "linkedList.h"
 #include <iostream>
 
+// Constructor
 template <class T>
 linkedList<T>::linkedList() : head(nullptr) {}
 
+// Insert at beginning
 template <class T>
 void linkedList<T>::insertAtBeginning(T value) {
-    Node<T>* newNode = new Node<T>();
-    newNode->data = value;
+    Node<T>* newNode = new Node<T>(value);
     newNode->next = head;
     head = newNode;
 }
 
+// Insert at end
 template <class T>
 void linkedList<T>::insertAtEnd(T value) {
-    Node<T>* newNode = new Node<T>();
-    newNode->data = value;
-    newNode->next = nullptr;
+    Node<T>* newNode = new Node<T>(value);
     if (!head) {
         head = newNode;
         return;
@@ -29,6 +29,7 @@ void linkedList<T>::insertAtEnd(T value) {
     temp->next = newNode;
 }
 
+// Insert at specific position
 template <class T>
 void linkedList<T>::insertAtPosition(T value, int position) {
     assert(position >= 1);
@@ -36,9 +37,7 @@ void linkedList<T>::insertAtPosition(T value, int position) {
         insertAtBeginning(value);
         return;
     }
-    Node<T>* newNode = new Node<T>();
-    newNode->data = value;
-
+    Node<T>* newNode = new Node<T>(value);
     Node<T>* temp = head;
     for (int i = 1; i < position - 1 && temp; ++i) {
         temp = temp->next;
@@ -53,6 +52,7 @@ void linkedList<T>::insertAtPosition(T value, int position) {
     temp->next = newNode;
 }
 
+// Delete from beginning
 template <class T>
 void linkedList<T>::deleteFromBeginning() {
     if (!head)
@@ -62,6 +62,7 @@ void linkedList<T>::deleteFromBeginning() {
     delete temp;
 }
 
+// Delete from end
 template <class T>
 void linkedList<T>::deleteFromEnd() {
     if (!head)
@@ -80,9 +81,10 @@ void linkedList<T>::deleteFromEnd() {
     temp->next = nullptr;
 }
 
+// Delete from specific position
 template <class T>
 void linkedList<T>::deleteFromPosition(int position) {
-    assert(position >= 1); 
+    assert(position >= 1);
     if (position == 1) {
         deleteFromBeginning();
         return;
@@ -100,5 +102,25 @@ void linkedList<T>::deleteFromPosition(int position) {
     delete nodeToDelete;
 }
 
-template class linkedList<int>;
-template class linkedList<double>;
+// Get size of the list
+template <class T>
+int linkedList<T>::size() const {
+    int count = 0;
+    Node<T>* temp = head;
+    while (temp) {
+        count++;
+        temp = temp->next;
+    }
+    return count;
+}
+
+// Access value at index
+template <class T>
+T linkedList<T>::getAt(int index) const {
+    Node<T>* temp = head;
+    for (int i = 0; i < index && temp; ++i) {
+        temp = temp->next;
+    }
+    assert(temp != nullptr); // Out of bounds
+    return temp->data;
+}

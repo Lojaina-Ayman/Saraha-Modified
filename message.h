@@ -3,25 +3,26 @@
 
 #include <string>
 #include <ctime>
+using namespace std;
 
-class message {
+class Message {
 private:
-    std::string content;
+    string content;
     int senderid;
     int receiver;
-    std::time_t doc;
-    std::string dateintext;
+    time_t doc;
+    string dateintext;
 
 public:
-    message(std::string s, int i, int r);
+    Message(string s, int i, int r);
 
-    std::string getContent() const;
+    string getContent() const;
     int getSenderId() const;
     int getReceiver() const;
-    std::time_t getDoc() const;
-    std::string getDateInText() const;
+    time_t getDoc() const;
+    string getDateInText() const;
 
-    void setContent(std::string s);
+    void setContent(string s);
     void deleteContent();
     void setSenderId(int i);
     void setReceiver(int r);

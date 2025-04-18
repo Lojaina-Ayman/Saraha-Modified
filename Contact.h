@@ -2,12 +2,12 @@
 #include <string>
 using namespace std;
 
-class Contact
-{
-	int msgCount;
-	string msgID, name;
+class Contact {
+    int msgCount = 0;
+    string msgID;
+    string name;
 
 public:
-	Contact(string name);
-	void incMsgCount();
+    Contact(string name);
+    void incMsgCount();
 };

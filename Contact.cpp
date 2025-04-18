@@ -1,9 +1,9 @@
 #include "Contact.h"
 
 Contact::Contact(string name) {
-	name = name;
+    this->name = name;
 }
 
 void Contact::incMsgCount() {
-	msgCount++;
+    msgCount++;
 }
