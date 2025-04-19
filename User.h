@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "linkedList.h"
+#include <list>
 #include "Message.h"
 #include "Contact.h"
 using namespace std;
@@ -15,14 +15,14 @@ public:
 	string pass;
 	vector<Contact> contacts;
 	vector<Message> Send_msg;
-	linkedList<Message> favMsg;
-	linkedList<Message> sentMsg;
-	linkedList<Message> recMsg;
+	std::list<Message> favMsg;
+	std::list<Message> sentMsg;
+	std::list<Message> recMsg;
 
 	User();
 	User(int id, string user, string password, vector<Contact> mycontacts,
-		vector<Message> Sendmsg, linkedList<Message> favMsg,
-		linkedList<Message> sentMsg, linkedList<Message> recMsg);
+		vector<Message> Sendmsg, std::list<Message> favMsg,
+		std::list<Message> sentMsg, std::list<Message> recMsg);
 
 
 	void reci_msg(vector<string> msg);

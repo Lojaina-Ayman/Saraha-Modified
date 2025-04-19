@@ -3,6 +3,7 @@
 
 #include <string>
 #include <ctime>
+#include <list>
 using namespace std;
 
 class Message {
@@ -14,7 +15,7 @@ private:
     string dateintext;
 
 public:
-    Message(string s, int i, int r);
+    Message(string data, int sender, int receiver);
 
     string getContent() const;
     int getSenderId() const;
@@ -26,6 +27,7 @@ public:
     void deleteContent();
     void setSenderId(int i);
     void setReceiver(int r);
-};
+    void viewAllMessages(std::list<Message> messages);
+    };
 
 #endif

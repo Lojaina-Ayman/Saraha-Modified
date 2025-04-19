@@ -1,5 +1,5 @@
 #include "User.h"
-
+#include <list>
 User::User() {
     id = 0;
     username = "";
@@ -8,8 +8,8 @@ User::User() {
 }
 
 User::User(int id, string user, string password, vector<Contact> mycontacts,
-    vector<Message> Sendmsg, linkedList<Message> favMsg,
-    linkedList<Message> sentMsg, linkedList<Message> recMsg) {
+    vector<Message> Sendmsg, std::list<Message> favMsg,
+    std::list<Message> sentMsg, std::list<Message> recMsg) {
 
     this->id = id;
     username = user;
