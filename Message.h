@@ -27,7 +27,7 @@ public:
     void deleteContent();
     void setSenderId(int i);
     void setReceiver(int r);
-    void viewAllMessages(std::list<Message> messages);
+    std::string viewAllMessages(std::list<Message> messages);
     };
 
 #endif

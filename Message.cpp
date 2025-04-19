@@ -4,7 +4,7 @@
 Message::Message(string data, int sender, int receiver) {
     content = data;
     senderid = sender;
-    receiver = receiver;
+    this->receiver = receiver;
     doc = time(0);
 
     char buffer[26];
@@ -23,12 +23,20 @@ void Message::setContent(string s) { content = s; }
 void Message::deleteContent() { content = ""; }
 void Message::setSenderId(int i) { senderid = i; }
 void Message::setReceiver(int r) { receiver = r; }
-void Message::viewAllMessages(std::list<Message> messages) {
-    for (const auto& message : messages) {
-        std::cout << "Sender ID: " << message.getSenderId() << std::endl;
-        std::cout << "Receiver ID: " << message.getReceiver() << std::endl;
-        std::cout << "Date: " << message.getDateInText() << std::endl;
-        std::cout << "Content: " << message.getContent() << std::endl;
-        std::cout << "------------------------" << std::endl;
+#include <iostream>
+#include <list>
+#include "Message.h"
+
+std::string Message::viewAllMessages(std::list<Message> messages) {
+    std::string result;
+    for (auto it = messages.rbegin(); it != messages.rend(); ++it) {
+        const Message& message = *it;
+        result += "Sender ID: " + std::to_string(message.getSenderId()) + "\n";
+        result += "Receiver ID: " + std::to_string(message.getReceiver()) + "\n";
+        result += "Date: " + message.getDateInText() + "\n";
+        result += "Content: " + message.getContent() + "\n";
+        result += "------------------------\n";
     }
+
+    return result;
 }
