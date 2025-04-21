@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <set>
+
 Message::Message(string data, int sender, int receiver) {
     messageid = generateRandomId();
     content = data;
@@ -32,7 +33,7 @@ void Message::setFavorite(int messageid) {
     isFavorite = true; // In the main function, make a queue and have it iterate through the messages and enqueue any message that is marked as favorite
 }
 
-std::set<int> usedIDs;
+set<int> usedIDs;
 int Message::generateRandomId() {
     srand(time(0));  
     int randomId;
@@ -49,11 +50,11 @@ int Message::generateRandomId() {
 #include <list>
 #include "Message.h"
 
-std::string Message::viewAllMessages(std::list<Message> messages) {
-    std::string result;
+string Message::viewAllMessages(list<Message> messages) {
+    string result;
     for (auto it = messages.rbegin(); it != messages.rend(); ++it) {
         const Message& message = *it;
-        result += "Message ID: " + std::to_string(message.getMessageId()) + "\n";
+        result += "Message ID: " + to_string(message.getMessageId()) + "\n";
         result += "Date: " + message.getDateInText() + "\n";
         result += "Content: " + message.getContent() + "\n";
         result += "------------------------\n";

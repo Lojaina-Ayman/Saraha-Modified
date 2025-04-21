@@ -1,20 +1,21 @@
 #include "User.h"
-#include <list>
+
+static unordered_map<string, User> User::users;
+
 User::User() {
     id = 0;
     username = "";
-    pass = "";
+    password = "";
     msgCount = 0;
 }
 
-User::User(int id, string user, string password, vector<Contact> mycontacts,
-    vector<Message> Sendmsg, std::queue<Message> favMsg,
-    std::list<Message> sentMsg, std::list<Message> recMsg);
-{
+User::User(int id, string user, string pass, vector<Contact> mycontacts,
+    vector<Message> Sendmsg, list<Message> favMsg,
+    list<Message> sentMsg, list<Message> recMsg){
 
     this->id = id;
     username = user;
-    pass = password;
+    password = pass;
     msgCount = 0;
 
     for (const auto& contact : mycontacts) {
@@ -48,10 +49,10 @@ void User::favorites(vector<string> msg) {
 void User::removeOldestFavoriteMessage() {
     if (!favMsg.empty()) {
         favMsg.pop();
-        std::cout << "Oldest favorite message removed." << std::endl;
+        cout << "Oldest favorite message removed." << endl;
     }
     else {
-        std::cout << "No favorite messages to remove." << std::endl;
+        cout << "No favorite messages to remove." << endl;
     }
 }
 
@@ -61,7 +62,7 @@ void User::deleteMessageById(int messageId) {
     for (auto it = sentMsg.begin(); it != sentMsg.end(); ++it) {
         if (it->getMessageId() == messageId) {
             sentMsg.erase(it);
-            std::cout << "Message removed from sent messages.\n";
+            cout << "Message removed from sent messages.\n";
             return;
         }
     }
@@ -69,19 +70,19 @@ void User::deleteMessageById(int messageId) {
     for (auto it = recMsg.begin(); it != recMsg.end(); ++it) {
         if (it->getMessageId() == messageId) {
             recMsg.erase(it);
-            std::cout << "Message removed from received messages.\n";
+            cout << "Message removed from received messages.\n";
             return;
         }
     }
 
-    std::queue<Message> tempQueue;
+    queue<Message> tempQueue;
     bool found = false;
     while (!favMsg.empty()) {
         Message msg = favMsg.front();
         favMsg.pop();
         if (msg.getMessageId() == messageId) {
             found = true;
-            std::cout << "Message removed from favorite messages.\n";
+            cout << "Message removed from favorite messages.\n";
             continue;
         }
         tempQueue.push(msg);
@@ -89,7 +90,7 @@ void User::deleteMessageById(int messageId) {
     favMsg = tempQueue;
 
     if (!found) {
-        std::cout << "Message with ID " << messageId << " not found in any list.\n";
+        cout << "Message with ID " << messageId << " not found in any list.\n";
     }
 }
 
@@ -97,10 +98,10 @@ void User::deleteMessageById(int messageId) {
 void User::searchContact(int contactId) const {
     auto it = contacts.find(contactId);
     if (it != contacts.end()) {
-        std::cout << "Contact Found: " << it->second.getName() << std::endl;
+        cout << "Contact Found: " << it->second.getName() << endl;
     }
     else {
-        std::cout << "Contact NOT FOUND." << std::endl;
+        cout << "Contact NOT FOUND." << endl;
     }
 }
 
@@ -113,14 +114,62 @@ void User::rmcontact(int contactId) {
     auto it = contacts.find(contactId);
     if (it != contacts.end()) {
         contacts.erase(it);
-        std::cout << "Contact removed successfully.\n";
+        cout << "Contact removed successfully.\n";
     }
     else {
-        std::cout << "Contact not found.\n";
+        cout << "Contact not found.\n";
     }
 }
 
 
 void User::snd_msg(Message msg) {
     Send_msg.push_back(msg);
+}
+
+bool User::login(string user, string pass) {
+    auto it = users.find(user);
+    if (it != users.end() && it->second.password == pass) {
+        return true;
+        // Logged in
+    }
+    return false;
+    // Username or password not found
+}
+
+bool User::regist(string user, string pass) {
+    if (users.find(user) != users.end()) {
+        return false;
+        // Username's taken
+    }
+
+    User newUser;
+    newUser.username = user;
+    newUser.password = pass;
+
+    users[user] = newUser;
+    return true;
+    // Register done
+}
+
+void User::viewMessagesFromContact(int contactId) {
+    auto contactIt = contacts.find(contactId);
+    if (contactIt == contacts.end()) {
+        return;
+        // Contact not found
+    }
+
+    Contact& contact = contactIt->second;
+    cout << "Messages with " << contact.getName() << ":\n";
+
+    bool messagesFound = false;
+    for (const auto& msg : sentMsg) {
+        if (msg.getReceiver() == contactId) {
+            messagesFound = true;
+            // View messages
+        }
+    }
+
+    if (!messagesFound) {
+        // This contact has no messages
+    }
 }

@@ -30,7 +30,7 @@ public:
     void deleteContent();
     void setSenderId(int i);
     void setReceiver(int r);
-    std::string viewAllMessages(std::list<Message> messages);
+    string viewAllMessages(list<Message> messages);
     void setFavorite(int messageid);
     int generateRandomId();
     };
