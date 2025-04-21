@@ -5,6 +5,10 @@
 #include <list>
 #include "Message.h"
 #include "Contact.h"
+#include <unordered_map>
+#include <queue>
+
+
 using namespace std;
 
 class User
@@ -13,11 +17,11 @@ public:
 	int id, msgCount;
 	string username;
 	string pass;
-	vector<Contact> contacts;
+	unordered_map<int, Contact> contacts;
 	vector<Message> Send_msg;
-	std::list<Message> favMsg;
-	std::list<Message> sentMsg;
-	std::list<Message> recMsg;
+	queue<Message> favMsg;
+	list<Message> sentMsg;
+	list<Message> recMsg;
 
 	User();
 	User(int id, string user, string password, vector<Contact> mycontacts,
