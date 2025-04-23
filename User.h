@@ -14,7 +14,7 @@ class User
 {
 public:
 	int id, msgCount;
-	string username, password;
+	string username, pass;
 	unordered_map<int, Contact> contacts;
 	vector<Message> Send_msg;
 	queue<Message> favMsg;

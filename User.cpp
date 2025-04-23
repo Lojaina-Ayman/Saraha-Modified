@@ -20,7 +20,7 @@ User::User(int id, string user, string pass, vector<Contact> mycontacts,
 
     this->id = id;
     username = user;
-    password = pass;
+    this->pass = pass;
     msgCount = 0;
 
     for (const auto& contact : mycontacts) {
@@ -213,7 +213,7 @@ void User::delete_msg(int msgID) {
 
 bool User::login(string user, string pass) {
     auto it = users.find(user);
-    if (it != users.end() && it->second.password == pass) {
+    if (it != users.end() && it->second.pass == pass) {
         return true;
         // Logged in
     }
@@ -229,7 +229,7 @@ bool User::regist(string user, string pass) {
 
     User newUser;
     newUser.username = user;
-    newUser.password = pass;
+    newUser.pass = pass;
 
     users[user] = newUser;
     return true;
