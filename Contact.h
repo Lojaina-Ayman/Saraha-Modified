@@ -3,9 +3,12 @@
 #include "Message.h"
 using namespace std;
 
-class Contact : public Message {
+class Contact {
     int msgCount = 0;
     string contactName;
+    int contactId;
+    std::list<Message> messages;
+
 
 public:
     Contact(string name);
@@ -13,6 +16,8 @@ public:
     int getMsgCount();
     string getName() const;
     void setName(string name);
-    int getMsgID() const;
-    void setMsgID(int msgID);
+    int getContactId() const;
+    void setContactId(int id);
+    void addMessage(const Message& message);
+    void removeMessage(int messageId);
 };
