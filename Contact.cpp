@@ -3,7 +3,7 @@
 
 Contact::Contact(string name) {
     this->contactName = name;
-    this->contactId = generateRandomId();
+    this->contactId = msgCount+1;
 }
 
 void Contact::incMsgCount() {
