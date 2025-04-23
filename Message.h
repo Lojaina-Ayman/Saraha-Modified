@@ -29,7 +29,7 @@ public:
     void deleteContent();
     void setSenderId(int i);
     void setReceiver(int r);
-    string viewAllMessages(list<Message> messages);
+    string returnAllMessages(list<Message> messages);
     int generateRandomId();
     };
 

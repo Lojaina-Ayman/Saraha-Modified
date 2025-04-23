@@ -44,7 +44,7 @@ int Message::generateRandomId() {
     return randomId;
 }
 
-string Message::viewAllMessages(list<Message> messages) {
+string Message::returnAllMessages(list<Message> messages) {
     string result;
     for (auto it = messages.rbegin(); it != messages.rend(); ++it) {
         const Message& message = *it;
