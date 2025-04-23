@@ -1,6 +1,6 @@
 #include "User.h"
 
-static unordered_map<string, User> User::users;
+unordered_map<string, User> User::users;
 
 User::User() {
     id = 0;
@@ -10,7 +10,7 @@ User::User() {
 }
 
 User::User(int id, string user, string pass, vector<Contact> mycontacts,
-    vector<Message> Sendmsg, list<Message> favMsg,
+    vector<Message> Sendmsg, queue<Message> favMsg,
     list<Message> sentMsg, list<Message> recMsg){
 
     this->id = id;
@@ -19,8 +19,10 @@ User::User(int id, string user, string pass, vector<Contact> mycontacts,
     msgCount = 0;
 
     for (const auto& contact : mycontacts) {
-    contacts[contact.getId()] = contact;
+        contacts[contact.getMsgID()] = contact;
 }
+    
+
 
     for (const auto& msg : Sendmsg) {
         Send_msg.push_back(msg);
@@ -107,7 +109,7 @@ void User::searchContact(int contactId) const {
 
 
 void User::addContacts(Contact contact) {
-    contacts.push_back(contact);
+    contacts.emplace(contact);
 }
 
 void User::rmcontact(int contactId) {
@@ -171,5 +173,13 @@ void User::viewMessagesFromContact(int contactId) {
 
     if (!messagesFound) {
         // This contact has no messages
+    }
+}
+
+void User::markMessageAsFavorite(int messageId) {
+    for (auto& msg : sentMsg) {
+        if (msg.getMessageId() == messageId) {
+            favMsg.push(msg);
+        }
     }
 }

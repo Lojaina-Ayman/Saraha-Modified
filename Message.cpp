@@ -2,6 +2,9 @@
 #include <iostream>
 #include <vector>
 #include <set>
+#include <iostream>
+#include <list>
+#include "Message.h"
 
 Message::Message(string data, int sender, int receiver) {
     messageid = generateRandomId();
@@ -22,16 +25,12 @@ int Message::getReceiver() const { return receiver; }
 time_t Message::getDoc() const { return doc; }
 string Message::getDateInText() const { return dateintext; }
 int Message::getMessageId() const { return messageid; }
-bool Message::getIsFavorite() const { return isFavorite; }
 
 void Message::setContent(string s) { content = s; }
 void Message::deleteContent() { content = ""; }
 void Message::setSenderId(int i) { senderid = i; }
 void Message::setReceiver(int r) { receiver = r; }
-void Message::setFavorite(int messageid) {
-    this->messageid = messageid;
-    isFavorite = true; // In the main function, make a queue and have it iterate through the messages and enqueue any message that is marked as favorite
-}
+
 
 set<int> usedIDs;
 int Message::generateRandomId() {
@@ -44,11 +43,6 @@ int Message::generateRandomId() {
     usedIDs.insert(randomId);
     return randomId;
 }
-
-
-#include <iostream>
-#include <list>
-#include "Message.h"
 
 string Message::viewAllMessages(list<Message> messages) {
     string result;

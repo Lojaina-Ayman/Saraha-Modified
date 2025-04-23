@@ -23,7 +23,7 @@ public:
 
 	User();
 	User(int id, string user, string password, vector<Contact> mycontacts,
-		vector<Message> Sendmsg, list<Message> favMsg,
+		vector<Message> Sendmsg, queue<Message> favMsg,
 		list<Message> sentMsg, list<Message> recMsg);
 
 
@@ -34,6 +34,10 @@ public:
 	void snd_msg(Message msg);
 	bool login(string username, string password);
 	bool regist(string username, string password);
-	void viewMessagesFromContact(int contactId)
-
+	void viewMessagesFromContact(int contactId);
+	void removeOldestFavoriteMessage();
+	void deleteMessageById(int messageId);
+	void searchContact(int contactId) const;
+	void rmcontact(int contactId);
+	void markMessageAsFavorite(int messageid);
 };

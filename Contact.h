@@ -10,4 +10,9 @@ class Contact {
 public:
     Contact(string name);
     void incMsgCount();
+    void getMsgCount();
+    string getName() const;
+    void setName(string name);
+    int getMsgID() const;
+    void setMsgID(string msgID);
 };

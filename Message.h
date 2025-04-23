@@ -22,7 +22,6 @@ public:
     int getSenderId() const;
     int getReceiver() const;
     int getMessageId() const;
-    bool getIsFavorite() const;
     time_t getDoc() const;
     string getDateInText() const;
 
@@ -31,7 +30,6 @@ public:
     void setSenderId(int i);
     void setReceiver(int r);
     string viewAllMessages(list<Message> messages);
-    void setFavorite(int messageid);
     int generateRandomId();
     };
 
