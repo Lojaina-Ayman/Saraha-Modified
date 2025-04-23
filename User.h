@@ -47,5 +47,7 @@ public:
 	void undo_msg();
 	void redo_msg();
 	void delete_msg(int);
+	void viewAllfavoriteMessages();
+	bool checkcontactcreationeligibility(int contactid);
 
 };

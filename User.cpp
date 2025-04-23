@@ -266,3 +266,34 @@ void User::markMessageAsFavorite(int messageId) {
         }
     }
 }
+void User::viewAllfavoriteMessages() {
+    queue <Message> helperqueue = favMsg;
+    Message iteration;
+    string output;
+    if (!helperqueue.empty()) {
+        cout << "here are " << username << "'s Favorite Messsages" << endl;
+        while (!helperqueue.empty()) {
+            iteration = helperqueue.front();
+            output += "Message ID: " + to_string(iteration.getMessageId()) + "\n";
+            output += "Date: " + iteration.getDateInText() + "\n";
+            output += "Content: " + iteration.getContent() + "\n";
+            output += "------------------------\n";
+        }
+        cout << output;
+    }
+    else {
+        cout << "No favorite messages exist for " << username << endl;
+    }
+
+}
+
+bool User::checkcontactcreationeligibility(int contactid) {
+    list<Message> iteree = recMsg;
+    for (const Message msg : iteree) {
+        if (msg.getReceiver() == contactid)
+            return true;
+    }
+    return false;
+}
+
+
