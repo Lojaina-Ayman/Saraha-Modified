@@ -16,6 +16,7 @@ protected:
     string dateintext;
 
 public:
+    Message();
     Message(string data, int sender, int receiver);
     string getContent() const;
     int getSenderId() const;
