@@ -296,4 +296,37 @@ bool User::checkcontactcreationeligibility(int contactid) {
     return false;
 }
 
+void User::rmcontact(string contactid) {
+    for (auto it = contacts.begin(); it != contacts.end(); ++it) {
+
+        if (it->getName() == contactid) {
+            contacts.erase(it);
+            cout << "Contact " << contactid << " removed from contacts list" << endl;
+        }
+        else
+            cout << "Contact " << contactid << " not found" << endl;
+    }
+}
+
+
+bool searchcont(Contact& a, Contact& b) {
+    if (a.getMsgCount() != b.getMsgCount()) {
+        return a.getMsgCount() > b.getMsgCount();
+    }
+
+    return a.getName() < b.getName();
+}
+
+
+
+set<Contact, bool(*)(Contact&, Contact&)> User::viewContSorted() {
+
+    set<Contact, bool(*)(Contact&, Contact&)> bst(searchcont);
+
+    for (Contact& c : contacts) {
+        bst.insert(c);
+    }
+
+    return bst;
+}
 

@@ -8,6 +8,7 @@
 #include <unordered_map>
 #include <queue>
 #include<stack>
+#include <set>
 using namespace std;
 
 class User
@@ -49,5 +50,6 @@ public:
 	void delete_msg(int);
 	void viewAllfavoriteMessages();
 	bool checkcontactcreationeligibility(int contactid);
+	set<Contact, bool(*)(Contact&, Contact&)> viewContSorted();
 
 };
