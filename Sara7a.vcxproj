@@ -127,18 +127,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\SarahaMod\Project\Contact.cpp" />
-    <ClCompile Include="..\SarahaMod\Project\Message.cpp" />
-    <ClCompile Include="..\SarahaMod\Project\User.cpp" />
+    <ClCompile Include="Contact.cpp" />
+    <ClCompile Include="Message.cpp" />
     <ClCompile Include="Source.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\SarahaMod\Project\Contact.h" />
-    <ClInclude Include="..\SarahaMod\Project\Message.h" />
-    <ClInclude Include="..\SarahaMod\Project\User.h" />
+    <ClCompile Include="User.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\SarahaMod\Project\.gitignore" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Contact.h" />
+    <ClInclude Include="Message.h" />
+    <ClInclude Include="User.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
