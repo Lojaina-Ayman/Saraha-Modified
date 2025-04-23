@@ -7,6 +7,7 @@
 #include "Contact.h"
 #include <unordered_map>
 #include <queue>
+#include<stack>
 using namespace std;
 
 class User
@@ -19,6 +20,7 @@ public:
 	queue<Message> favMsg;
 	list<Message> sentMsg;
 	list<Message> recMsg;
+	stack <Message> undoMsgs; // message that have undone
 	static unordered_map<string, User> users;
 
 	User();
@@ -27,11 +29,9 @@ public:
 		list<Message> sentMsg, list<Message> recMsg);
 
 
-	void reci_msg(vector<string> msg);
 	void favorites(vector<string> msg);
 	void addContacts(Contact contact);
 	void rmcontact(string contactid);
-	void snd_msg(Message msg);
 	bool login(string username, string password);
 	bool regist(string username, string password);
 	void viewMessagesFromContact(int contactId);
@@ -40,4 +40,12 @@ public:
 	void searchContact(int contactId) const;
 	void rmcontact(int contactId);
 	void markMessageAsFavorite(int messageid);
+	void reci_msg(vector<string> msg);
+	void favorites(vector<string> msg);
+	void addContacts(Contact contact);
+	void snd_msg();
+	void undo_msg();
+	void redo_msg();
+	void delete_msg(int);
+
 };

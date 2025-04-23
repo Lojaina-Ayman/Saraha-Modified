@@ -14,7 +14,7 @@ Message::Message(string data, int sender, int receiver) {
     doc = time(0);
 
     char buffer[26];
-    ctime_r(&doc, buffer);
+    ctime_s(buffer, sizeof(buffer), &doc);
     dateintext = buffer;
     dateintext.pop_back();
 }

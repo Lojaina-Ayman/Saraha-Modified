@@ -1,11 +1,16 @@
 #include "User.h"
+#include <list>
+#include <stack>
+#include"Message.h"
+#include <algorithm> // for std::find_if
+
 
 unordered_map<string, User> User::users;
 
 User::User() {
     id = 0;
     username = "";
-    password = "";
+    pass = "";
     msgCount = 0;
 }
 
@@ -124,9 +129,87 @@ void User::rmcontact(int contactId) {
 }
 
 
-void User::snd_msg(Message msg) {
-    Send_msg.push_back(msg);
+
+
+void User::snd_msg() {
+    string msgData;
+    cout << "Enter Message ";
+    getline(cin, msgData);
+    int receiverId;
+    cout << "Enter receiver ID ";
+    cin >> receiverId;
+    Message msg = Message(msgData, this->id, receiverId);
+    cout << "Your Message Id is " << msg.getMessageId() << endl;
+    this->sentMsg.push_back(msg);
+    int option;
+    cout << "Enter 1 to undo the last sent message " << endl;
+    cout << "Enter 2 to redo the last sent message " << endl;
+    cout << "Enter 3 to delete any message " << endl;
+    cout << "Enter 4 to do nothing " << endl;
+    cout << "Enter 5 to enter another message " << endl;
+    cin >> option;
+
+    //Receiver ID Doesn't exist condition (To Be Implemented)
+    while (option != 4 && option != 5) {
+        if (option == 1) { undo_msg(); }
+        else if (option == 2) { redo_msg(); }
+        else if (option == 3) {
+            int MessId;
+            cout << "Enter Message Id ";
+            cin >> MessId;
+            delete_msg(MessId);
+        }
+        else { return; }
+        cout << "Enter 1 to undo the last sent message " << endl;
+        cout << "Enter 2 to redo the last sent message " << endl;
+        cout << "Enter 3 to delete any message " << endl;
+        cout << "Enter 4 to do nothing " << endl;
+        cout << "Enter 5 to enter another message " << endl;
+        cin >> option;
+    }
+    if (option == 5) { snd_msg(); }
+
 }
+
+void User::undo_msg() {
+
+    undoMsgs.push(this->sentMsg.back()); //put the last element from the list in a stack
+    this->sentMsg.pop_back();//remove message from list
+    cout << "Undo is done \n";
+}
+void User::redo_msg() {
+    if (undoMsgs.empty()) {
+        cout << "No Messages have been undone";
+    }
+    else {
+        this->sentMsg.push_back(undoMsgs.top());//put the messge back to the list
+        cout << undoMsgs.top().getContent() << endl;
+        undoMsgs.pop(); //remove the messge from the stack
+    }
+}
+
+void User::delete_msg(int msgID) {
+    auto it = find_if(sentMsg.begin(), sentMsg.end(),
+        [msgID](const Message& msg) {
+            return msg.getMessageId() == msgID;
+        });
+
+    if (it != sentMsg.end()) {
+        cout << "Found: " << it->getMessageId() << endl;
+
+        undoMsgs.push(*it);
+        sentMsg.erase(it);
+        cout << "Deleting completed";
+    }
+    else {
+
+        cout << "Not found." << endl;
+    }
+}
+
+
+
+
 
 bool User::login(string user, string pass) {
     auto it = users.find(user);
