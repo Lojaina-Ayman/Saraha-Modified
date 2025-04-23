@@ -2,7 +2,6 @@
 #include <iostream>
 #include <vector>
 #include <set>
-#include <list>
 
 Message::Message(string data, int sender, int receiver) {
     messageid = generateRandomId();

@@ -1,7 +1,4 @@
 #include "User.h"
-#include <list>
-#include <stack>
-#include"Message.h"
 #include <algorithm> // for std::find_if
 
 
@@ -209,9 +206,6 @@ void User::delete_msg(int msgID) {
 }
 
 
-
-
-
 bool User::login(string user, string pass) {
     auto it = users.find(user);
     if (it != users.end() && it->second.pass == pass) {
@@ -298,17 +292,16 @@ bool User::checkcontactcreationeligibility(int contactid) {
 }
 
 
-bool searchcont(Contact& a, Contact& b) {
+bool User::searchcont(Contact& a, Contact& b) {
     if (a.getMsgCount() != b.getMsgCount()) {
         return a.getMsgCount() > b.getMsgCount();
     }
-
     return a.getName() < b.getName();
 }
 
 
 set<Contact, bool(*)(Contact&, Contact&)> User::viewContSorted() {
-    set<Contact, bool(*)(Contact&, Contact&)> sortedContacts(searchcont);
+    set<Contact, bool(*)(Contact&, Contact&)> sortedContacts; // (searchcont)
     for (const auto& contact : contacts) {
         sortedContacts.insert(contact.second);
     }

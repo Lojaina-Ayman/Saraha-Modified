@@ -1,8 +1,6 @@
 #pragma once
 #include <iostream>
-#include <string>
 #include <vector>
-#include <list>
 #include "Message.h"
 #include "Contact.h"
 #include <unordered_map>
@@ -48,5 +46,6 @@ public:
 	void viewAllfavoriteMessages();
 	bool checkcontactcreationeligibility(int contactid);
 	set<Contact, bool(*)(Contact&, Contact&)> viewContSorted();
+	bool searchcont(Contact& a, Contact& b);
 
 };
