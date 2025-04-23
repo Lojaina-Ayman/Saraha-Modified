@@ -7,7 +7,7 @@ class Contact {
     int msgCount = 0;
     string contactName;
     int contactId;
-    std::list<Message> messages;
+    list<Message> messages;
 
 
 public:

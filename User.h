@@ -32,18 +32,15 @@ public:
 
 	void favorites(vector<string> msg);
 	void addContacts(Contact contact);
-	void rmcontact(string contactid);
+	void rmcontact(int contactid);
 	bool login(string username, string password);
 	bool regist(string username, string password);
 	void viewMessagesFromContact(int contactId);
 	void removeOldestFavoriteMessage();
 	void deleteMessageById(int messageId);
 	void searchContact(int contactId) const;
-	void rmcontact(int contactId);
 	void markMessageAsFavorite(int messageid);
 	void reci_msg(vector<string> msg);
-	void favorites(vector<string> msg);
-	void addContacts(Contact contact);
 	void snd_msg();
 	void undo_msg();
 	void redo_msg();

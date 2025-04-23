@@ -24,7 +24,7 @@ User::User(int id, string user, string pass, vector<Contact> mycontacts,
     msgCount = 0;
 
     for (const auto& contact : mycontacts) {
-        contacts[contact.getMsgID()] = contact;
+        contacts[contact.getContactId()] = contact;
 }
     
 
@@ -134,7 +134,8 @@ void User::rmcontact(int contactId) {
 void User::snd_msg() {
     string msgData;
     cout << "Enter Message ";
-    getline(cin, msgData);
+    //getline(cin, msgData);
+    cin >> msgData;
     int receiverId;
     cout << "Enter receiver ID ";
     cin >> receiverId;
@@ -296,18 +297,6 @@ bool User::checkcontactcreationeligibility(int contactid) {
     return false;
 }
 
-void User::rmcontact(string contactid) {
-    for (auto it = contacts.begin(); it != contacts.end(); ++it) {
-
-        if (it->getName() == contactid) {
-            contacts.erase(it);
-            cout << "Contact " << contactid << " removed from contacts list" << endl;
-        }
-        else
-            cout << "Contact " << contactid << " not found" << endl;
-    }
-}
-
 
 bool searchcont(Contact& a, Contact& b) {
     if (a.getMsgCount() != b.getMsgCount()) {
@@ -318,15 +307,10 @@ bool searchcont(Contact& a, Contact& b) {
 }
 
 
-
 set<Contact, bool(*)(Contact&, Contact&)> User::viewContSorted() {
-
-    set<Contact, bool(*)(Contact&, Contact&)> bst(searchcont);
-
-    for (Contact& c : contacts) {
-        bst.insert(c);
+    set<Contact, bool(*)(Contact&, Contact&)> sortedContacts(searchcont);
+    for (const auto& contact : contacts) {
+        sortedContacts.insert(contact.second);
     }
-
-    return bst;
+    return sortedContacts;
 }
-
