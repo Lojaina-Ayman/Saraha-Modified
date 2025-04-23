@@ -7,14 +7,13 @@
 using namespace std;
 
 class Message {
-private:
+protected:
     string content;
     int messageid;
     int senderid;
     int receiver;
     time_t doc;
     string dateintext;
-    bool isFavorite = false;
 
 public:
     Message(string data, int sender, int receiver);

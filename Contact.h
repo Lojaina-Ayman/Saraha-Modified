@@ -1,18 +1,18 @@
 #pragma once
 #include <string>
+#include "Message.h"
 using namespace std;
 
-class Contact {
+class Contact : public Message {
     int msgCount = 0;
-    string msgID;
-    string name;
+    string contactName;
 
 public:
     Contact(string name);
     void incMsgCount();
-    void getMsgCount();
+    int getMsgCount();
     string getName() const;
     void setName(string name);
     int getMsgID() const;
-    void setMsgID(string msgID);
+    void setMsgID(int msgID);
 };
