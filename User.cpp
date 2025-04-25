@@ -1,6 +1,7 @@
 #include "User.h"
 #include <algorithm> // for std::find_if
-
+#include <functional>
+#include <set>
 
 unordered_map<string, User> User::users;
 
@@ -60,7 +61,6 @@ void User::removeOldestFavoriteMessage() {
     }
 }
 
-
 void User::deleteMessageById(int messageId) {
 
     for (auto it = sentMsg.begin(); it != sentMsg.end(); ++it) {
@@ -98,7 +98,6 @@ void User::deleteMessageById(int messageId) {
     }
 }
 
-
 void User::searchContact(int contactId) const {
     auto it = contacts.find(contactId);
     if (it != contacts.end()) {
@@ -109,9 +108,8 @@ void User::searchContact(int contactId) const {
     }
 }
 
-
 void User::addContacts(Contact contact) {
-    contacts.emplace(contact);
+    contacts.emplace(contact.getContactId(), contact);
 }
 
 void User::rmcontact(int contactId) {
@@ -124,9 +122,6 @@ void User::rmcontact(int contactId) {
         cout << "Contact not found.\n";
     }
 }
-
-
-
 
 void User::snd_msg() {
     string msgData;
@@ -175,6 +170,7 @@ void User::undo_msg() {
     this->sentMsg.pop_back();//remove message from list
     cout << "Undo is done \n";
 }
+
 void User::redo_msg() {
     if (undoMsgs.empty()) {
         cout << "No Messages have been undone";
@@ -204,7 +200,6 @@ void User::delete_msg(int msgID) {
         cout << "Not found." << endl;
     }
 }
-
 
 bool User::login(string user, string pass) {
     auto it = users.find(user);
@@ -261,6 +256,7 @@ void User::markMessageAsFavorite(int messageId) {
         }
     }
 }
+
 void User::viewAllfavoriteMessages() {
     queue <Message> helperqueue = favMsg;
     Message iteration;
@@ -291,19 +287,27 @@ bool User::checkcontactcreationeligibility(int contactid) {
     return false;
 }
 
-
-bool User::searchcont(Contact& a, Contact& b) {
+bool User::searchcont(const Contact& a, const Contact& b) {
     if (a.getMsgCount() != b.getMsgCount()) {
-        return a.getMsgCount() > b.getMsgCount();
+        return a.getMsgCount() > b.getMsgCount(); // Sort by message count (descending)
     }
-    return a.getName() < b.getName();
+    return a.getName() < b.getName(); // Sort by name (ascending)
 }
 
+std::set<Contact, std::function<bool(const Contact&, const Contact&)>> User::viewContSorted() {
+    auto comparator = [](const Contact& a, const Contact& b) -> bool {
+        if (a.getMsgCount() != b.getMsgCount()) {
+            return a.getMsgCount() > b.getMsgCount(); // Sort by message count (descending)
+        }
+        return a.getName() < b.getName(); // Sort by name (ascending)
+        };
 
-set<Contact, bool(*)(Contact&, Contact&)> User::viewContSorted() {
-    set<Contact, bool(*)(Contact&, Contact&)> sortedContacts; // (searchcont)
-    for (const auto& contact : contacts) {
-        sortedContacts.insert(contact.second);
+    std::set<Contact, std::function<bool(const Contact&, const Contact&)>> sortedContacts(comparator);
+
+    for (const auto& entry : contacts) {
+        const Contact& contact = entry.second; // Access the Contact object
+        sortedContacts.insert(contact);       // Insert the Contact object into the set
     }
+
     return sortedContacts;
 }

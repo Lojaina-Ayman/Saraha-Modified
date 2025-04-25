@@ -3,6 +3,9 @@
 #include <vector>
 #include <set>
 
+Message::Message()
+    : messageid(0), content(""), senderid(0), receiver(0), dateintext("") {
+}
 Message::Message(string data, int sender, int receiver) {
     messageid = generateRandomId();
     content = data;

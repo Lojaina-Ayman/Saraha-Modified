@@ -10,9 +10,12 @@ class Contact {
 
 
 public:
+    Contact() = default;
+    Contact(const Contact&) = default;
+    Contact& operator=(const Contact&) = default;
     Contact(string name);
     void incMsgCount();
-    int getMsgCount();
+    int getMsgCount() const;
     string getName() const;
     void setName(string name);
     int getContactId() const;

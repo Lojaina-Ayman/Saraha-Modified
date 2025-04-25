@@ -1,5 +1,6 @@
 #include "Contact.h"
 
+
 Contact::Contact(string name) {
     this->contactName = name;
     this->contactId = msgCount + 1;
@@ -9,7 +10,7 @@ void Contact::incMsgCount() {
     msgCount++;
 }
 
-int Contact::getMsgCount() {
+int Contact::getMsgCount() const {
     return msgCount;
 }
 
