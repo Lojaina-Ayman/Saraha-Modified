@@ -109,7 +109,12 @@ void User::searchContact(int contactId) const {
 }
 
 void User::addContacts(Contact contact) {
-    contacts.emplace(contact.getContactId(), contact);
+    if (checkcontactcreationeligibility(contact.getContactId()))
+    {
+        contacts.emplace(contact.getContactId(), contact);
+    }
+    else 
+        cout << "No Message history between "<<username <<" and "<<contact.getContactId()<<"; cannot add contact" << endl;// we can't use names yet
 }
 
 void User::rmcontact(int contactId) {
