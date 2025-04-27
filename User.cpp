@@ -131,11 +131,11 @@ void User::rmcontact(int contactId) {
 void User::snd_msg() {
     string msgData;
     cout << "Enter Message ";
-    //getline(cin, msgData);
-    cin >> msgData;
+    getline(cin, msgData);
     int receiverId;
     cout << "Enter receiver ID ";
     cin >> receiverId;
+    cin.ignore();
     Message msg = Message(msgData, this->id, receiverId);
     cout << "Your Message Id is " << msg.getMessageId() << endl;
     this->sentMsg.push_back(msg);
@@ -146,6 +146,7 @@ void User::snd_msg() {
     cout << "Enter 4 to do nothing " << endl;
     cout << "Enter 5 to enter another message " << endl;
     cin >> option;
+    cin.ignore();
 
     //Receiver ID Doesn't exist condition (To Be Implemented)
     while (option != 4 && option != 5) {
@@ -155,6 +156,7 @@ void User::snd_msg() {
             int MessId;
             cout << "Enter Message Id ";
             cin >> MessId;
+            cin.ignore();
             delete_msg(MessId);
         }
         else { return; }
@@ -164,6 +166,7 @@ void User::snd_msg() {
         cout << "Enter 4 to do nothing " << endl;
         cout << "Enter 5 to enter another message " << endl;
         cin >> option;
+        cin.ignore();
     }
     if (option == 5) { snd_msg(); }
 
