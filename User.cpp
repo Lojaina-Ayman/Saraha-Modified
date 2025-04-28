@@ -1,7 +1,5 @@
 #include "User.h"
 #include <algorithm> // for std::find_if
-#include <functional>
-#include <set>
 
 unordered_map<string, User> User::users;
 

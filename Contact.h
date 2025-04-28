@@ -1,6 +1,5 @@
 #pragma once
 #include "Message.h"
-using namespace std;
 
 class Contact {
     int msgCount = 0;

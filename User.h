@@ -1,4 +1,3 @@
-
 #ifndef USER_H
 #define USER_H
 
@@ -12,7 +11,6 @@
 #include <stack>
 #include <set>
 #include <functional>
-using namespace std;
 
 class User
 {
@@ -54,7 +52,7 @@ public:
 	bool searchcont(const Contact& a, const Contact& b);
 
 	// Function to return sorted contacts
-	std::set<Contact, std::function<bool(const Contact&, const Contact&)>> viewContSorted();
+	set<Contact, function<bool(const Contact&, const Contact&)>> viewContSorted();
 
 };
 
