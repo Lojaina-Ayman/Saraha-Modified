@@ -4,7 +4,7 @@
 #include <set>
 
 Message::Message()
-    : messageid(0), content(""), senderid(0), receiver(0), dateintext("") {
+    : messageid(0), content(""), senderid(0), receiver(0), dateintext(""),doc(time(0)) {
 }
 Message::Message(string data, int sender, int receiver) {
     messageid = generateRandomId();
@@ -55,4 +55,25 @@ string Message::returnAllMessages(list<Message> messages) {
     }
 
     return result;
+}
+
+string Message::tostring() {
+    string word = "";
+    /*string content;
+    int messageid;
+    int senderid;
+    int receiver;
+    time_t doc; not used
+    string dateintext;*/
+    word += content;
+    word += '/-';
+    word += messageid;
+    word += ',';
+    word += senderid;
+    word += ',';
+    word += receiver;
+    word += ',';
+    word += dateintext;
+    word += '/-';
+    return word;
 }

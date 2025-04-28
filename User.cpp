@@ -13,8 +13,7 @@ User::User() {
 }
 
 User::User(int id, string user, string pass, vector<Contact> mycontacts,
-    vector<Message> Sendmsg, queue<Message> favMsg,
-    list<Message> sentMsg, list<Message> recMsg) {
+    queue<Message> favMsg,  list<Message> sentMsg, list<Message> recMsg) {
 
     this->id = id;
     username = user;
@@ -23,12 +22,6 @@ User::User(int id, string user, string pass, vector<Contact> mycontacts,
 
     for (const auto& contact : mycontacts) {
         contacts[contact.getContactId()] = contact;
-    }
-
-
-
-    for (const auto& msg : Sendmsg) {
-        Send_msg.push_back(msg);
     }
 
     this->favMsg = favMsg;
@@ -315,4 +308,88 @@ std::set<Contact, std::function<bool(const Contact&, const Contact&)>> User::vie
     }
 
     return sortedContacts;
+}
+
+ string User::toString() {
+    //int id, msgCount;
+    //string username, pass;
+    //unordered_map<int, Contact> contacts;
+    //queue<Message> favMsg;
+    //list<Message> sentMsg;
+    //list<Message> recMsg;
+    //static unordered_map<string, User> users;
+
+    string userstr = "";
+    vector<int> mainlvl = vector<int>{
+        (int)users.size(),/*1st loop*/
+        //(int)contacts.size(),/*2nd loop*/
+        //(int)favMsg.size(),/*3rd loop*/
+        //(int)sentMsg.size(),/*4th loop*/
+        //(int)recMsg.size()/*5th loop*/
+    }; 
+    mainlvl.reserve(5);
+    userstr += to_string( mainlvl[0]);
+    userstr += ',';
+    userstr += "/n";
+    auto it0 = users.begin(); //iteretor per user
+        for (int i = 0; i < mainlvl[0]; i++) //for each user ,note if there is collision in users an exeption happens here
+        {
+            userstr += it0->second.id;
+            userstr += ',';
+            userstr += it0->second.msgCount;
+            userstr += ',';
+            userstr += it0->second.username;
+            userstr += "/-";
+            userstr += it0->second.pass;
+            userstr += "/-";
+
+            mainlvl[1] = (int)it0->second.contacts.size();
+            mainlvl[2] = (int)it0->second.favMsg.size();
+            mainlvl[3] = (int)it0->second.sentMsg.size();
+            mainlvl[4] = (int)it0->second.recMsg.size();
+            userstr += to_string(mainlvl[1]);
+            userstr += ',';
+            userstr += "/n";
+            auto it1 = it0->second.contacts.begin();
+            for (int j = 0; j < mainlvl[1]; j++) //for each contact in user
+            { //hash map
+                userstr += it1++->second.tostring();
+            }
+
+            userstr += to_string(mainlvl[2]);
+            userstr += ',';
+            userstr += "/n";
+            queue<Message> helper = it0->second.favMsg;
+            Message iteration;
+            for (int j = 0; j < mainlvl[2]; j++) //for each favmsg in user
+            {  //queue
+                iteration = helper.front();
+                userstr += iteration.tostring();
+                helper.pop();
+            }
+
+            userstr += to_string(mainlvl[3]);
+            userstr += ',';
+            userstr += "/n";
+            auto it2 = it0->second.sentMsg.begin();
+            for (int j = 0; j < mainlvl[3]; j++) //for each sentmsg in user
+            { //list
+                userstr += it2++->tostring();
+            }  
+
+            userstr += to_string(mainlvl[4]);
+            userstr += ',';
+            userstr += "/n";
+            it2 = it0->second.recMsg.begin();//here
+            for (int j = 0; j < mainlvl[4]; j++) //for each recmsg in user
+            { //list
+                userstr += it2++->tostring();
+            }
+            userstr += "/n";
+            it0++; //line can be moved       ^    ^
+        }
+    return userstr;
+}
+void User::addContactsf(Contact contact) {
+    contacts.emplace(contact.getContactId(), contact);
 }

@@ -20,7 +20,6 @@ public:
 	int id, msgCount;
 	string username, pass;
 	unordered_map<int, Contact> contacts;
-	vector<Message> Send_msg;
 	queue<Message> favMsg;
 	list<Message> sentMsg;
 	list<Message> recMsg;
@@ -29,12 +28,12 @@ public:
 
 	User();
 	User(int id, string user, string password, vector<Contact> mycontacts,
-		vector<Message> Sendmsg, queue<Message> favMsg,
-		list<Message> sentMsg, list<Message> recMsg);
+		queue<Message> favMsg,list<Message> sentMsg, list<Message> recMsg);
 
 
 	void favorites(vector<string> msg);
 	void addContacts(Contact contact);
+	void addContactsf(Contact contact);
 	void rmcontact(int contactid);
 	bool login(string username, string password);
 	bool regist(string username, string password);
@@ -55,6 +54,7 @@ public:
 
 	// Function to return sorted contacts
 	std::set<Contact, std::function<bool(const Contact&, const Contact&)>> viewContSorted();
+	static string toString();
 
 };
 

@@ -30,6 +30,7 @@ public:
     void setSenderId(int i);
     void setReceiver(int r);
     string returnAllMessages(list<Message> messages);
+    string tostring();
     int generateRandomId();
 };
 
