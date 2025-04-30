@@ -56,3 +56,18 @@ string Message::returnAllMessages(list<Message> messages) {
 
     return result;
 }
+
+string Message::tostring() {
+    string word = "";
+    word += content;
+    word += '/-';
+    word += messageid;
+    word += ',';
+    word += senderid;
+    word += ',';
+    word += receiver;
+    word += ',';
+    word += dateintext;
+    word += '/-';
+    return word;
+}

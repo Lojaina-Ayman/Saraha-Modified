@@ -31,6 +31,7 @@ public:
     void setReceiver(int r);
     string returnAllMessages(list<Message> messages);
     int generateRandomId();
+    string tostring();
 };
 
 #endif

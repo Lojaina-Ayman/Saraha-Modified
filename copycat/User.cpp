@@ -1,5 +1,5 @@
 #include "User.h"
-#include <algorithm> // for std::find_if
+#include <algorithm> // for std::find_if login
 
 unordered_map<string, User> User::users;
 
@@ -10,8 +10,7 @@ User::User() {
     msgCount = 0;
 }
 
-User::User(int id, string user, string pass, vector<Contact> mycontacts,
-    vector<Message> Sendmsg, queue<Message> favMsg,
+User::User(int id, string user, string pass, unordered_map<int, Contact> mycontacts, queue<Message> favMsg,
     list<Message> sentMsg, list<Message> recMsg) {
 
     this->id = id;
@@ -20,13 +19,7 @@ User::User(int id, string user, string pass, vector<Contact> mycontacts,
     msgCount = 0;
 
     for (const auto& contact : mycontacts) {
-        contacts[contact.getContactId()] = contact;
-    }
-
-
-
-    for (const auto& msg : Sendmsg) {
-        Send_msg.push_back(msg);
+        contacts.insert(contact) ;
     }
 
     this->favMsg = favMsg;
@@ -111,8 +104,8 @@ void User::addContacts(Contact contact) {
     {
         contacts.emplace(contact.getContactId(), contact);
     }
-    else 
-        cout << "No Message history between "<<username <<" and "<<contact.getContactId()<<"; cannot add contact" << endl;// we can't use names yet
+    else
+        cout << "No Message history between " << username << " and " << contact.getContactId() << "; cannot add contact" << endl;// we can't use names yet
 }
 
 void User::rmcontact(int contactId) {
@@ -133,10 +126,25 @@ void User::snd_msg() {
     int receiverId;
     cout << "Enter receiver ID ";
     cin >> receiverId;
+    for (auto& user : users)
+    {
+        if (user.second.id == receiverId) {
+            cout << "correct id";
+        }
+    }
     cin.ignore();
     Message msg = Message(msgData, this->id, receiverId);
     cout << "Your Message Id is " << msg.getMessageId() << endl;
     this->sentMsg.push_back(msg);
+    
+    for (auto& user : users)
+    {
+        if (user.second.id == receiverId) {
+            user.second.recMsg.push_back(msg);
+            cout << "found receiver";
+        }
+    }
+
     int option;
     cout << "Enter 1 to undo the last sent message " << endl;
     cout << "Enter 2 to redo the last sent message " << endl;
@@ -226,7 +234,7 @@ bool User::regist(string user, string pass) {
     User newUser;
     newUser.username = user;
     newUser.pass = pass;
-
+    
     users[user] = newUser;
     return true;
     // Register done
@@ -257,6 +265,11 @@ void User::viewMessagesFromContact(int contactId) {
 
 void User::markMessageAsFavorite(int messageId) {
     for (auto& msg : sentMsg) {
+        if (msg.getMessageId() == messageId) {
+            favMsg.push(msg);
+        }
+    }
+    for (auto& msg : recMsg) {
         if (msg.getMessageId() == messageId) {
             favMsg.push(msg);
         }
@@ -316,4 +329,78 @@ std::set<Contact, std::function<bool(const Contact&, const Contact&)>> User::vie
     }
 
     return sortedContacts;
+}
+
+string User::toString() {
+    //int id, msgCount;
+    //string username, pass;
+    //unordered_map<int, Contact> contacts;
+    //queue<Message> favMsg;
+    //list<Message> sentMsg;
+    //list<Message> recMsg;
+    string userstr = "";
+    vector<int> mainlvl = vector<int>{
+        (int)contacts.size(),/*1nd loop*/
+        (int)favMsg.size(),/*2rd loop*/
+        (int)sentMsg.size(),/*3th loop*/
+        (int)recMsg.size()/*4th loop*/
+    };
+    mainlvl.reserve(5);
+    userstr += to_string(mainlvl[0]);
+    userstr += ',';
+    userstr += "/n";
+        userstr += id;
+        userstr += ',';
+        userstr += msgCount;
+        userstr += ',';
+        userstr += username;
+        userstr += "/-";
+        userstr += pass;
+        userstr += "/-";
+        userstr += to_string(mainlvl[1]);
+        userstr += ',';
+        userstr += "\n";
+        auto it1 = contacts.begin();
+        for (int j = 0; j < mainlvl[1]; j++) //for each contact in user
+        { //hash map
+            userstr += it1++->second.tostring();
+        }
+        userstr += to_string(mainlvl[2]);
+        userstr += ',';
+        userstr += "\n";
+        queue<Message> helper = favMsg;
+        Message iteration;
+        for (int j = 0; j < mainlvl[2]; j++) //for each favmsg in user
+        {  //queue
+            iteration = helper.front();
+            userstr += iteration.tostring();
+            userstr += "\n";
+            helper.pop();
+        }
+
+        userstr += to_string(mainlvl[3]);
+        userstr += ',';
+        userstr += "\n";
+        auto it2 = sentMsg.begin();
+        for (int j = 0; j < mainlvl[3]; j++) //for each sentmsg in user
+        { //list
+            userstr += it2++->tostring();
+            userstr += "\n";
+        }
+
+        userstr += to_string(mainlvl[4]);
+        userstr += ',';
+        userstr += "\n";
+        it2 =recMsg.begin();//here
+        for (int j = 0; j < mainlvl[4]; j++) //for each recmsg in user
+        { //list
+            userstr += it2++->tostring();
+            userstr += "\n";
+        }
+        userstr += "\n";
+    return userstr;
+}
+
+void User::addContactsf(Contact contact) {
+    contacts.emplace(contact.getContactId(), contact);
 }

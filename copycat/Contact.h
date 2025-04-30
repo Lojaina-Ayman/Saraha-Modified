@@ -1,5 +1,6 @@
 #pragma once
 #include "Message.h"
+using namespace std;
 
 class Contact {
     int msgCount = 0;
@@ -17,8 +18,11 @@ public:
     int getMsgCount() const;
     string getName() const;
     void setName(string name);
+    Contact(string, int);   
     int getContactId() const;
     void setContactId(int id);
     void addMessage(const Message& message);
     void removeMessage(int messageId);
+    string tostring();
 };
+

@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197
+VisualStudioVersion = 17.13.35931.197 d17.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "copycat", "..\copycat\copycat\copycat.vcxproj", "{E5B06293-87FB-496B-A81C-A30069D8EC9C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "copycat", "copycat\copycat.vcxproj", "{E5B06293-87FB-496B-A81C-A30069D8EC9C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +26,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {6F53B5DB-5624-4F27-A744-B9A3C8B56A22}
+		SolutionGuid = {4AC371B9-1F33-42E4-911D-29A768711DF0}
 	EndGlobalSection
 EndGlobal
