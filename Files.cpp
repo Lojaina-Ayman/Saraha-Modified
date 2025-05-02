@@ -94,6 +94,8 @@
 			return {};
 		}
 	}
+
+
 	void Files::saveContacts(const vector<Contact>& contacts) {
 		ofstream file("Contacts.txt", ios::trunc); // trunc clears the file
 		if (file.is_open()) {
@@ -107,6 +109,20 @@
 			cout << "Failed to open Contacts.txt for writing.\n";
 		}
 	}
+
+	void Files::saveMessages(const vector<Message>& messages) {
+		ofstream file("messages.txt", ios::trunc); // overwrites the file
+		if (file.is_open()) {
+			for (const Message& msg : messages) {
+				file << msg.getContent() << "," << msg.getSenderId() << "," << msg.getReceiver() << "\n";
+			}
+			file.close();
+			cout << "Messages saved successfully to messages.txt\n";
+		} else {
+			cout << "Failed to open messages.txt for writing.\n";
+		}
+	}
+	
 
 
 
