@@ -114,7 +114,7 @@
 		ofstream file("messages.txt", ios::trunc); // overwrites the file
 		if (file.is_open()) {
 			for (const Message& msg : messages) {
-				file << msg.getContent() << "," << msg.getSenderId() << "," << msg.getReceiver() << "\n";
+				file << msg.getMessageId()<<"," << msg.getContent() << "," << msg.getSenderId() << "," << msg.getReceiver() << "\n";
 			}
 			file.close();
 			cout << "Messages saved successfully to messages.txt\n";
