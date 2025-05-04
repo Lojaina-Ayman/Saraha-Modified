@@ -13,5 +13,6 @@ public:
 	Files();
 	vector<Message> filereader();
 	vector<Contact>contactfilereader();
+	void saveMessages(const vector<Message>& messages);
 	void saveContacts(const vector<Contact>& contacts);
 };

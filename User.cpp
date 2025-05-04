@@ -300,7 +300,7 @@ bool User::searchcont(const Contact& a, const Contact& b) {
     return a.getName() < b.getName(); // Sort by name (ascending)
 }
 
-std::set<Contact, std::function<bool(const Contact&, const Contact&)>> User::viewContSorted() {
+set<Contact, function<bool(const Contact&, const Contact&)>> User::viewContSorted() {
     auto comparator = [](const Contact& a, const Contact& b) -> bool {
         if (a.getMsgCount() != b.getMsgCount()) {
             return a.getMsgCount() > b.getMsgCount(); // Sort by message count (descending)
@@ -308,7 +308,7 @@ std::set<Contact, std::function<bool(const Contact&, const Contact&)>> User::vie
         return a.getName() < b.getName(); // Sort by name (ascending)
         };
 
-    std::set<Contact, std::function<bool(const Contact&, const Contact&)>> sortedContacts(comparator);
+    set<Contact, function<bool(const Contact&, const Contact&)>> sortedContacts(comparator);
 
     for (const auto& entry : contacts) {
         const Contact& contact = entry.second; // Access the Contact object
