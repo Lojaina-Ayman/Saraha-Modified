@@ -134,9 +134,6 @@
     <ClCompile Include="User.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\SarahaMod\Project\.gitignore" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="Contact.h" />
     <ClInclude Include="Files.h" />
     <ClInclude Include="Message.h" />
