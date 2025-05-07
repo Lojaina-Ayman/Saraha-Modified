@@ -222,6 +222,10 @@ bool User::regist(string user, string pass) {
         return false;
         // Username's taken
     }
+    else if (user == "") {
+        return false;
+        // Username's null
+    }
 
     User newUser;
     newUser.username = user;
