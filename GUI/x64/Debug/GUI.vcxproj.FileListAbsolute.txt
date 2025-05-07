@@ -1,9 +1,0 @@
-C:\Users\DELL\Desktop\Projects\OregaCPP\GUI\GUI\x64\Debug\GUI.vcxproj.AssemblyReference.cache
-C:\Users\DELL\Desktop\Projects\OregaCPP\GUI\GUI\x64\Debug\GUI.vcxproj.GenerateResource.cache
-C:\Users\DELL\Desktop\Projects\OregaCPP\GUI\GUI\x64\Debug\GUI.Welcome.resources
-C:\Users\DELL\Desktop\Projects\OregaCPP\GUI\GUI\x64\Debug\GUI.Login.resources
-C:\Users\DELL\Desktop\Projects\OregaCPP\GUI\GUI\x64\Debug\GUI.Register.resources
-C:\Users\DELL\Desktop\Projects\OregaCPP\GUI\GUI\x64\Debug\GUI.Messages.resources
-C:\Users\DELL\Desktop\Projects\OregaCPP\GUI\GUI\x64\Debug\GUI.Sent.resources
-C:\Users\DELL\Desktop\Projects\OregaCPP\GUI\GUI\x64\Debug\GUI.Favourite.resources
-C:\Users\DELL\Desktop\Projects\OregaCPP\GUI\GUI\x64\Debug\GUI.Sending.resources
