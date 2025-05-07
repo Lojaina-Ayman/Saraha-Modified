@@ -128,6 +128,7 @@ namespace GUI {
 			this->richTextBox1->Size = System::Drawing::Size(422, 156);
 			this->richTextBox1->TabIndex = 1;
 			this->richTextBox1->Text = L"";
+			this->richTextBox1->TextChanged += gcnew System::EventHandler(this, &Favourite::richTextBox1_TextChanged);
 			// 
 			// panel2
 			// 
@@ -262,6 +263,11 @@ namespace GUI {
 	private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->switchToSending = true;
 		this->Close();
+	}
+
+	public: System::String^ msg;
+    private: System::Void richTextBox1_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+		richTextBox1->Text = msg;
 	}
 };
 }

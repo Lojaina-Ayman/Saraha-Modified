@@ -107,6 +107,7 @@ namespace GUI {
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(958, 311);
 			this->textBox1->TabIndex = 6;
+			this->textBox1->TextChanged += gcnew System::EventHandler(this, &Sending::textBox1_TextChanged);
 			// 
 			// pictureBox1
 			// 
@@ -180,5 +181,10 @@ namespace GUI {
 
     private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e) {
     }
+
+	public: System::String^ msg;
+    private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+		msg = textBox1->Text;
+	}
 };
 }

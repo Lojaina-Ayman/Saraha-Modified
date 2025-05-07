@@ -1,5 +1,4 @@
 #include "Welcome.h"
-#include "User.h"
 
 using namespace System;
 using namespace System::Windows::Forms;

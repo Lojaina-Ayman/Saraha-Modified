@@ -151,6 +151,7 @@ namespace GUI {
 			this->textBox2->PasswordChar = '*';
 			this->textBox2->Size = System::Drawing::Size(391, 38);
 			this->textBox2->TabIndex = 6;
+			this->textBox2->TextChanged += gcnew System::EventHandler(this, &Register::textBox2_TextChanged);
 			// 
 			// label2
 			// 
@@ -171,6 +172,7 @@ namespace GUI {
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(391, 38);
 			this->textBox1->TabIndex = 7;
+			this->textBox1->TextChanged += gcnew System::EventHandler(this, &Register::textBox1_TextChanged);
 			// 
 			// label3
 			// 
@@ -208,10 +210,21 @@ namespace GUI {
 		this->switchToWelcome = true;
 		this->Close();
 	}
+
 	public: bool switchToMessage = false;
     private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->switchToMessage = true;
 		this->Close();
+	}
+
+	public: System::String^ username;
+    private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+		username = textBox1->Text;
+	}
+
+	public: System::String^ password;
+    private: System::Void textBox2_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+		password = textBox2->Text;
 	}
 };
 }

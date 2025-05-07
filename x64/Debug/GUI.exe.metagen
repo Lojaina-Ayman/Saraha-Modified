@@ -28,18 +28,23 @@ Class GUI.Favourite: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     Boolean switchToMessage : Public
     Boolean switchToSent : Public
     Boolean switchToSending : Public
+    System.String msg : Public
 Class GUI.Login: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
     Boolean switchToWelcome : Public
     Boolean switchToMessage : Public
+    System.String username : Public
+    System.String password : Public
 Class GUI.Register: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
     Boolean switchToWelcome : Public
     Boolean switchToMessage : Public
+    System.String username : Public
+    System.String password : Public
 Class GUI.Messages: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -48,6 +53,7 @@ Class GUI.Messages: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     Boolean switchToFav : Public
     Boolean switchToSent : Public
     Boolean switchToSending : Public
+    System.String msg : Public
 Class GUI.Sent: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -56,12 +62,14 @@ Class GUI.Sent: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     Boolean switchToMessage : Public
     Boolean switchToFav : Public
     Boolean switchToSending : Public
+    System.String msg : Public
 Class GUI.Sending: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
     Boolean switchToMessage : Public
     Boolean switchToWelcome : Public
+    System.String msg : Public
 Class GUI.Welcome: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
