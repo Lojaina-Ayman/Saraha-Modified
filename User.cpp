@@ -339,65 +339,14 @@ string User::toString() {
     //list<Message> sentMsg;
     //list<Message> recMsg;
     string userstr = "";
-    vector<int> mainlvl = vector<int>{
-        (int)contacts.size(),/*1nd loop*/
-        (int)favMsg.size(),/*2rd loop*/
-        (int)sentMsg.size(),/*3th loop*/
-        (int)recMsg.size()/*4th loop*/
-    };
-    mainlvl.reserve(5);
-    userstr += to_string(mainlvl[0]);
+
+    userstr += std::to_string(id);
     userstr += ',';
-    userstr += "/n";
-        userstr += id;
-        userstr += ',';
-        userstr += msgCount;
-        userstr += ',';
-        userstr += username;
-        userstr += "/-";
-        userstr += pass;
-        userstr += "/-";
-        userstr += to_string(mainlvl[1]);
-        userstr += ',';
-        userstr += "\n";
-        auto it1 = contacts.begin();
-        for (int j = 0; j < mainlvl[1]; j++) //for each contact in user
-        { //hash map
-            userstr += it1++->second.tostring();
-        }
-        userstr += to_string(mainlvl[2]);
-        userstr += ',';
-        userstr += "\n";
-        queue<Message> helper = favMsg;
-        Message iteration;
-        for (int j = 0; j < mainlvl[2]; j++) //for each favmsg in user
-        {  //queue
-            iteration = helper.front();
-            userstr += iteration.tostring();
-            userstr += "\n";
-            helper.pop();
-        }
-
-        userstr += to_string(mainlvl[3]);
-        userstr += ',';
-        userstr += "\n";
-        auto it2 = sentMsg.begin();
-        for (int j = 0; j < mainlvl[3]; j++) //for each sentmsg in user
-        { //list
-            userstr += it2++->tostring();
-            userstr += "\n";
-        }
-
-        userstr += to_string(mainlvl[4]);
-        userstr += ',';
-        userstr += "\n";
-        it2 =recMsg.begin();//here
-        for (int j = 0; j < mainlvl[4]; j++) //for each recmsg in user
-        { //list
-            userstr += it2++->tostring();
-            userstr += "\n";
-        }
-        userstr += "\n";
+    userstr += username;
+    userstr += ",";
+    userstr += pass;
+    userstr += ',';
+    userstr += std::to_string(msgCount);
     return userstr;
 }
 

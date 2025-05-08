@@ -14,7 +14,8 @@ Message::Message(string data, int sender, int receiver) {
     doc = time(0);
 
     char buffer[26];
-    ctime_s(buffer, sizeof(buffer), &doc);
+    ctime_r(&doc, buffer);
+    //ctime_s(buffer, sizeof(buffer), &doc);
     dateintext = buffer;
     dateintext.pop_back();
 }
@@ -60,14 +61,13 @@ string Message::returnAllMessages(list<Message> messages) {
 string Message::tostring() {
     string word = "";
     word += content;
-    word += '/-';
-    word += messageid;
+    word += ',';  
+    word += std::to_string(messageid);
     word += ',';
-    word += senderid;
+    word += std::to_string(senderid);
     word += ',';
-    word += receiver;
+    word += std::to_string(receiver);
     word += ',';
     word += dateintext;
-    word += '/-';
     return word;
 }
