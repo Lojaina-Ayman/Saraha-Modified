@@ -133,47 +133,8 @@ void User::rmcontact(int contactId) {
     }
 }
 
-void User::snd_msg() {
-    string msgData;
-    cout << "Enter Message ";
-    getline(cin, msgData);
-    int receiverId;
-    cout << "Enter receiver ID ";
-    cin >> receiverId;
-    cin.ignore();
-    Message msg = Message(msgData, this->id, receiverId);
-    cout << "Your Message Id is " << msg.getMessageId() << endl;
+void User::snd_msg(Message msg) {
     this->sentMsg.push_back(msg);
-    int option;
-    cout << "Enter 1 to undo the last sent message " << endl;
-    cout << "Enter 2 to redo the last sent message " << endl;
-    cout << "Enter 3 to delete any message " << endl;
-    cout << "Enter 4 to do nothing " << endl;
-    cout << "Enter 5 to enter another message " << endl;
-    cin >> option;
-    cin.ignore();
-
-    while (option != 4 && option != 5) {
-        if (option == 1) { undo_msg(); }
-        else if (option == 2) { redo_msg(); }
-        else if (option == 3) {
-            int MessId;
-            cout << "Enter Message Id ";
-            cin >> MessId;
-            cin.ignore();
-            delete_msg(MessId);
-        }
-        else { return; }
-        cout << "Enter 1 to undo the last sent message " << endl;
-        cout << "Enter 2 to redo the last sent message " << endl;
-        cout << "Enter 3 to delete any message " << endl;
-        cout << "Enter 4 to do nothing " << endl;
-        cout << "Enter 5 to enter another message " << endl;
-        cin >> option;
-        cin.ignore();
-    }
-    if (option == 5) { snd_msg(); }
-
 }
 
 void User::undo_msg() {

@@ -1,4 +1,11 @@
 #pragma once
+#include <string>
+#include <msclr/marshal_cppstd.h>
+#include "Message.h"
+#include <fstream>
+#include <list>
+#include "User.h"
+::User* currentUser = new ::User();
 
 namespace GUI {
 
@@ -47,7 +54,7 @@ namespace GUI {
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+		System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -107,7 +114,6 @@ namespace GUI {
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(958, 311);
 			this->textBox1->TabIndex = 6;
-			this->textBox1->TextChanged += gcnew System::EventHandler(this, &Sending::textBox1_TextChanged);
 			// 
 			// pictureBox1
 			// 
@@ -167,7 +173,7 @@ namespace GUI {
 		}
 #pragma endregion
 
-		public: bool switchToMessage = false;
+	public: bool switchToMessage = false;
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->switchToMessage = true;
 		this->Close();
@@ -179,12 +185,42 @@ namespace GUI {
 		this->Close();
 	}
 
-    private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e) {
-    }
 
-	public: System::String^ msg;
-    private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-		msg = textBox1->Text;
-    }
-};
+	private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		String^ messageText = textBox1->Text;
+
+		if (!String::IsNullOrEmpty(messageText)) {
+
+			MessageBox::Show("Message sent: " + messageText);
+			std::string text = msclr::interop::marshal_as<std::string>(textBox1->Text);
+			::Message msg(text, 1, 1);
+			
+			currentUser->snd_msg(msg);
+
+			std::fstream file("message.txt", std::ios::in | std::ios::out | std::ios::trunc);
+			if (!file.is_open()) {
+				MessageBox::Show("Failed to open file!");
+				return;
+			}
+			msg.serialize(file);
+			file.seekg(0, std::ios::beg);
+			file.clear();
+			::Message msg2;
+			msg2.deserialize(file);
+			file.close();
+			textBox1->Clear();
+		}
+
+		else {
+			MessageBox::Show("Please enter a message before sending.", "Empty Message",
+				MessageBoxButtons::OK, MessageBoxIcon::Information);
+		}
+	}
+
+
+	public: String^ GetMessageText() {
+		return textBox1->Text;
+	}
+	};
 }
