@@ -99,6 +99,7 @@ namespace GUI {
 			// 
 			this->splitContainer1->Panel2->Controls->Add(this->button2);
 			this->splitContainer1->Panel2->Controls->Add(this->button1);
+			this->splitContainer1->Panel2->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &Welcome::splitContainer1_Panel2_Paint);
 			this->splitContainer1->Size = System::Drawing::Size(582, 803);
 			this->splitContainer1->SplitterDistance = 291;
 			this->splitContainer1->TabIndex = 0;
@@ -188,5 +189,7 @@ namespace GUI {
 		this->switchToReg = true;
 		this->Close();
 	}
+private: System::Void splitContainer1_Panel2_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+}
 };
 }
