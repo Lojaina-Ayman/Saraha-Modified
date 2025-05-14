@@ -9,6 +9,12 @@ User::User() {
     username = "";
     pass = "";
     msgCount = 0;
+    favMsg.push(Message("Hello My name is youssef", 1, 2));
+    favMsg.push(Message("Hello My name is Ahmed", 1, 2));
+    favMsg.push(Message("Hello My name is Ali", 1, 2));
+    favMsg.push(Message("Hello My name is Aya", 1, 2));
+    favMsg.push(Message("Hello My name is Hamdy", 1, 2));
+
 }
 
 User::User(int id, string user, string pass, vector<Contact> mycontacts,
@@ -509,4 +515,22 @@ void User::loadAllUsers(const string& filename) {
         }
         users[usr.username] = usr;
     }
+}
+
+
+list<Message> User::queueTolist(queue<Message>fav) {
+    list<Message>output;
+    while (!fav.empty()) {
+        output.push_front(fav.front());
+        fav.pop();
+    }
+    return output;
+}
+
+queue<Message> User::listToqueue(list<Message>fav) {
+    queue<Message>favsqueue;
+    for (auto it : fav) {
+        favsqueue.push(it);
+    }
+    return favsqueue;
 }

@@ -59,6 +59,9 @@ public:
 	void deserialize(istream& is);
 	void static saveAllUsers(const string& filename);
 	void static loadAllUsers(const string& filename);
+	list<Message>queueTolist(queue<Message>fav);
+	queue<Message>listToqueue(list<Message>fav);
+
 };
 
 #endif

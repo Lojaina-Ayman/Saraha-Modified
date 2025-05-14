@@ -1,5 +1,8 @@
 #pragma once
-
+#include "User.h"
+#include "Message.h"
+#include <msclr/marshal_cppstd.h>
+#include<vector>
 namespace GUI {
 
 	using namespace System;
@@ -8,6 +11,7 @@ namespace GUI {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::Drawing::Drawing2D;
 
 	/// <summary>
 	/// Summary for Favourite
@@ -15,6 +19,7 @@ namespace GUI {
 	public ref class Favourite : public System::Windows::Forms::Form
 	{
 	public:
+		User* currentUser=new User();
 		Favourite(void)
 		{
 			InitializeComponent();
@@ -23,6 +28,66 @@ namespace GUI {
 			//
 			this->CenterToScreen();
 		}
+
+
+
+		void generateFavMessages()
+		{
+			
+			this->scrollable_transaction_panel->Controls->Clear();
+
+			int i = 0;
+			for (auto it : currentUser->queueTolist(currentUser->favMsg))
+			{
+				
+				Panel^ panel = gcnew Panel();
+				panel->Size = System::Drawing::Size(680, 118);
+				panel->BackColor = System::Drawing::SystemColors::ControlLight;
+				panel->Location = System::Drawing::Point(0, (i * 135));
+
+				// PictureBox to the left of senderIdLabel
+				// PictureBox to the left of senderIdLabel
+				PictureBox^ senderPic = gcnew PictureBox();
+				senderPic->Size = System::Drawing::Size(40, 40);
+				senderPic->Location = System::Drawing::Point(10, 10);
+				senderPic->SizeMode = PictureBoxSizeMode::StretchImage;
+				senderPic->Image = System::Drawing::Image::FromFile("C:\\Users\\20102\\source\\repos\\Saraha\\Images\\icon.png");
+				senderPic->BorderStyle = BorderStyle::FixedSingle;
+
+
+				Label^ senderIdLabel = gcnew Label();
+				senderIdLabel->Text = it.getSenderId().ToString();
+				senderIdLabel->Location = System::Drawing::Point(60, 10); // Shifted right to make space for PictureBox
+				senderIdLabel->AutoSize = true;
+				senderIdLabel->Font = gcnew System::Drawing::Font("Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold);
+
+				Label^ favTimelabel = gcnew Label();
+				favTimelabel->Text = msclr::interop::marshal_as<System::String^>(it.timeStr);
+				favTimelabel->Location = System::Drawing::Point(570, 10);
+				favTimelabel->AutoSize = true;
+				favTimelabel->Font = gcnew System::Drawing::Font("Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold);
+
+				Label^ FavContent = gcnew Label();
+				FavContent->Text = msclr::interop::marshal_as<System::String^>(it.getContent());
+				FavContent->Location = System::Drawing::Point(10, 60);
+				FavContent->AutoSize = true;
+				FavContent->Font = gcnew System::Drawing::Font("Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold);
+
+				panel->Controls->Add(senderPic);      // Add PictureBox first (at the back)
+				panel->Controls->Add(senderIdLabel);  // Then the label
+				panel->Controls->Add(favTimelabel);
+				panel->Controls->Add(FavContent);
+
+				this->Controls->Add(panel);
+				this->scrollable_transaction_panel->Controls->Add(panel);
+				i++;
+			}
+		}
+
+		
+
+
+
 
 	protected:
 		/// <summary>
@@ -42,11 +107,13 @@ namespace GUI {
 	private: System::Windows::Forms::Button^ button4;
 	private: System::Windows::Forms::Button^ button5;
 	private: System::Windows::Forms::Panel^ panel2;
-	private: System::Windows::Forms::Label^ label1;
-	private: System::Windows::Forms::PictureBox^ pictureBox1;
+	private: System::Windows::Forms::Label^ FavMess;
+
+	private: System::Windows::Forms::PictureBox^ FavStar;
+
 	private: System::Windows::Forms::RichTextBox^ richTextBox1;
-
-
+	private: System::Windows::Forms::Button^ deleteButton;
+  private: System::Windows::Forms::Panel^ scrollable_transaction_panel;
 	protected:
 
 	private:
@@ -68,14 +135,15 @@ namespace GUI {
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->richTextBox1 = (gcnew System::Windows::Forms::RichTextBox());
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
-			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
+			this->FavMess = (gcnew System::Windows::Forms::Label());
+			this->FavStar = (gcnew System::Windows::Forms::PictureBox());
 			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->button4 = (gcnew System::Windows::Forms::Button());
 			this->button5 = (gcnew System::Windows::Forms::Button());
+			this->scrollable_transaction_panel = (gcnew System::Windows::Forms::Panel());
 			this->panel1->SuspendLayout();
 			this->panel2->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->FavStar))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// button1
@@ -110,55 +178,69 @@ namespace GUI {
 			this->button2->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			this->button2->UseVisualStyleBackColor = false;
 			this->button2->Click += gcnew System::EventHandler(this, &Favourite::button2_Click);
-			// 
+			
+			
+			// deleteButton
+			this->deleteButton = (gcnew System::Windows::Forms::Button());
+			this->deleteButton->BackColor = System::Drawing::Color::White;
+			this->deleteButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->deleteButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold));
+			this->deleteButton->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->deleteButton->Image = System::Drawing::Image::FromFile(L"C:\\Users\\20102\\source\\repos\\Saraha\\Images\\delete icon.png");
+			this->deleteButton->ImageAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			// No text, icon only
+			this->deleteButton->Text = L"";
+			this->deleteButton->Location = System::Drawing::Point(860,700);
+			this->deleteButton->Name = L"deleteButton";
+			this->deleteButton->Size = System::Drawing::Size(40, 40);
+			this->deleteButton->TabIndex = 10;
+			this->deleteButton->UseVisualStyleBackColor = false;
+			 this->deleteButton->Click += gcnew System::EventHandler(this, &Favourite::deleteButton_Click);
+			this->Controls->Add(this->deleteButton);
+            
+
+		 
 			// panel1
 			// 
-			this->panel1->Controls->Add(this->richTextBox1);
+			
 			this->panel1->Controls->Add(this->panel2);
 			this->panel1->Location = System::Drawing::Point(3, 51);
 			this->panel1->Name = L"panel1";
 			this->panel1->Size = System::Drawing::Size(976, 679);
 			this->panel1->TabIndex = 4;
+			this->panel1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &Favourite::panel1_Paint);
 			// 
-			// richTextBox1
-			// 
-			this->richTextBox1->Enabled = false;
-			this->richTextBox1->Location = System::Drawing::Point(9, 3);
-			this->richTextBox1->Name = L"richTextBox1";
-			this->richTextBox1->Size = System::Drawing::Size(422, 156);
-			this->richTextBox1->TabIndex = 1;
-			this->richTextBox1->Text = L"";
-			this->richTextBox1->TextChanged += gcnew System::EventHandler(this, &Favourite::richTextBox1_TextChanged);
+			
 			// 
 			// panel2
 			// 
-			this->panel2->Controls->Add(this->label1);
-			this->panel2->Controls->Add(this->pictureBox1);
+			this->panel2->Controls->Add(this->FavMess);
+			this->panel2->Controls->Add(this->FavStar);
 			this->panel2->Location = System::Drawing::Point(166, 199);
 			this->panel2->Name = L"panel2";
 			this->panel2->Size = System::Drawing::Size(655, 477);
 			this->panel2->TabIndex = 0;
 			// 
-			// label1
+			// FavMess
 			// 
-			this->label1->AutoSize = true;
-			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->FavMess->AutoSize = true;
+			this->FavMess->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label1->Location = System::Drawing::Point(102, 336);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(473, 32);
-			this->label1->TabIndex = 1;
-			this->label1->Text = L"You didn\'t recieve any messages yet";
+			this->FavMess->Location = System::Drawing::Point(102, 336);
+			this->FavMess->Name = L"FavMess";
+			this->FavMess->Size = System::Drawing::Size(473, 32);
+			this->FavMess->TabIndex = 1;
+			this->FavMess->Text = L"You didn\'t recieve any messages yet";
 			// 
-			// pictureBox1
+			// FavStar
 			// 
-			this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
-			this->pictureBox1->Location = System::Drawing::Point(156, -34);
-			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(374, 320);
-			this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::CenterImage;
-			this->pictureBox1->TabIndex = 0;
-			this->pictureBox1->TabStop = false;
+			this->FavStar->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"FavStar.Image")));
+			this->FavStar->Location = System::Drawing::Point(156, -34);
+			this->FavStar->Name = L"FavStar";
+			this->FavStar->Size = System::Drawing::Size(374, 320);
+			this->FavStar->SizeMode = System::Windows::Forms::PictureBoxSizeMode::CenterImage;
+			this->FavStar->TabIndex = 0;
+			this->FavStar->TabStop = false;
 			// 
 			// button3
 			// 
@@ -199,6 +281,14 @@ namespace GUI {
 			this->button4->Text = L"Sent Messages";
 			this->button4->UseVisualStyleBackColor = false;
 			this->button4->Click += gcnew System::EventHandler(this, &Favourite::button4_Click);
+
+			this->scrollable_transaction_panel->AutoScroll = true;
+			this->scrollable_transaction_panel->BackColor = System::Drawing::Color::White;
+			this->scrollable_transaction_panel->Location = System::Drawing::Point(10, 50);
+			this->scrollable_transaction_panel->Name = L"scrollable_transaction_panel";
+			this->scrollable_transaction_panel->Size = System::Drawing::Size(950, 620);
+			this->scrollable_transaction_panel->TabIndex = 2;
+
 			// 
 			// button5
 			// 
@@ -223,19 +313,23 @@ namespace GUI {
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(982, 803);
+			this->Controls->Add(this->scrollable_transaction_panel);
 			this->Controls->Add(this->panel1);
+
 			this->Controls->Add(this->button4);
 			this->Controls->Add(this->button3);
 			this->Controls->Add(this->button5);
 			this->Controls->Add(this->button2);
 			this->Controls->Add(this->button1);
+		
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"Favourite";
 			this->Text = L"Favourite";
+			this->Load += gcnew System::EventHandler(this, &Favourite::Favourite_Load);
 			this->panel1->ResumeLayout(false);
 			this->panel2->ResumeLayout(false);
 			this->panel2->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->FavStar))->EndInit();
 			this->ResumeLayout(false);
 
 		}
@@ -269,5 +363,40 @@ namespace GUI {
     private: System::Void richTextBox1_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 		richTextBox1->Text = msg;
     }
+private: System::Void panel1_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+}
+private: System::Void Favourite_Load(System::Object^ sender, System::EventArgs^ e) {
+	if(!currentUser->favMsg.empty()){
+		FavStar->Hide();
+		FavMess->Hide();
+		generateFavMessages();
+	}
+	else
+	{
+		FavStar->Show();
+		FavMess->Show();
+	}
+
+}
+
+private: System::Void deleteButton_Click(System::Object^ sender, System::EventArgs^ e) {
+	if(currentUser->favMsg.size()==1){ //To remove the last message
+		// Remove the oldest favorite message
+		currentUser->removeOldestFavoriteMessage();
+		// Regenerate the favorite messages UI
+		generateFavMessages();
+		FavStar->Show();
+		FavMess->Show();
+		scrollable_transaction_panel->Hide();
+		deleteButton->Hide();
+	}
+	if (!currentUser->favMsg.empty()) {
+		// Remove the oldest favorite message
+		currentUser->removeOldestFavoriteMessage();
+		// Regenerate the favorite messages UI
+		generateFavMessages();
+	}
+		
+}
 };
 }

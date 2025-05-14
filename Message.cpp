@@ -13,6 +13,7 @@ Message::Message(string data, int sender, int receiver) {
     senderid = sender;
     this->receiver = receiver;
     doc = time(0);  // Current timestamp
+    MsgTime();
 }
 
 
