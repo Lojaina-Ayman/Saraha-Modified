@@ -5,6 +5,9 @@
 #include "Sent.h"
 #include "Favourite.h"
 #include "Sending.h"
+#include "User.h"
+#include "Message.h"
+#include "Contact.h"
 
 namespace GUI {
 

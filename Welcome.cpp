@@ -15,7 +15,7 @@ enum class FormType {
 };
 
 [STAThread]
-int main(array<String^>^ args)
+int main(cli::array<String^>^ args)
 {
     Application::EnableVisualStyles();
     Application::SetCompatibleTextRenderingDefault(false);
