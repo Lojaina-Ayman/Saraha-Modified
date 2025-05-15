@@ -1,11 +1,5 @@
+
 #pragma once
-#include <string>
-#include <msclr/marshal_cppstd.h>
-#include "Message.h"
-#include <fstream>
-#include <list>
-#include "User.h"
-::User* currentUser = new ::User();
 
 namespace GUI {
 
@@ -42,12 +36,14 @@ namespace GUI {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::Button^ button5;
+	private: System::Windows::Forms::Button^ button4;
 	private: System::Windows::Forms::Button^ button1;
 	private: System::Windows::Forms::TextBox^ textBox1;
 	private: System::Windows::Forms::PictureBox^ pictureBox1;
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::Button^ button2;
+	private: System::Windows::Forms::TextBox^ textBox2;
+	private: System::Windows::Forms::Button^ button3;
 	protected:
 
 	private:
@@ -64,32 +60,33 @@ namespace GUI {
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(Sending::typeid));
-			this->button5 = (gcnew System::Windows::Forms::Button());
+			this->button4 = (gcnew System::Windows::Forms::Button());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->button2 = (gcnew System::Windows::Forms::Button());
+			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
+			this->button3 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
 			// 
-			// button5
+			// button4
 			// 
-			this->button5->BackColor = System::Drawing::Color::DodgerBlue;
-			this->button5->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 18, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->button4->BackColor = System::Drawing::Color::DodgerBlue;
+			this->button4->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 18, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->button5->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
-			this->button5->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button5.Image")));
-			this->button5->ImageAlign = System::Drawing::ContentAlignment::MiddleRight;
-			this->button5->Location = System::Drawing::Point(421, 745);
-			this->button5->Name = L"button5";
-			this->button5->Size = System::Drawing::Size(165, 46);
-			this->button5->TabIndex = 4;
-			this->button5->Text = L"Send";
-			this->button5->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->button5->UseVisualStyleBackColor = false;
-			this->button5->Click += gcnew System::EventHandler(this, &Sending::button5_Click);
+			this->button4->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->button4->ImageAlign = System::Drawing::ContentAlignment::MiddleRight;
+			this->button4->Location = System::Drawing::Point(421, 745);
+			this->button4->Name = L"button4";
+			this->button4->Size = System::Drawing::Size(165, 46);
+			this->button4->TabIndex = 4;
+			this->button4->Text = L"Send";
+			this->button4->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->button4->UseVisualStyleBackColor = false;
+			this->button4->Click += gcnew System::EventHandler(this, &Sending::button4_Click);
 			// 
 			// button1
 			// 
@@ -109,11 +106,12 @@ namespace GUI {
 			// 
 			this->textBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->textBox1->Location = System::Drawing::Point(12, 264);
+			this->textBox1->Location = System::Drawing::Point(12, 371);
 			this->textBox1->Multiline = true;
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(958, 311);
 			this->textBox1->TabIndex = 6;
+			this->textBox1->TextChanged += gcnew System::EventHandler(this, &Sending::textBox1_TextChanged);
 			// 
 			// pictureBox1
 			// 
@@ -152,20 +150,50 @@ namespace GUI {
 			this->button2->UseVisualStyleBackColor = false;
 			this->button2->Click += gcnew System::EventHandler(this, &Sending::button2_Click);
 			// 
+			// textBox2
+			// 
+			this->textBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->textBox2->Location = System::Drawing::Point(318, 232);
+			this->textBox2->Name = L"textBox2";
+			this->textBox2->Size = System::Drawing::Size(352, 38);
+			this->textBox2->TabIndex = 9;
+			this->textBox2->TextChanged += gcnew System::EventHandler(this, &Sending::textBox2_TextChanged);
+			// 
+			// button3
+			// 
+			this->button3->BackColor = System::Drawing::Color::DodgerBlue;
+			this->button3->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->button3->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->button3->ImageAlign = System::Drawing::ContentAlignment::MiddleRight;
+			this->button3->Location = System::Drawing::Point(676, 227);
+			this->button3->Name = L"button3";
+			this->button3->Size = System::Drawing::Size(176, 46);
+			this->button3->TabIndex = 4;
+			this->button3->Text = L"Search";
+			this->button3->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->button3->UseVisualStyleBackColor = false;
+			this->button3->Click += gcnew System::EventHandler(this, &Sending::button3_Click);
+			// 
 			// Sending
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(982, 803);
+			this->Controls->Add(this->textBox2);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->pictureBox1);
 			this->Controls->Add(this->textBox1);
 			this->Controls->Add(this->button2);
 			this->Controls->Add(this->button1);
-			this->Controls->Add(this->button5);
+			this->Controls->Add(this->button3);
+			this->Controls->Add(this->button4);
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"Sending";
 			this->Text = L"Sending";
+			this->Load += gcnew System::EventHandler(this, &Sending::Sending_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
@@ -185,42 +213,24 @@ namespace GUI {
 		this->Close();
 	}
 
-
-	private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e) {
-
-		String^ messageText = textBox1->Text;
-
-		if (!String::IsNullOrEmpty(messageText)) {
-
-			MessageBox::Show("Message sent: " + messageText);
-			std::string text = msclr::interop::marshal_as<std::string>(textBox1->Text);
-			::Message msg(text, 1, 1);
-			
-			currentUser->snd_msg(msg);
-
-			std::fstream file("message.txt", std::ios::in | std::ios::out | std::ios::trunc);
-			if (!file.is_open()) {
-				MessageBox::Show("Failed to open file!");
-				return;
-			}
-			msg.serialize(file);
-			file.seekg(0, std::ios::beg);
-			file.clear();
-			::Message msg2;
-			msg2.deserialize(file);
-			file.close();
-			textBox1->Clear();
-		}
-
-		else {
-			MessageBox::Show("Please enter a message before sending.", "Empty Message",
-				MessageBoxButtons::OK, MessageBoxIcon::Information);
-		}
+	private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e) {
+		// Send
 	}
 
-
-	public: String^ GetMessageText() {
-		return textBox1->Text;
+	private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
+		// Search
 	}
-	};
+
+	public: System::String^ msg;
+	private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+		msg = textBox1->Text;
+	}
+
+	public: System::String^ search;
+	private: System::Void textBox2_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+		search = textBox2->Text;
+	}
+	private: System::Void Sending_Load(System::Object^ sender, System::EventArgs^ e) {
+	}
+};
 }

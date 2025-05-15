@@ -43,7 +43,7 @@ public:
 	void searchContact(int contactId) const;
 	void markMessageAsFavorite(int messageid);
 	void reci_msg(vector<string> msg);
-	void snd_msg();
+	void snd_msg(Message msg);
 	void undo_msg();
 	void redo_msg();
 	void delete_msg(int);
