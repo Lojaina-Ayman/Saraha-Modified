@@ -1,8 +1,6 @@
-
 #pragma once
 #include <msclr/marshal_cppstd.h>
 #include "User.h"
-#include "Message.h"
 
 namespace GUI {
 
@@ -26,16 +24,6 @@ namespace GUI {
 			//TODO: Add the constructor code here
 			//
 			this->CenterToScreen();
-
-			std::vector<Contact> testContacts;
-			std::vector<::Message> testSendMsg;
-			std::queue<::Message> testFavMsg;
-			std::list<::Message> testSentMsg;
-			std::list<::Message> testRecMsg;
-
-			currentUser = new User(1, "testUser", "testPass", testContacts,
-				testSendMsg, testFavMsg, testSentMsg, testRecMsg);
-
 		}
 
 	protected:
@@ -219,25 +207,32 @@ namespace GUI {
 		}
 #pragma endregion
 
-		User* currentUser;
+		public: User* currentUser = nullptr;
 
 	public: bool switchToWelcome = false;
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->switchToWelcome = true;
 		this->Close();
 	}
+
 	public: bool switchToMessage = false;
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
-		msclr::interop::marshal_context context;
-		std::string user = context.marshal_as<std::string>(username);
-		std::string pass = context.marshal_as<std::string>(password);
 
-		if (currentUser->login(user, pass)) {
-			this->switchToMessage = true;
-			this->Close();
+		if (String::IsNullOrEmpty(textBox1->Text) || String::IsNullOrEmpty(textBox2->Text)) {
+			MessageBox::Show("Please enter both username and password.");
+			return;
+		}
+
+		std::string username = msclr::interop::marshal_as<std::string>(textBox1->Text);
+		std::string password = msclr::interop::marshal_as<std::string>(textBox2->Text);
+
+		//currentUser->login(username, password)
+		if (username == "user" && password == "pass") {
+			switchToMessage = true;
+			Close();
 		}
 		else {
-			MessageBox::Show("Login failed");
+			MessageBox::Show("Invalid username or password.");
 		}
 	}
 

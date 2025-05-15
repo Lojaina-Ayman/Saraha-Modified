@@ -1,4 +1,3 @@
-
 #pragma once
 
 namespace GUI {
@@ -167,6 +166,7 @@ namespace GUI {
 			this->button3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->button3->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->button3->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button3.Image")));
 			this->button3->ImageAlign = System::Drawing::ContentAlignment::MiddleRight;
 			this->button3->Location = System::Drawing::Point(676, 227);
 			this->button3->Name = L"button3";

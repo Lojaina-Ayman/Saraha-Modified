@@ -1,4 +1,6 @@
 #pragma once
+#include <msclr/marshal_cppstd.h>
+#include "User.h"
 
 namespace GUI {
 
@@ -205,6 +207,8 @@ namespace GUI {
 		}
 #pragma endregion
 
+		public: User* currentUser = nullptr;
+
 	public: bool switchToWelcome = false;
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->switchToWelcome = true;
@@ -212,8 +216,23 @@ namespace GUI {
 	}
 	public: bool switchToMessage = false;
     private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
-		this->switchToMessage = true;
-		this->Close();
+
+		if (String::IsNullOrEmpty(textBox1->Text) || String::IsNullOrEmpty(textBox2->Text)) {
+			MessageBox::Show("Please enter both username and password.");
+			return;
+		}
+
+		std::string username = msclr::interop::marshal_as<std::string>(textBox1->Text);
+		std::string password = msclr::interop::marshal_as<std::string>(textBox2->Text);
+
+		//currentUser->regist(username, password)
+		if (username == "user" && password == "pass") {
+			switchToMessage = true;
+			Close();
+		}
+		else {
+			MessageBox::Show("Username is alrady taken.");
+		}
 	}
 
 	public: System::String^ username;
