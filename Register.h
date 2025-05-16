@@ -1,7 +1,7 @@
 #pragma once
 #include <msclr/marshal_cppstd.h>
-#include "User.h"
 
+#include "User.h"
 namespace GUI {
 
 	using namespace System;
@@ -51,7 +51,7 @@ namespace GUI {
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+		System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -96,6 +96,7 @@ namespace GUI {
 			this->splitContainer1->Panel2->Controls->Add(this->label2);
 			this->splitContainer1->Panel2->Controls->Add(this->textBox1);
 			this->splitContainer1->Panel2->Controls->Add(this->label3);
+			this->splitContainer1->Panel2->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &Register::splitContainer1_Panel2_Paint);
 			this->splitContainer1->Size = System::Drawing::Size(582, 803);
 			this->splitContainer1->SplitterDistance = 193;
 			this->splitContainer1->TabIndex = 0;
@@ -193,6 +194,7 @@ namespace GUI {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(582, 803);
 			this->Controls->Add(this->splitContainer1);
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"Register";
 			this->Text = L"Register";
@@ -207,7 +209,6 @@ namespace GUI {
 		}
 #pragma endregion
 
-		public: User* currentUser = nullptr;
 
 	public: bool switchToWelcome = false;
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -215,7 +216,7 @@ namespace GUI {
 		this->Close();
 	}
 	public: bool switchToMessage = false;
-    private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
 
 		if (String::IsNullOrEmpty(textBox1->Text) || String::IsNullOrEmpty(textBox2->Text)) {
 			MessageBox::Show("Please enter both username and password.");
@@ -224,25 +225,34 @@ namespace GUI {
 
 		std::string username = msclr::interop::marshal_as<std::string>(textBox1->Text);
 		std::string password = msclr::interop::marshal_as<std::string>(textBox2->Text);
+		auto it = User::users.find(username);
 
-		//currentUser->regist(username, password)
-		if (username == "user" && password == "pass") {
+
+		if (it == User::users.end()) {
+			User newUser;
+			newUser.username = username;
+			newUser.pass = password;
+			User::users.insert(make_pair(username, newUser));
+
 			switchToMessage = true;
 			Close();
 		}
 		else {
-			MessageBox::Show("Username is alrady taken.");
+			MessageBox::Show("Username is already taken.");
 		}
 	}
 
+
 	public: System::String^ username;
-    private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 		username = textBox1->Text;
-    }
+	}
 
 	public: System::String^ password;
-    private: System::Void textBox2_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void textBox2_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 		password = textBox2->Text;
-    }
-};
+	}
+	private: System::Void splitContainer1_Panel2_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+	}
+	};
 }

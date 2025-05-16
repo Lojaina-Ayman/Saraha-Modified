@@ -133,14 +133,15 @@ namespace GUI {
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
-			this->richTextBox1 = (gcnew System::Windows::Forms::RichTextBox());
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
 			this->FavMess = (gcnew System::Windows::Forms::Label());
 			this->FavStar = (gcnew System::Windows::Forms::PictureBox());
+			this->richTextBox1 = (gcnew System::Windows::Forms::RichTextBox());
 			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->button4 = (gcnew System::Windows::Forms::Button());
 			this->button5 = (gcnew System::Windows::Forms::Button());
 			this->scrollable_transaction_panel = (gcnew System::Windows::Forms::Panel());
+			this->deleteButton = (gcnew System::Windows::Forms::Button());
 			this->panel1->SuspendLayout();
 			this->panel2->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->FavStar))->BeginInit();
@@ -178,39 +179,15 @@ namespace GUI {
 			this->button2->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			this->button2->UseVisualStyleBackColor = false;
 			this->button2->Click += gcnew System::EventHandler(this, &Favourite::button2_Click);
-			
-			
-			// deleteButton
-			this->deleteButton = (gcnew System::Windows::Forms::Button());
-			this->deleteButton->BackColor = System::Drawing::Color::White;
-			this->deleteButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->deleteButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold));
-			this->deleteButton->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
-			this->deleteButton->Image = System::Drawing::Image::FromFile(L"C:\\Users\\20102\\source\\repos\\Saraha\\Images\\delete icon.png");
-			this->deleteButton->ImageAlign = System::Drawing::ContentAlignment::MiddleCenter;
-			// No text, icon only
-			this->deleteButton->Text = L"";
-			this->deleteButton->Location = System::Drawing::Point(860,700);
-			this->deleteButton->Name = L"deleteButton";
-			this->deleteButton->Size = System::Drawing::Size(40, 40);
-			this->deleteButton->TabIndex = 10;
-			this->deleteButton->UseVisualStyleBackColor = false;
-			 this->deleteButton->Click += gcnew System::EventHandler(this, &Favourite::deleteButton_Click);
-			this->Controls->Add(this->deleteButton);
-            
-
-		 
+			// 
 			// panel1
 			// 
-			
 			this->panel1->Controls->Add(this->panel2);
 			this->panel1->Location = System::Drawing::Point(3, 51);
 			this->panel1->Name = L"panel1";
 			this->panel1->Size = System::Drawing::Size(976, 679);
 			this->panel1->TabIndex = 4;
 			this->panel1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &Favourite::panel1_Paint);
-			// 
-			
 			// 
 			// panel2
 			// 
@@ -241,6 +218,14 @@ namespace GUI {
 			this->FavStar->SizeMode = System::Windows::Forms::PictureBoxSizeMode::CenterImage;
 			this->FavStar->TabIndex = 0;
 			this->FavStar->TabStop = false;
+			// 
+			// richTextBox1
+			// 
+			this->richTextBox1->Location = System::Drawing::Point(0, 0);
+			this->richTextBox1->Name = L"richTextBox1";
+			this->richTextBox1->Size = System::Drawing::Size(100, 96);
+			this->richTextBox1->TabIndex = 0;
+			this->richTextBox1->Text = L"";
 			// 
 			// button3
 			// 
@@ -281,14 +266,6 @@ namespace GUI {
 			this->button4->Text = L"Sent Messages";
 			this->button4->UseVisualStyleBackColor = false;
 			this->button4->Click += gcnew System::EventHandler(this, &Favourite::button4_Click);
-
-			this->scrollable_transaction_panel->AutoScroll = true;
-			this->scrollable_transaction_panel->BackColor = System::Drawing::Color::White;
-			this->scrollable_transaction_panel->Location = System::Drawing::Point(10, 50);
-			this->scrollable_transaction_panel->Name = L"scrollable_transaction_panel";
-			this->scrollable_transaction_panel->Size = System::Drawing::Size(950, 620);
-			this->scrollable_transaction_panel->TabIndex = 2;
-
 			// 
 			// button5
 			// 
@@ -308,20 +285,43 @@ namespace GUI {
 			this->button5->UseVisualStyleBackColor = false;
 			this->button5->Click += gcnew System::EventHandler(this, &Favourite::button5_Click);
 			// 
+			// scrollable_transaction_panel
+			// 
+			this->scrollable_transaction_panel->AutoScroll = true;
+			this->scrollable_transaction_panel->BackColor = System::Drawing::Color::White;
+			this->scrollable_transaction_panel->Location = System::Drawing::Point(10, 50);
+			this->scrollable_transaction_panel->Name = L"scrollable_transaction_panel";
+			this->scrollable_transaction_panel->Size = System::Drawing::Size(950, 620);
+			this->scrollable_transaction_panel->TabIndex = 2;
+			this->scrollable_transaction_panel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &Favourite::scrollable_transaction_panel_Paint);
+			// 
+			// deleteButton
+			// 
+			this->deleteButton->BackColor = System::Drawing::Color::White;
+			this->deleteButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->deleteButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold));
+			this->deleteButton->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->deleteButton->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"deleteButton.Image")));
+			this->deleteButton->Location = System::Drawing::Point(860, 700);
+			this->deleteButton->Name = L"deleteButton";
+			this->deleteButton->Size = System::Drawing::Size(40, 40);
+			this->deleteButton->TabIndex = 10;
+			this->deleteButton->UseVisualStyleBackColor = false;
+			this->deleteButton->Click += gcnew System::EventHandler(this, &Favourite::deleteButton_Click);
+			// 
 			// Favourite
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(982, 803);
+			this->Controls->Add(this->deleteButton);
 			this->Controls->Add(this->scrollable_transaction_panel);
 			this->Controls->Add(this->panel1);
-
 			this->Controls->Add(this->button4);
 			this->Controls->Add(this->button3);
 			this->Controls->Add(this->button5);
 			this->Controls->Add(this->button2);
 			this->Controls->Add(this->button1);
-		
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"Favourite";
 			this->Text = L"Favourite";
@@ -397,6 +397,8 @@ private: System::Void deleteButton_Click(System::Object^ sender, System::EventAr
 		generateFavMessages();
 	}
 		
+}
+private: System::Void scrollable_transaction_panel_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 }
 };
 }

@@ -1,11 +1,5 @@
 #pragma once
-#include "Login.h"
-#include "Register.h"
-#include "Messages.h"
-#include "Sent.h"
-#include "Favourite.h"
-#include "Sending.h"
-
+#include "User.h" 
 namespace GUI {
 
 	using namespace System;
@@ -167,6 +161,8 @@ namespace GUI {
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"Welcome";
 			this->Text = L"Welcome";
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &Welcome::Welcome_FormClosing);
+			this->Load += gcnew System::EventHandler(this, &Welcome::Welcome_Load);
 			this->splitContainer1->Panel1->ResumeLayout(false);
 			this->splitContainer1->Panel1->PerformLayout();
 			this->splitContainer1->Panel2->ResumeLayout(false);
@@ -189,7 +185,16 @@ namespace GUI {
 		this->switchToReg = true;
 		this->Close();
 	}
-private: System::Void splitContainer1_Panel2_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
-}
-};
+	private: System::Void splitContainer1_Panel2_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+	}
+	private: System::Void Welcome_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+
+		User::saveAllUsers("users.dat");
+	}
+
+
+	private: System::Void Welcome_Load(System::Object^ sender, System::EventArgs^ e) {
+		User::loadAllUsers("users.dat");
+	}
+	};
 }

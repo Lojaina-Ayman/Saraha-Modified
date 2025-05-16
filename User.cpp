@@ -462,7 +462,7 @@ void User::loadAllUsers(const string& filename) {
     }
     ifs.ignore(); // Skip newline
 
-    users.clear();
+    
     for (size_t i = 0; i < userCount; ++i) {
         User usr;
         usr.deserialize(ifs);

@@ -1,9 +1,10 @@
 #pragma once
 #include <msclr/marshal_cppstd.h>
 #include "User.h"
+#include"Messages.h"
 
 namespace GUI {
-
+	User* currentUser;
 	using namespace System;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
@@ -14,15 +15,14 @@ namespace GUI {
 	/// <summary>
 	/// Summary for Login
 	/// </summary>
+
 	public ref class Login : public System::Windows::Forms::Form
 	{
 	public:
 		Login(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
+
 			this->CenterToScreen();
 		}
 
@@ -96,6 +96,7 @@ namespace GUI {
 			this->splitContainer1->Panel2->Controls->Add(this->textBox1);
 			this->splitContainer1->Panel2->Controls->Add(this->label3);
 			this->splitContainer1->Panel2->Controls->Add(this->label2);
+			this->splitContainer1->Panel2->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &Login::splitContainer1_Panel2_Paint);
 			this->splitContainer1->Size = System::Drawing::Size(582, 803);
 			this->splitContainer1->SplitterDistance = 193;
 			this->splitContainer1->TabIndex = 0;
@@ -127,6 +128,7 @@ namespace GUI {
 			this->label1->TabIndex = 0;
 			this->label1->Text = L"Login";
 			this->label1->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			this->label1->Click += gcnew System::EventHandler(this, &Login::label1_Click);
 			// 
 			// button2
 			// 
@@ -193,6 +195,7 @@ namespace GUI {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(582, 803);
 			this->Controls->Add(this->splitContainer1);
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"Login";
 			this->Text = L"Login";
@@ -207,7 +210,7 @@ namespace GUI {
 		}
 #pragma endregion
 
-		public: User* currentUser = nullptr;
+
 
 	public: bool switchToWelcome = false;
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -216,25 +219,30 @@ namespace GUI {
 	}
 
 	public: bool switchToMessage = false;
+
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
+		std::string username = msclr::interop::marshal_as<std::string>(textBox1->Text);
+		std::string password = msclr::interop::marshal_as<std::string>(textBox2->Text);
 
 		if (String::IsNullOrEmpty(textBox1->Text) || String::IsNullOrEmpty(textBox2->Text)) {
 			MessageBox::Show("Please enter both username and password.");
 			return;
 		}
 
-		std::string username = msclr::interop::marshal_as<std::string>(textBox1->Text);
-		std::string password = msclr::interop::marshal_as<std::string>(textBox2->Text);
-
-		//currentUser->login(username, password)
-		if (username == "user" && password == "pass") {
+		auto it = User::users.find(username);
+		if ((it != User::users.end() && it->second.pass == password) ||
+			(username == "user" && password == "pass")) {
+			if (username != "user" && password != "pass") {
+				currentUser = &it->second;
+			}
 			switchToMessage = true;
-			Close();
+			this->Close();
 		}
 		else {
 			MessageBox::Show("Invalid username or password.");
 		}
 	}
+
 
 	public: System::String^ username;
 	private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e) {
@@ -244,6 +252,10 @@ namespace GUI {
 	public: System::String^ password;
 	private: System::Void textBox2_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 		password = textBox2->Text;
+	}
+	private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
+	}
+	private: System::Void splitContainer1_Panel2_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 	}
 	};
 }

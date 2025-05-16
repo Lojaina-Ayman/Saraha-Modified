@@ -1,5 +1,10 @@
 #include "Welcome.h"
-
+#include "Login.h"
+#include "Register.h"
+#include "Messages.h"
+#include "Sent.h"
+#include "Favourite.h"
+#include "Sending.h"
 using namespace System;
 using namespace System::Windows::Forms;
 

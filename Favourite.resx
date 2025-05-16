@@ -571,6 +571,19 @@
         YII=
 </value>
   </data>
+  <data name="deleteButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1
+        MAAA6mAAADqYAAAXcJy6UTwAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAHdElNRQfpBQ4RNyqD+LgMAAAA
+        GXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAVVJREFUWEftl0FqwzAQRT/dp6tCF6Hk
+        GqEHSQ+Vo/Qy3XXdNO0Juk7CMxoQQiPLEsaQ+sMHazT/azSWjS2tmI4nSTuHzM2KN0kfkr4lnRISY46c
+        WcDuWOAq6TdTADHmyJmlEy/RQntJ2xCDXBOzwog14zFzbzF8DQv8FApgjhxyiac+eBdBwnswYidfgbbz
+        S6B3C9L5WI8n3sUirIBzhWGOpYLxHC0AkBC3vNRSj55+dPEYduhgy6Hq1Q87MQOup6JXXzSglXE70zEo
+        6avgGdhBhZtAG8dFePpqeAZcc6KhvQdsnObl9NXwDOK4FTCWtxawFnB/BSz6GC7+IgLpqzcdg5K+Cr0G
+        vfpBZF+/3OepsMOJR1MBz5I+Jf1JOgRDjGpILhq0eOA1GQ+SjuFTGyNrZy3RoMUDrybwfY8Bu8j9jHgk
+        Fw3a7n8EqqeFaZvHiKZ55/8HN2Is2J3SOFw7AAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAAAAAAAEAIABWrwAAFgAAAIlQTkcNChoKAAAADUlIRFIAAAEAAAABAAgGAAAAXHKoZgAAgABJ
