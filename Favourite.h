@@ -2,7 +2,8 @@
 #include "User.h"
 #include "Message.h"
 #include <msclr/marshal_cppstd.h>
-#include<vector>
+#include <vector>
+
 namespace GUI {
 
 	using namespace System;
@@ -51,9 +52,11 @@ namespace GUI {
 				senderPic->Size = System::Drawing::Size(40, 40);
 				senderPic->Location = System::Drawing::Point(10, 10);
 				senderPic->SizeMode = PictureBoxSizeMode::StretchImage;
-				senderPic->Image = System::Drawing::Image::FromFile("C:\\Users\\20102\\source\\repos\\Saraha\\Images\\icon.png");
+				String^ imagePath = System::IO::Path::Combine(Application::StartupPath, "Images", "icon.png");
+				imagePath = imagePath->Replace("/", "\\\\");
+				senderPic->Image = System::Drawing::Image::FromFile("C:\\Users\\DELL\\Desktop\\Projects\\OregaCPP\\SarahaMod\\Images\\icon.png");
 				senderPic->BorderStyle = BorderStyle::FixedSingle;
-
+				// "C:\\Users\\DELL\\Desktop\\Projects\\OregaCPP\\SarahaMod\\Images\\icon.png"
 
 				Label^ senderIdLabel = gcnew Label();
 				senderIdLabel->Text = it.getSenderId().ToString();
@@ -302,7 +305,7 @@ namespace GUI {
 			this->deleteButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold));
 			this->deleteButton->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
 			this->deleteButton->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"deleteButton.Image")));
-			this->deleteButton->Location = System::Drawing::Point(860, 700);
+			this->deleteButton->Location = System::Drawing::Point(915, 736);
 			this->deleteButton->Name = L"deleteButton";
 			this->deleteButton->Size = System::Drawing::Size(40, 40);
 			this->deleteButton->TabIndex = 10;
@@ -380,7 +383,7 @@ private: System::Void Favourite_Load(System::Object^ sender, System::EventArgs^ 
 }
 
 private: System::Void deleteButton_Click(System::Object^ sender, System::EventArgs^ e) {
-	if(currentUser->favMsg.size()==1){ //To remove the last message
+	if(currentUser->favMsg.size() == 1){ //To remove the last message
 		// Remove the oldest favorite message
 		currentUser->removeOldestFavoriteMessage();
 		// Regenerate the favorite messages UI

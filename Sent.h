@@ -1,4 +1,8 @@
 #pragma once
+#include "User.h"
+#include "Message.h"
+#include <msclr/marshal_cppstd.h>
+#include <vector>
 
 namespace GUI {
 
@@ -15,6 +19,7 @@ namespace GUI {
 	public ref class Sent : public System::Windows::Forms::Form
 	{
 	public:
+		User* currentUser = new User();
 		Sent(void)
 		{
 			InitializeComponent();
@@ -23,6 +28,60 @@ namespace GUI {
 			//
 			this->CenterToScreen();
 		}
+
+		void generatelabel1ages()
+		{
+
+			this->scrollable_transaction_panel->Controls->Clear();
+
+			int i = 0;
+			for (auto it : currentUser->sentMsg)
+			{
+
+				Panel^ panel = gcnew Panel();
+				panel->Size = System::Drawing::Size(680, 118);
+				panel->BackColor = System::Drawing::SystemColors::ControlLight;
+				panel->Location = System::Drawing::Point(0, (i * 135));
+
+				// PictureBox to the left of senderIdLabel
+				// PictureBox to the left of senderIdLabel
+				PictureBox^ senderPic = gcnew PictureBox();
+				senderPic->Size = System::Drawing::Size(40, 40);
+				senderPic->Location = System::Drawing::Point(10, 10);
+				senderPic->SizeMode = PictureBoxSizeMode::StretchImage;
+				senderPic->Image = System::Drawing::Image::FromFile("C:\\Users\\DELL\\Desktop\\Projects\\OregaCPP\\SarahaMod\\Images\\icon.png");
+				senderPic->BorderStyle = BorderStyle::FixedSingle;
+
+
+				Label^ senderIdLabel = gcnew Label();
+				senderIdLabel->Text = it.getSenderId().ToString();
+				senderIdLabel->Location = System::Drawing::Point(60, 10); // Shifted right to make space for PictureBox
+				senderIdLabel->AutoSize = true;
+				senderIdLabel->Font = gcnew System::Drawing::Font("Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold);
+
+				Label^ favTimelabel = gcnew Label();
+				favTimelabel->Text = msclr::interop::marshal_as<System::String^>(it.timeStr);
+				favTimelabel->Location = System::Drawing::Point(570, 10);
+				favTimelabel->AutoSize = true;
+				favTimelabel->Font = gcnew System::Drawing::Font("Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold);
+
+				Label^ FavContent = gcnew Label();
+				FavContent->Text = msclr::interop::marshal_as<System::String^>(it.getContent());
+				FavContent->Location = System::Drawing::Point(10, 60);
+				FavContent->AutoSize = true;
+				FavContent->Font = gcnew System::Drawing::Font("Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold);
+
+				panel->Controls->Add(senderPic);      // Add PictureBox first (at the back)
+				panel->Controls->Add(senderIdLabel);  // Then the label
+				panel->Controls->Add(favTimelabel);
+				panel->Controls->Add(FavContent);
+
+				this->Controls->Add(panel);
+				this->scrollable_transaction_panel->Controls->Add(panel);
+				i++;
+			}
+		}
+
 
 	protected:
 		/// <summary>
@@ -44,7 +103,12 @@ namespace GUI {
 	private: System::Windows::Forms::Panel^ panel2;
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::PictureBox^ pictureBox1;
-	private: System::Windows::Forms::RichTextBox^ richTextBox1;
+	private: System::Windows::Forms::Panel^ scrollable_transaction_panel;
+	private: System::Windows::Forms::Button^ undoButton;
+
+	private: System::Windows::Forms::Button^ redoButton;
+
+
 
 
 	protected:
@@ -66,13 +130,15 @@ namespace GUI {
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
-			this->richTextBox1 = (gcnew System::Windows::Forms::RichTextBox());
+			this->scrollable_transaction_panel = (gcnew System::Windows::Forms::Panel());
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->button4 = (gcnew System::Windows::Forms::Button());
 			this->button5 = (gcnew System::Windows::Forms::Button());
+			this->undoButton = (gcnew System::Windows::Forms::Button());
+			this->redoButton = (gcnew System::Windows::Forms::Button());
 			this->panel1->SuspendLayout();
 			this->panel2->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
@@ -113,22 +179,21 @@ namespace GUI {
 			// 
 			// panel1
 			// 
-			this->panel1->Controls->Add(this->richTextBox1);
+			this->panel1->Controls->Add(this->scrollable_transaction_panel);
 			this->panel1->Controls->Add(this->panel2);
 			this->panel1->Location = System::Drawing::Point(3, 51);
 			this->panel1->Name = L"panel1";
 			this->panel1->Size = System::Drawing::Size(976, 679);
 			this->panel1->TabIndex = 4;
 			// 
-			// richTextBox1
+			// scrollable_transaction_panel
 			// 
-			this->richTextBox1->Enabled = false;
-			this->richTextBox1->Location = System::Drawing::Point(9, 3);
-			this->richTextBox1->Name = L"richTextBox1";
-			this->richTextBox1->Size = System::Drawing::Size(422, 156);
-			this->richTextBox1->TabIndex = 1;
-			this->richTextBox1->Text = L"";
-			this->richTextBox1->TextChanged += gcnew System::EventHandler(this, &Sent::richTextBox1_TextChanged);
+			this->scrollable_transaction_panel->AutoScroll = true;
+			this->scrollable_transaction_panel->BackColor = System::Drawing::Color::White;
+			this->scrollable_transaction_panel->Location = System::Drawing::Point(14, 28);
+			this->scrollable_transaction_panel->Name = L"scrollable_transaction_panel";
+			this->scrollable_transaction_panel->Size = System::Drawing::Size(950, 620);
+			this->scrollable_transaction_panel->TabIndex = 3;
 			// 
 			// panel2
 			// 
@@ -218,11 +283,39 @@ namespace GUI {
 			this->button5->UseVisualStyleBackColor = false;
 			this->button5->Click += gcnew System::EventHandler(this, &Sent::button5_Click);
 			// 
+			// undoButton
+			// 
+			this->undoButton->BackColor = System::Drawing::Color::Black;
+			this->undoButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->undoButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold));
+			this->undoButton->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->undoButton->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"undoButton.Image")));
+			this->undoButton->Location = System::Drawing::Point(869, 736);
+			this->undoButton->Name = L"undoButton";
+			this->undoButton->Size = System::Drawing::Size(40, 40);
+			this->undoButton->TabIndex = 12;
+			this->undoButton->UseVisualStyleBackColor = false;
+			// 
+			// redoButton
+			// 
+			this->redoButton->BackColor = System::Drawing::Color::Black;
+			this->redoButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->redoButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold));
+			this->redoButton->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->redoButton->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"redoButton.Image")));
+			this->redoButton->Location = System::Drawing::Point(915, 736);
+			this->redoButton->Name = L"redoButton";
+			this->redoButton->Size = System::Drawing::Size(40, 40);
+			this->redoButton->TabIndex = 13;
+			this->redoButton->UseVisualStyleBackColor = false;
+			// 
 			// Sent
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(982, 803);
+			this->Controls->Add(this->undoButton);
+			this->Controls->Add(this->redoButton);
 			this->Controls->Add(this->panel1);
 			this->Controls->Add(this->button4);
 			this->Controls->Add(this->button3);
@@ -232,6 +325,7 @@ namespace GUI {
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"Sent";
 			this->Text = L"Sent";
+			this->Load += gcnew System::EventHandler(this, &Sent::Messages_Load);
 			this->panel1->ResumeLayout(false);
 			this->panel2->ResumeLayout(false);
 			this->panel2->PerformLayout();
@@ -265,9 +359,15 @@ namespace GUI {
 		this->Close();
 	}
 
-	public: System::String^ msg;
-    private: System::Void richTextBox1_TextChanged(System::Object^ sender, System::EventArgs^ e) {
-		richTextBox1->Text = msg;
-    }
+	private: System::Void Messages_Load(System::Object^ sender, System::EventArgs^ e) {
+		if (!currentUser->sentMsg.empty()) {
+			generatelabel1ages();
+		}
+		else
+		{
+			scrollable_transaction_panel->Hide();
+		}
+
+	}
 };
 }

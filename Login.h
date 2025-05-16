@@ -1,7 +1,7 @@
 #pragma once
 #include <msclr/marshal_cppstd.h>
 #include "User.h"
-#include"Messages.h"
+#include "Messages.h"
 
 namespace GUI {
 	User* currentUser;

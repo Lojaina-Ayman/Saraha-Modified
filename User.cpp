@@ -14,7 +14,8 @@ User::User() {
     favMsg.push(Message("Hello My name is Ali", 1, 2));
     favMsg.push(Message("Hello My name is Aya", 1, 2));
     favMsg.push(Message("Hello My name is Hamdy", 1, 2));
-
+    //recMsg.push_back(Message("HELLOOOO", 22, 33));
+    sentMsg.push_back(Message("To hell with Archi", 1, 2));
 }
 
 User::User(int id, string user, string pass, vector<Contact> mycontacts,

@@ -367,6 +367,29 @@
         +HyvTgAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="undoButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAFPSURBVEhL7ZUxTsNAEEVTpKTPBVLlGGkQUaq0KdOjlCk5BB0NNSfgAlyBG1BTU5n/JI9k73xZ
+        xlpMQUZ6ivI94+eNV5vF7Xn/J9hwDmw4BzYsaZrmBty1qdiwi4Qr8SIea8ptGHSk1KtYub4p2BCQiJC+
+        ibXrm4oNJeGdPmNUVZdCCiRB+oRRhXRT9tSg90USpGyiKMQ8xBD0X8RWjN58vS8a3IgPEfXVfo4pennQ
+        g1h27+tIQTsYcjbXTtwNQD8rZtcjhwcxuHobaugoPluOrqcEUTsXD31xfYENQYMn8SM5qJd3jZy5resB
+        GwYaRM5Px00Orseh3ntB8ars+05BiQa5SWycUScXfeJdsHJ7BqSgRINLwcpHrxjUHwfQzl1PQS0kZGdT
+        J3c9BbWQ8CrukYJaSHgV90hBLST8f+K14C/VHrMpmAsbzoENf5/94hu9oQ1RIsHSXAAAAABJRU5ErkJg
+        gg==
+</value>
+  </data>
+  <data name="redoButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAFNSURBVEhLxZSxbQJBEEXJCOiABiiAnBQJUYYLcEAR7gECSnDs1BU4dwkOnZ//w3fSzjHmZtZi
+        GekJzb8ZHuwdzLbP+4fghi1wwxa4YQvcMEvXdXPwrv2FG2bopS89YbkbZpBsJT4EFZa7YRbJNuITsyok
+        d8MaJEvJ3bAWycJyN/wPkoXkV4EHy2IRhNmduCk3zRgt8OlZfBPvSb7EUFdyIxrQ0LIf/hYUr7xRhmGX
+        ehWL0mGEwIA4Ma3iuA5iLfi9RimPGuly7DENaOjpMv77p7AeX59CO5wWt4ZypWAaDfFtuT8c0668FgGJ
+        mJSCaTTIkSJFbu7JFEhESAqm0TD3hjqX+RSaT0nBNFoYxKcyv4Vm01IwjZZqxQjDUjCNFtNi0DwPZVgK
+        ptFylbgG00j4cPGxzO+BaSTkQUGe/sfK4oYtcMMWuGEL3PD+7Gc/p8JNX0moCTEAAAAASUVORK5CYII=
+</value>
+  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAAAAAAAEAIABWrwAAFgAAAIlQTkcNChoKAAAADUlIRFIAAAEAAAABAAgGAAAAXHKoZgAAgABJ
