@@ -5,6 +5,7 @@
 #include "Sent.h"
 #include "Favourite.h"
 #include "Sending.h"
+#include "Profile.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -17,6 +18,7 @@ enum class FormType {
     Sent,
     Favourite,
     Sending,
+    Profile,
     Exit
 };
 
@@ -129,6 +131,21 @@ int main(cli::array<String^>^ args)
             if (sending->switchToMessage)
                 currentForm = FormType::Messages;
             else if (sending->switchToWelcome)
+                currentForm = FormType::Welcome;
+            else if(sending->switchToProfile)
+                currentForm = FormType::Profile;
+            else
+                currentForm = FormType::Exit;
+            break;
+        }
+
+        case FormType::Profile: {
+            GUI::Profile^ profile = gcnew GUI::Profile();
+            profile->ShowDialog();
+
+            if (profile->switchToSending)
+                currentForm = FormType::Sending;
+            else if (profile->switchToWelcome)
                 currentForm = FormType::Welcome;
             else
                 currentForm = FormType::Exit;

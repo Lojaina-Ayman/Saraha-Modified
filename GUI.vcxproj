@@ -127,6 +127,7 @@
     <ClCompile Include="Login.cpp" />
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="Messages.cpp" />
+    <ClCompile Include="Profile.cpp" />
     <ClCompile Include="Register.cpp" />
     <ClCompile Include="Sending.cpp" />
     <ClCompile Include="Sent.cpp" />
@@ -143,6 +144,9 @@
     </ClInclude>
     <ClInclude Include="Message.h" />
     <ClInclude Include="Messages.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="Profile.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Register.h">
@@ -169,6 +173,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Messages.resx">
       <DependentUpon>Messages.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profile.resx">
+      <DependentUpon>Profile.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Register.resx">
       <DependentUpon>Register.h</DependentUpon>

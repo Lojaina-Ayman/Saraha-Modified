@@ -43,6 +43,9 @@ namespace GUI {
 	private: System::Windows::Forms::Button^ button2;
 	private: System::Windows::Forms::TextBox^ textBox2;
 	private: System::Windows::Forms::Button^ button3;
+	private: System::Windows::Forms::Button^ viewProfile;
+
+
 	protected:
 
 	private:
@@ -67,6 +70,7 @@ namespace GUI {
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
 			this->button3 = (gcnew System::Windows::Forms::Button());
+			this->viewProfile = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -178,11 +182,26 @@ namespace GUI {
 			this->button3->UseVisualStyleBackColor = false;
 			this->button3->Click += gcnew System::EventHandler(this, &Sending::button3_Click);
 			// 
+			// viewProfile
+			// 
+			this->viewProfile->BackColor = System::Drawing::SystemColors::Desktop;
+			this->viewProfile->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->viewProfile->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->viewProfile->Location = System::Drawing::Point(400, 294);
+			this->viewProfile->Name = L"viewProfile";
+			this->viewProfile->Size = System::Drawing::Size(205, 51);
+			this->viewProfile->TabIndex = 10;
+			this->viewProfile->Text = L"View Profile";
+			this->viewProfile->UseVisualStyleBackColor = false;
+			this->viewProfile->Click += gcnew System::EventHandler(this, &Sending::viewProfile_Click);
+			// 
 			// Sending
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(982, 803);
+			this->Controls->Add(this->viewProfile);
 			this->Controls->Add(this->textBox2);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->pictureBox1);
@@ -232,6 +251,12 @@ namespace GUI {
 		search = textBox2->Text;
 	}
 	private: System::Void Sending_Load(System::Object^ sender, System::EventArgs^ e) {
+	}
+
+	public: bool switchToProfile = false;
+	private: System::Void viewProfile_Click(System::Object^ sender, System::EventArgs^ e) {
+		this->switchToProfile = true;
+		this->Close();
 	}
 };
 }

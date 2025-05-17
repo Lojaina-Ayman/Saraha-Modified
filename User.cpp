@@ -9,6 +9,9 @@ User::User() {
     username = "";
     pass = "";
     msgCount = 0;
+
+    // Testing
+
     favMsg.push(Message("Hello My name is youssef", 1, 2));
     favMsg.push(Message("Hello My name is Ahmed", 1, 2));
     favMsg.push(Message("Hello My name is Ali", 1, 2));

@@ -45,6 +45,9 @@
     <ClCompile Include="Message.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Profile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Welcome.h">
@@ -75,6 +78,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Message.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Profile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
