@@ -295,6 +295,8 @@ namespace GUI {
 			this->undoButton->Size = System::Drawing::Size(40, 40);
 			this->undoButton->TabIndex = 12;
 			this->undoButton->UseVisualStyleBackColor = false;
+			this->undoButton->Click += gcnew System::EventHandler(this, &Sent::undoButton_Click);
+
 			// 
 			// redoButton
 			// 
@@ -303,11 +305,14 @@ namespace GUI {
 			this->redoButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold));
 			this->redoButton->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
 			this->redoButton->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"redoButton.Image")));
+			this->redoButton->ForeColor = System::Drawing::Color::Blue;
 			this->redoButton->Location = System::Drawing::Point(915, 736);
 			this->redoButton->Name = L"redoButton";
 			this->redoButton->Size = System::Drawing::Size(40, 40);
 			this->redoButton->TabIndex = 13;
 			this->redoButton->UseVisualStyleBackColor = false;
+			this->redoButton->Click += gcnew System::EventHandler(this, &Sent::redoButton_Click);
+
 			// 
 			// Sent
 			// 
@@ -357,6 +362,14 @@ namespace GUI {
 	private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->switchToSending = true;
 		this->Close();
+	}
+
+	private: System::Void undoButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		currentUser->undo_msg();
+	}
+
+	private: System::Void redoButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		currentUser->redo_msg();
 	}
 
 	private: System::Void Messages_Load(System::Object^ sender, System::EventArgs^ e) {
