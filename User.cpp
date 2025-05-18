@@ -203,25 +203,25 @@ bool User::regist(string user, string pass) {
     // Register done
 }
 
-void User::viewMessagesFromContact(int contactId) {
-    auto contactIt = contacts.find(contactId);
-    if (contactIt == contacts.end()) {
+void User::viewMessagesFromContact(int id) {
+    auto it = contacts.find(id);
+    if (it == contacts.end()) {
         return;
         // Contact not found
     }
 
-    Contact& contact = contactIt->second;
+    Contact& contact = it->second;
     cout << "Messages with " << contact.getName() << ":\n";
 
-    bool messagesFound = false;
+    bool msgFound = false;
     for (const auto& msg : sentMsg) {
-        if (msg.getReceiver() == contactId) {
-            messagesFound = true;
+        if (msg.getReceiver() == id) {
+            msgFound = true;
             // View messages
         }
     }
 
-    if (!messagesFound) {
+    if (!msgFound) {
         // This contact has no messages
     }
 }
@@ -264,31 +264,18 @@ bool User::checkcontactcreationeligibility(int contactid) {
     return false;
 }
 
-bool User::searchcont(const Contact& a, const Contact& b) {
-    if (a.getMsgCount() != b.getMsgCount()) {
-        return a.getMsgCount() > b.getMsgCount(); // Sort by message count (descending)
+
+set<Contact, comparing> User::viewContSorted() {
+    set<Contact, comparing> sortedContacts;
+    for (const auto& it : contacts) {
+        const Contact& contact = it.second;
+        sortedContacts.insert(contact);
     }
-    return a.getName() < b.getName(); // Sort by name (ascending)
-}
-
-set<Contact, function<bool(const Contact&, const Contact&)>> User::viewContSorted() {
-    auto comparator = [](const Contact& a, const Contact& b) -> bool {
-        if (a.getMsgCount() != b.getMsgCount()) {
-            return a.getMsgCount() > b.getMsgCount(); // Sort by message count (descending)
-        }
-        return a.getName() < b.getName(); // Sort by name (ascending)
-        };
-
-    set<Contact, function<bool(const Contact&, const Contact&)>> sortedContacts(comparator);
-
-    for (const auto& entry : contacts) {
-        const Contact& contact = entry.second; // Access the Contact object
-        sortedContacts.insert(contact);       // Insert the Contact object into the set
-    }
-
+    //for (auto it : sortedContacts) {
+    //    cout << "Name: " << it.getName() << " Id: " << it.getContactId() << " Message Counter: " << it.getMsgCount() << endl;
+    //}
     return sortedContacts;
 }
-
 
 
 void User::serialize(ostream& os) const {
