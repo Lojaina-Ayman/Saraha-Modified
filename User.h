@@ -11,6 +11,23 @@
 #include <set>
 #include <functional>
 
+struct comparing {
+	bool operator()(const Contact& a, const Contact& b) const {
+
+		if (a.getMsgCount() > b.getMsgCount())
+			return true;
+		else if (a.getMsgCount() < b.getMsgCount())
+			return false;
+		else {
+			if (a.getName() < b.getName())
+				return true;
+			else
+				return false;
+		}
+	}
+};
+
+
 class User
 {
 public:
@@ -49,11 +66,7 @@ public:
 	void delete_msg(int);
 	void viewAllfavoriteMessages();
 	bool checkcontactcreationeligibility(int contactid);
-	// Comparator function
-	bool searchcont(const Contact& a, const Contact& b);
-
-	// Function to return sorted contacts
-	set<Contact, function<bool(const Contact&, const Contact&)>> viewContSorted();
+	set<Contact, comparing> viewContSorted();
 
 	void serialize(ostream& os) const;
 	void deserialize(istream& is);

@@ -264,28 +264,16 @@ bool User::checkcontactcreationeligibility(int contactid) {
     return false;
 }
 
-bool User::searchcont(const Contact& a, const Contact& b) {
-    if (a.getMsgCount() != b.getMsgCount()) {
-        return a.getMsgCount() > b.getMsgCount(); // Sort by message count (descending)
+
+set<Contact, comparing> User::viewContSorted() {
+    set<Contact, comparing> sortedContacts;
+    for (const auto& it : contacts) {
+        const Contact& contact = it.second;
+        sortedContacts.insert(contact);
     }
-    return a.getName() < b.getName(); // Sort by name (ascending)
-}
-
-set<Contact, function<bool(const Contact&, const Contact&)>> User::viewContSorted() {
-    auto comparator = [](const Contact& a, const Contact& b) -> bool {
-        if (a.getMsgCount() != b.getMsgCount()) {
-            return a.getMsgCount() > b.getMsgCount(); // Sort by message count (descending)
-        }
-        return a.getName() < b.getName(); // Sort by name (ascending)
-        };
-
-    set<Contact, function<bool(const Contact&, const Contact&)>> sortedContacts(comparator);
-
-    for (const auto& entry : contacts) {
-        const Contact& contact = entry.second; // Access the Contact object
-        sortedContacts.insert(contact);       // Insert the Contact object into the set
-    }
-
+    for (auto it : sortedContacts) {
+         cout << "Name: " << it.getName() << "  Id: " << it.getContactId() << "  Message Counter: " << it.getMsgCount() << endl;
+     }
     return sortedContacts;
 }
 
