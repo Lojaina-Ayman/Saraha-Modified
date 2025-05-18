@@ -369,5 +369,22 @@ namespace GUI {
 		}
 
 	}
+	public: bool reload = false;
+	private: System::Void undoaction(System::Object^ sender, System::EventArgs^ e) {
+		if (!currentUser->sentMsg.empty()) {
+			currentUser->undoMsgs.push(currentUser->sentMsg.back());
+			currentUser->sentMsg.pop_back();
+			reload = true;
+			this->Close();
+		}
+	}
+	private: System::Void redoaction(System::Object^ sender, System::EventArgs^ e) {
+		if (!currentUser->undoMsgs.empty()) {
+			currentUser->sentMsg.push_back(currentUser->undoMsgs.top());
+			currentUser->undoMsgs.pop();
+			reload = true;
+			this->Close();
+		}
+	}
 };
 }

@@ -102,6 +102,8 @@ int main(cli::array<String^>^ args)
                 currentForm = FormType::Sending;
             else if (sent->switchToWelcome)
                 currentForm = FormType::Welcome;
+            else if (sent->reload)
+            currentForm = FormType::Sent;
             else
                 currentForm = FormType::Exit;
             break;
