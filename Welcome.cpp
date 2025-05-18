@@ -23,7 +23,7 @@ enum class FormType {
 };
 
 [STAThread]
-int main(cli::array<String^>^ args) 
+int main(cli::array<String^>^ args)
 {
     Application::EnableVisualStyles();
     Application::SetCompatibleTextRenderingDefault(false);
@@ -103,7 +103,7 @@ int main(cli::array<String^>^ args)
             else if (sent->switchToWelcome)
                 currentForm = FormType::Welcome;
             else if (sent->reload)
-            currentForm = FormType::Sent;
+                currentForm = FormType::Sent;
             else
                 currentForm = FormType::Exit;
             break;
@@ -134,7 +134,7 @@ int main(cli::array<String^>^ args)
                 currentForm = FormType::Messages;
             else if (sending->switchToWelcome)
                 currentForm = FormType::Welcome;
-            else if(sending->switchToProfile)
+            else if (sending->switchToProfile)
                 currentForm = FormType::Profile;
             else
                 currentForm = FormType::Exit;
