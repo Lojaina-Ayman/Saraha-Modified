@@ -27,6 +27,7 @@ struct comparing {
 	}
 };
 
+
 class User
 {
 public:
@@ -65,8 +66,6 @@ public:
 	void delete_msg(int);
 	void viewAllfavoriteMessages();
 	bool checkcontactcreationeligibility(int contactid);
-
-	// Function to return sorted contacts
 	set<Contact, comparing> viewContSorted();
 
 	void serialize(ostream& os) const;

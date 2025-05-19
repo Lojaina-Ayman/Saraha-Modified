@@ -271,11 +271,12 @@ set<Contact, comparing> User::viewContSorted() {
         const Contact& contact = it.second;
         sortedContacts.insert(contact);
     }
-    //for (auto it : sortedContacts) {
-    //    cout << "Name: " << it.getName() << " Id: " << it.getContactId() << " Message Counter: " << it.getMsgCount() << endl;
-    //}
+    for (auto it : sortedContacts) {
+         cout << "Name: " << it.getName() << "  Id: " << it.getContactId() << "  Message Counter: " << it.getMsgCount() << endl;
+     }
     return sortedContacts;
 }
+
 
 
 void User::serialize(ostream& os) const {

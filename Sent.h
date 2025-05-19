@@ -19,7 +19,7 @@ namespace GUI {
 	public ref class Sent : public System::Windows::Forms::Form
 	{
 	public:
-		User* currentUser = new User();
+		static User* currentUser = new User();
 		Sent(void)
 		{
 			InitializeComponent();
@@ -49,7 +49,7 @@ namespace GUI {
 				senderPic->Size = System::Drawing::Size(40, 40);
 				senderPic->Location = System::Drawing::Point(10, 10);
 				senderPic->SizeMode = PictureBoxSizeMode::StretchImage;
-				senderPic->Image = System::Drawing::Image::FromFile("C:\\Users\\DELL\\Desktop\\Projects\\OregaCPP\\SarahaMod\\Images\\icon.png");
+				senderPic->Image = System::Drawing::Image::FromFile("Images\\icon.png");
 				senderPic->BorderStyle = BorderStyle::FixedSingle;
 
 
@@ -295,6 +295,8 @@ namespace GUI {
 			this->undoButton->Size = System::Drawing::Size(40, 40);
 			this->undoButton->TabIndex = 12;
 			this->undoButton->UseVisualStyleBackColor = false;
+			this->undoButton->Click += gcnew System::EventHandler(this, &Sent::undoButton_Click);
+
 			// 
 			// redoButton
 			// 
@@ -303,11 +305,14 @@ namespace GUI {
 			this->redoButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold));
 			this->redoButton->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
 			this->redoButton->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"redoButton.Image")));
+			this->redoButton->ForeColor = System::Drawing::Color::Blue;
 			this->redoButton->Location = System::Drawing::Point(915, 736);
 			this->redoButton->Name = L"redoButton";
 			this->redoButton->Size = System::Drawing::Size(40, 40);
 			this->redoButton->TabIndex = 13;
 			this->redoButton->UseVisualStyleBackColor = false;
+			this->redoButton->Click += gcnew System::EventHandler(this, &Sent::redoButton_Click);
+
 			// 
 			// Sent
 			// 
@@ -346,7 +351,7 @@ namespace GUI {
 		this->switchToMessage = true;
 		this->Close();
 	}
-	
+
 	public: bool switchToFav = false;
 	private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->switchToFav = true;
@@ -359,6 +364,14 @@ namespace GUI {
 		this->Close();
 	}
 
+	private: System::Void undoButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		currentUser->undo_msg();
+	}
+
+	private: System::Void redoButton_Click(System::Object^ sender, System::EventArgs^ e) {
+		currentUser->redo_msg();
+	}
+
 	private: System::Void Messages_Load(System::Object^ sender, System::EventArgs^ e) {
 		if (!currentUser->sentMsg.empty()) {
 			generatelabel1ages();
@@ -369,5 +382,22 @@ namespace GUI {
 		}
 
 	}
-};
+	public: bool reload = false;
+	private: System::Void undoaction(System::Object^ sender, System::EventArgs^ e) {
+		if (!currentUser->sentMsg.empty()) {
+			currentUser->undoMsgs.push(currentUser->sentMsg.back());
+			currentUser->sentMsg.pop_back();
+			reload = true;
+			this->Close();
+		}
+	}
+	private: System::Void redoaction(System::Object^ sender, System::EventArgs^ e) {
+		if (!currentUser->undoMsgs.empty()) {
+			currentUser->sentMsg.push_back(currentUser->undoMsgs.top());
+			currentUser->undoMsgs.pop();
+			reload = true;
+			this->Close();
+		}
+	}
+	};
 }

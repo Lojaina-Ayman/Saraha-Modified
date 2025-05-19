@@ -1,5 +1,9 @@
 #pragma once
-
+#include "User.h"
+#include <msclr/marshal_cppstd.h>
+#include <list>
+#include "Message.h"
+#include "Sent.h"
 namespace GUI {
 
 	using namespace System;
@@ -15,12 +19,15 @@ namespace GUI {
 	public ref class Sending : public System::Windows::Forms::Form
 	{
 	public:
+		//User* currentuser = new User();
 		Sending(void)
 		{
 			InitializeComponent();
 			//
+			// 
 			//TODO: Add the constructor code here
 			//
+			std::list<::Message> messageList;
 			this->CenterToScreen();
 		}
 
@@ -233,9 +240,31 @@ namespace GUI {
 		this->Close();
 	}
 
-	private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e) {
-		// Send
-	}
+	System::Void button4_Click(System::Object^ sender, System::EventArgs^ e) {
+    // Check if message is empty
+    if (String::IsNullOrWhiteSpace(textBox1->Text)) {
+        MessageBox::Show("Please enter a message before sending.", "Empty Message", 
+                         MessageBoxButtons::OK, MessageBoxIcon::Information);
+        return;
+    }
+ 
+    try {
+        // Convert and send the message
+        std::string mssg = msclr::interop::marshal_as<std::string>(textBox1->Text);
+        ::Message msssgOfClass(mssg, 1, 2);
+        Sent::currentUser->snd_msg(msssgOfClass);
+		MessageBox::Show("Message Sent Successfully!", "Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
+        // Clear the text box after successful send
+        textBox1->Clear();
+ 
+        // Optional: Set focus back to the text box for continued typing
+        textBox1->Focus();
+    }
+    catch (System::Exception^ ex) {
+        MessageBox::Show("Failed to send message: " + ex->Message, "Error", 
+                         MessageBoxButtons::OK, MessageBoxIcon::Error);
+    }
+}
 
 	private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
 		// Search
