@@ -45,6 +45,10 @@ User::User(int id, string user, string pass, vector<Contact> mycontacts,
     this->recMsg = recMsg;
 }
 
+int User::getId() {
+    return this->id;
+}
+
 void User::reci_msg(vector<string> msg) {
     cout << "Received Messages:\n";
     for (int i = msgCount; i < msg.size(); i++) {

@@ -42,13 +42,12 @@ public:
 	static unordered_map<string, User> users;
 
 
-
 	User();
 	User(int id, string user, string password, vector<Contact> mycontacts,
 		vector<Message> Sendmsg, queue<Message> favMsg,
 		list<Message> sentMsg, list<Message> recMsg);
 
-
+	int getId();
 	void favorites(vector<string> msg);
 	void addContacts(Contact contact);
 	void rmcontact(int contactid);

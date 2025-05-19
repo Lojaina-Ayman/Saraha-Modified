@@ -295,7 +295,7 @@ namespace GUI {
 			this->undoButton->Size = System::Drawing::Size(40, 40);
 			this->undoButton->TabIndex = 12;
 			this->undoButton->UseVisualStyleBackColor = false;
-			this->undoButton->Click += gcnew System::EventHandler(this, &Sent::undoButton_Click);
+			this->undoButton->Click += gcnew System::EventHandler(this, &Sent::undoaction);
 
 			// 
 			// redoButton
@@ -311,7 +311,7 @@ namespace GUI {
 			this->redoButton->Size = System::Drawing::Size(40, 40);
 			this->redoButton->TabIndex = 13;
 			this->redoButton->UseVisualStyleBackColor = false;
-			this->redoButton->Click += gcnew System::EventHandler(this, &Sent::redoButton_Click);
+			this->redoButton->Click += gcnew System::EventHandler(this, &Sent::redoaction);
 
 			// 
 			// Sent
