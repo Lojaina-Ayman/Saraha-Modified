@@ -113,6 +113,7 @@ namespace GUI {
 	private: System::Windows::Forms::Panel^ scrollable_transaction_panel;
 	private: System::Windows::Forms::Button^ deleteButton;
 	private: System::Windows::Forms::Button^ favButton;
+	private: System::Windows::Forms::Button^ button6;
 
 
 
@@ -135,6 +136,7 @@ namespace GUI {
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->scrollable_transaction_panel = (gcnew System::Windows::Forms::Panel());
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
@@ -142,9 +144,9 @@ namespace GUI {
 			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->button4 = (gcnew System::Windows::Forms::Button());
 			this->button5 = (gcnew System::Windows::Forms::Button());
-			this->scrollable_transaction_panel = (gcnew System::Windows::Forms::Panel());
 			this->deleteButton = (gcnew System::Windows::Forms::Button());
 			this->favButton = (gcnew System::Windows::Forms::Button());
+			this->button6 = (gcnew System::Windows::Forms::Button());
 			this->panel1->SuspendLayout();
 			this->panel2->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
@@ -192,6 +194,16 @@ namespace GUI {
 			this->panel1->Size = System::Drawing::Size(976, 679);
 			this->panel1->TabIndex = 4;
 			this->panel1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &Messages::panel1_Paint);
+			// 
+			// scrollable_transaction_panel
+			// 
+			this->scrollable_transaction_panel->AutoScroll = true;
+			this->scrollable_transaction_panel->BackColor = System::Drawing::Color::White;
+			this->scrollable_transaction_panel->Location = System::Drawing::Point(13, 24);
+			this->scrollable_transaction_panel->Name = L"scrollable_transaction_panel";
+			this->scrollable_transaction_panel->Size = System::Drawing::Size(950, 620);
+			this->scrollable_transaction_panel->TabIndex = 2;
+			this->scrollable_transaction_panel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &Messages::scrollable_transaction_panel_Paint);
 			// 
 			// panel2
 			// 
@@ -290,16 +302,6 @@ namespace GUI {
 			this->button5->UseVisualStyleBackColor = false;
 			this->button5->Click += gcnew System::EventHandler(this, &Messages::button5_Click);
 			// 
-			// scrollable_transaction_panel
-			// 
-			this->scrollable_transaction_panel->AutoScroll = true;
-			this->scrollable_transaction_panel->BackColor = System::Drawing::Color::White;
-			this->scrollable_transaction_panel->Location = System::Drawing::Point(13, 24);
-			this->scrollable_transaction_panel->Name = L"scrollable_transaction_panel";
-			this->scrollable_transaction_panel->Size = System::Drawing::Size(950, 620);
-			this->scrollable_transaction_panel->TabIndex = 2;
-			this->scrollable_transaction_panel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &Messages::scrollable_transaction_panel_Paint);
-			// 
 			// deleteButton
 			// 
 			this->deleteButton->BackColor = System::Drawing::Color::White;
@@ -328,11 +330,24 @@ namespace GUI {
 			this->favButton->UseVisualStyleBackColor = false;
 			this->favButton->Click += gcnew System::EventHandler(this, &Messages::favButton_Click);
 			// 
+			// button6
+			// 
+			this->button6->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->button6->Location = System::Drawing::Point(16, 752);
+			this->button6->Name = L"button6";
+			this->button6->Size = System::Drawing::Size(121, 39);
+			this->button6->TabIndex = 12;
+			this->button6->Text = L"Chat";
+			this->button6->UseVisualStyleBackColor = true;
+			this->button6->Click += gcnew System::EventHandler(this, &Messages::button6_Click);
+			// 
 			// Messages
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(982, 803);
+			this->Controls->Add(this->button6);
 			this->Controls->Add(this->favButton);
 			this->Controls->Add(this->deleteButton);
 			this->Controls->Add(this->panel1);
@@ -412,6 +427,12 @@ namespace GUI {
 
 	private: System::Void favButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		// Favourite
+	}
+
+	public: bool switchToChat = false;
+	private: System::Void button6_Click(System::Object^ sender, System::EventArgs^ e) {
+		this->switchToChat = true;
+		this->Close();
 	}
 };
 }

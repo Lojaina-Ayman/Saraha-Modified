@@ -6,6 +6,7 @@
 #include "Favourite.h"
 #include "Sending.h"
 #include "Profile.h"
+#include "Chat.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -19,6 +20,7 @@ enum class FormType {
     Favourite,
     Sending,
     Profile,
+    Chat,
     Exit
 };
 
@@ -85,6 +87,8 @@ int main(cli::array<String^>^ args)
                 currentForm = FormType::Sending;
             else if (msg->switchToWelcome)
                 currentForm = FormType::Welcome;
+            else if (msg->switchToChat)
+                currentForm = FormType::Chat;
             else
                 currentForm = FormType::Exit;
             break;
@@ -148,6 +152,19 @@ int main(cli::array<String^>^ args)
             if (profile->switchToSending)
                 currentForm = FormType::Sending;
             else if (profile->switchToWelcome)
+                currentForm = FormType::Welcome;
+            else
+                currentForm = FormType::Exit;
+            break;
+        }
+
+        case FormType::Chat: {
+            GUI::Chat^ chat = gcnew GUI::Chat();
+            chat->ShowDialog();
+
+            if (chat->switchToMessage)
+                currentForm = FormType::Messages;
+            else if (chat->switchToWelcome)
                 currentForm = FormType::Welcome;
             else
                 currentForm = FormType::Exit;
