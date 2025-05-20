@@ -216,8 +216,9 @@ namespace GUI {
 		this->Close();
 	}
 	public: bool switchToMessage = false;
-	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
+	
 
+	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (String::IsNullOrEmpty(textBox1->Text) || String::IsNullOrEmpty(textBox2->Text)) {
 			MessageBox::Show("Please enter both username and password.");
 			return;
@@ -225,14 +226,19 @@ namespace GUI {
 
 		std::string username = msclr::interop::marshal_as<std::string>(textBox1->Text);
 		std::string password = msclr::interop::marshal_as<std::string>(textBox2->Text);
+
+		// Load users from file before checking
+		User::loadAllUsers("users.dat");
+
 		auto it = User::users.find(username);
-
-
 		if (it == User::users.end()) {
 			User newUser;
 			newUser.username = username;
 			newUser.pass = password;
-			User::users.insert(make_pair(username, newUser));
+			User::users[username] = newUser;
+
+			// Save users to file after registration
+			User::saveAllUsers("users.dat");
 
 			switchToMessage = true;
 			Close();
@@ -241,6 +247,7 @@ namespace GUI {
 			MessageBox::Show("Username is already taken.");
 		}
 	}
+
 
 
 	public: System::String^ username;

@@ -1,10 +1,7 @@
 #pragma once
 #include <msclr/marshal_cppstd.h>
 #include "User.h"
-#include "Messages.h"
-
 namespace GUI {
-	User* currentUser;
 	using namespace System;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
@@ -19,6 +16,7 @@ namespace GUI {
 	public ref class Login : public System::Windows::Forms::Form
 	{
 	public:
+		static User* currentUser=new User();
 		Login(void)
 		{
 			InitializeComponent();
@@ -230,6 +228,8 @@ namespace GUI {
 		}
 
 		auto it = User::users.find(username);
+		// Before checking credentials
+		User::loadAllUsers("users.dat");
 		if ((it != User::users.end() && it->second.pass == password) ||
 			(username == "user" && password == "pass")) {
 			if (username != "user" && password != "pass") {

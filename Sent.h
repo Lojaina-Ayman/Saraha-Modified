@@ -3,6 +3,7 @@
 #include "Message.h"
 #include <msclr/marshal_cppstd.h>
 #include <vector>
+#include "Login.h"
 
 namespace GUI {
 
@@ -19,7 +20,7 @@ namespace GUI {
 	public ref class Sent : public System::Windows::Forms::Form
 	{
 	public:
-		static User* currentUser = new User();
+		
 		Sent(void)
 		{
 			InitializeComponent();
@@ -35,7 +36,7 @@ namespace GUI {
 			this->scrollable_transaction_panel->Controls->Clear();
 
 			int i = 0;
-			for (auto it : currentUser->sentMsg)
+			for (auto it :Login :: currentUser->sentMsg)
 			{
 
 				Panel^ panel = gcnew Panel();
@@ -194,6 +195,7 @@ namespace GUI {
 			this->scrollable_transaction_panel->Name = L"scrollable_transaction_panel";
 			this->scrollable_transaction_panel->Size = System::Drawing::Size(950, 620);
 			this->scrollable_transaction_panel->TabIndex = 3;
+			this->scrollable_transaction_panel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &Sent::scrollable_transaction_panel_Paint);
 			// 
 			// panel2
 			// 
@@ -296,23 +298,20 @@ namespace GUI {
 			this->undoButton->TabIndex = 12;
 			this->undoButton->UseVisualStyleBackColor = false;
 			this->undoButton->Click += gcnew System::EventHandler(this, &Sent::undoaction);
-
 			// 
 			// redoButton
 			// 
 			this->redoButton->BackColor = System::Drawing::Color::Black;
 			this->redoButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->redoButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold));
-			this->redoButton->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
-			this->redoButton->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"redoButton.Image")));
 			this->redoButton->ForeColor = System::Drawing::Color::Blue;
+			this->redoButton->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"redoButton.Image")));
 			this->redoButton->Location = System::Drawing::Point(915, 736);
 			this->redoButton->Name = L"redoButton";
 			this->redoButton->Size = System::Drawing::Size(40, 40);
 			this->redoButton->TabIndex = 13;
 			this->redoButton->UseVisualStyleBackColor = false;
 			this->redoButton->Click += gcnew System::EventHandler(this, &Sent::redoaction);
-
 			// 
 			// Sent
 			// 
@@ -327,6 +326,7 @@ namespace GUI {
 			this->Controls->Add(this->button5);
 			this->Controls->Add(this->button2);
 			this->Controls->Add(this->button1);
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"Sent";
 			this->Text = L"Sent";
@@ -365,15 +365,15 @@ namespace GUI {
 	}
 
 	private: System::Void undoButton_Click(System::Object^ sender, System::EventArgs^ e) {
-		currentUser->undo_msg();
+		Login::currentUser->undo_msg();
 	}
 
 	private: System::Void redoButton_Click(System::Object^ sender, System::EventArgs^ e) {
-		currentUser->redo_msg();
+		Login::currentUser->redo_msg();
 	}
 
 	private: System::Void Messages_Load(System::Object^ sender, System::EventArgs^ e) {
-		if (!currentUser->sentMsg.empty()) {
+		if (!Login::currentUser->sentMsg.empty()) {
 			generatelabel1ages();
 		}
 		else
@@ -384,20 +384,22 @@ namespace GUI {
 	}
 	public: bool reload = false;
 	private: System::Void undoaction(System::Object^ sender, System::EventArgs^ e) {
-		if (!currentUser->sentMsg.empty()) {
-			currentUser->undoMsgs.push(currentUser->sentMsg.back());
-			currentUser->sentMsg.pop_back();
+		if (!Login::currentUser->sentMsg.empty()) {
+			Login::currentUser->undoMsgs.push(Login::currentUser->sentMsg.back());
+			Login::currentUser->sentMsg.pop_back();
 			reload = true;
 			this->Close();
 		}
 	}
 	private: System::Void redoaction(System::Object^ sender, System::EventArgs^ e) {
-		if (!currentUser->undoMsgs.empty()) {
-			currentUser->sentMsg.push_back(currentUser->undoMsgs.top());
-			currentUser->undoMsgs.pop();
+		if (!Login::currentUser->undoMsgs.empty()) {
+			Login::currentUser->sentMsg.push_back(Login::currentUser->undoMsgs.top());
+			Login::currentUser->undoMsgs.pop();
 			reload = true;
 			this->Close();
 		}
 	}
-	};
+	private: System::Void scrollable_transaction_panel_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+	}
+};
 }

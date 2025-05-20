@@ -15,6 +15,7 @@ namespace GUI {
 	public ref class Welcome : public System::Windows::Forms::Form
 	{
 	public:
+		
 		Welcome(void)
 		{
 			InitializeComponent();
@@ -188,7 +189,7 @@ namespace GUI {
 	private: System::Void splitContainer1_Panel2_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 	}
 	private: System::Void Welcome_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
-
+		
 		User::saveAllUsers("users.dat");
 	}
 

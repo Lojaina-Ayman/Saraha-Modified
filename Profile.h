@@ -1,5 +1,7 @@
 #pragma once
 #include "User.h"
+#include"Sending.h"
+#include "Login.h"
 #include "Message.h"
 #include <msclr/marshal_cppstd.h>
 #include <vector>
@@ -19,7 +21,6 @@ namespace GUI {
 	public ref class Profile : public System::Windows::Forms::Form
 	{
 	public:
-		User* currentUser = new User();
 		Profile(void)
 		{
 			InitializeComponent();
@@ -28,12 +29,35 @@ namespace GUI {
 			//
 			this->CenterToScreen();
 
-			this->usernameLabel->Text = msclr::interop::marshal_as<System::String^>(currentUser->username);
-			this->IDLabel->Text = currentUser->id.ToString();
-			this->sentCountLabel->Text = currentUser->msgCount.ToString();
-			// this->recCountLabel->Text = currentUser->recMsgCount.ToString();
+			this->usernameLabel->Text = msclr::interop::marshal_as<System::String^>(Login::currentUser->username);
+			this->IDLabel->Text = Login::currentUser->id.ToString();
+			this->sentCountLabel->Text = Login::currentUser->sentMsg.size().ToString();
+			this->recCountLabel->Text = Login::currentUser->recMsg.size().ToString();
 		}
+		void generatelabel1ages()
+		{
+			this->scrollable_transaction_panel->Controls->Clear();
 
+			int i = 0;
+			for (auto it :Login:: currentUser->contacts)
+			{
+				Panel^ panel = gcnew Panel();
+				panel->Size = System::Drawing::Size(680, 118);
+				panel->BackColor = System::Drawing::SystemColors::ControlLight;
+				panel->Location = System::Drawing::Point(0, (i * 135));
+
+			
+				Label^ ContactNameLabel = gcnew Label();
+				ContactNameLabel->Text = msclr::interop::marshal_as<System::String^>(it.second.contactName);
+				ContactNameLabel->Location = System::Drawing::Point(60, 10);
+				ContactNameLabel->AutoSize = true;
+				ContactNameLabel->Font = gcnew System::Drawing::Font("Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold);
+				ContactNameLabel->Tag = panel;
+				panel->Controls->Add(ContactNameLabel);
+				this->scrollable_transaction_panel->Controls->Add(panel);
+				i++;
+			}
+		}
 	protected:
 		/// <summary>
 		/// Clean up any resources being used.
@@ -285,6 +309,7 @@ namespace GUI {
 			this->scrollable_transaction_panel->Name = L"scrollable_transaction_panel";
 			this->scrollable_transaction_panel->Size = System::Drawing::Size(950, 606);
 			this->scrollable_transaction_panel->TabIndex = 11;
+			this->scrollable_transaction_panel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &Profile::scrollable_transaction_panel_Paint);
 			// 
 			// pictureBox3
 			// 
@@ -319,9 +344,11 @@ namespace GUI {
 			this->Controls->Add(this->button2);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->panel1);
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"Profile";
 			this->Text = L"Profile";
+			this->Load += gcnew System::EventHandler(this, &Profile::Profile_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->panel1->ResumeLayout(false);
 			this->panel1->PerformLayout();
@@ -345,5 +372,10 @@ namespace GUI {
 		this->switchToWelcome = true;
 		this->Close();
 	}
+private: System::Void scrollable_transaction_panel_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+}
+private: System::Void Profile_Load(System::Object^ sender, System::EventArgs^ e) {
+	generatelabel1ages();
+}
 };
 }

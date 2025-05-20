@@ -12,12 +12,14 @@ User::User() {
 
     // Testing
 
+    recMsg.push_back(Message("AHlan", 22, 33));
     favMsg.push(Message("Hello My name is youssef", 1, 2));
     favMsg.push(Message("Hello My name is Ahmed", 1, 2));
     favMsg.push(Message("Hello My name is Ali", 1, 2));
     favMsg.push(Message("Hello My name is Aya", 1, 2));
     favMsg.push(Message("Hello My name is Hamdy", 1, 2));
-    //recMsg.push_back(Message("HELLOOOO", 22, 33));
+    recMsg.push_back(Message("HELLOOOO", 22, 0));
+    recMsg.push_back(Message("HELLOOOO", 22, 0));
     sentMsg.push_back(Message("To hell with Archi", 1, 2));
 }
 
@@ -44,11 +46,9 @@ User::User(int id, string user, string pass, vector<Contact> mycontacts,
     this->sentMsg = sentMsg;
     this->recMsg = recMsg;
 }
-
 int User::getId() {
     return this->id;
 }
-
 void User::reci_msg(vector<string> msg) {
     cout << "Received Messages:\n";
     for (int i = msgCount; i < msg.size(); i++) {
@@ -111,24 +111,18 @@ void User::deleteMessageById(int messageId) {
     }
 }
 
-void User::searchContact(int contactId) const {
+bool User::searchContact(int contactId) const {
     auto it = contacts.find(contactId);
     if (it != contacts.end()) {
-        cout << "Contact Found: " << it->second.getName() << endl;
+        return true;
     }
     else {
-        cout << "Contact NOT FOUND." << endl;
+        return false;
     }
+
 }
 
-void User::addContacts(Contact contact) {
-    if (checkcontactcreationeligibility(contact.getContactId()))
-    {
-        contacts.emplace(contact.getContactId(), contact);
-    }
-    else
-        cout << "No Message history between " << username << " and " << contact.getContactId() << "; cannot add contact" << endl;// we can't use names yet
-}
+
 
 void User::rmcontact(int contactId) {
     auto it = contacts.find(contactId);
@@ -276,8 +270,8 @@ set<Contact, comparing> User::viewContSorted() {
         sortedContacts.insert(contact);
     }
     for (auto it : sortedContacts) {
-         cout << "Name: " << it.getName() << "  Id: " << it.getContactId() << "  Message Counter: " << it.getMsgCount() << endl;
-     }
+        cout << "Name: " << it.getName() << "  Id: " << it.getContactId() << "  Message Counter: " << it.getMsgCount() << endl;
+    }
     return sortedContacts;
 }
 
@@ -458,7 +452,7 @@ void User::loadAllUsers(const string& filename) {
     }
     ifs.ignore(); // Skip newline
 
-    
+
     for (size_t i = 0; i < userCount; ++i) {
         User usr;
         usr.deserialize(ifs);

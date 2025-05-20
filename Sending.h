@@ -4,6 +4,7 @@
 #include <list>
 #include "Message.h"
 #include "Sent.h"
+#include "Login.h"
 namespace GUI {
 
 	using namespace System;
@@ -217,6 +218,7 @@ namespace GUI {
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->button3);
 			this->Controls->Add(this->button4);
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"Sending";
 			this->Text = L"Sending";
@@ -251,8 +253,9 @@ namespace GUI {
     try {
         // Convert and send the message
         std::string mssg = msclr::interop::marshal_as<std::string>(textBox1->Text);
-        ::Message msssgOfClass(mssg, Sent::currentUser->getId(), r_id);
-        Sent::currentUser->snd_msg(msssgOfClass);
+        ::Message msssgOfClass(mssg, Login::currentUser->getId(), r_id);
+		Login::currentUser->snd_msg(msssgOfClass);
+		User::saveAllUsers("users.dat");
 		MessageBox::Show("Message Sent Successfully!", "Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
         // Clear the text box after successful send
         textBox1->Clear();

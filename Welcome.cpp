@@ -67,7 +67,7 @@ int main(cli::array<String^>^ args)
             reg->ShowDialog();
 
             if (reg->switchToMessage)
-                currentForm = FormType::Messages;
+                currentForm = FormType::Login;
             else if (reg->switchToWelcome)
                 currentForm = FormType::Welcome;
             else
