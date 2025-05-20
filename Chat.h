@@ -1,4 +1,8 @@
 #pragma once
+#include "User.h"
+#include "Message.h"
+#include <msclr/marshal_cppstd.h>
+#include <vector>
 
 namespace GUI {
 
@@ -15,6 +19,7 @@ namespace GUI {
 	public ref class Chat : public System::Windows::Forms::Form
 	{
 	public:
+		User* currentUser = new User();
 		Chat(void)
 		{
 			InitializeComponent();
@@ -41,6 +46,8 @@ namespace GUI {
 	private: System::Windows::Forms::Panel^ panel1;
 	private: System::Windows::Forms::Label^ label4;
 	private: System::Windows::Forms::Panel^ scrollable_transaction_panel;
+	private: System::Windows::Forms::Label^ otherUserLabel;
+
 
 	private:
 		/// <summary>
@@ -59,6 +66,7 @@ namespace GUI {
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->otherUserLabel = (gcnew System::Windows::Forms::Label());
 			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->scrollable_transaction_panel = (gcnew System::Windows::Forms::Panel());
 			this->panel1->SuspendLayout();
@@ -95,22 +103,36 @@ namespace GUI {
 			// panel1
 			// 
 			this->panel1->BackColor = System::Drawing::SystemColors::HotTrack;
+			this->panel1->Controls->Add(this->otherUserLabel);
 			this->panel1->Controls->Add(this->label4);
 			this->panel1->Location = System::Drawing::Point(51, 3);
 			this->panel1->Name = L"panel1";
 			this->panel1->Size = System::Drawing::Size(929, 90);
 			this->panel1->TabIndex = 11;
 			// 
+			// otherUserLabel
+			// 
+			this->otherUserLabel->AutoSize = true;
+			this->otherUserLabel->BackColor = System::Drawing::SystemColors::HotTrack;
+			this->otherUserLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->otherUserLabel->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->otherUserLabel->Location = System::Drawing::Point(538, 20);
+			this->otherUserLabel->Name = L"otherUserLabel";
+			this->otherUserLabel->Size = System::Drawing::Size(207, 46);
+			this->otherUserLabel->TabIndex = 9;
+			this->otherUserLabel->Text = L"Other user";
+			// 
 			// label4
 			// 
 			this->label4->AutoSize = true;
 			this->label4->BackColor = System::Drawing::SystemColors::HotTrack;
-			this->label4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->label4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 24, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label4->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
 			this->label4->Location = System::Drawing::Point(0, 20);
 			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(539, 46);
+			this->label4->Size = System::Drawing::Size(515, 46);
 			this->label4->TabIndex = 9;
 			this->label4->Text = L"Messages between you and";
 			// 

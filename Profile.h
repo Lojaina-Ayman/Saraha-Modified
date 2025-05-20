@@ -1,4 +1,8 @@
 #pragma once
+#include "User.h"
+#include "Message.h"
+#include <msclr/marshal_cppstd.h>
+#include <vector>
 
 namespace GUI {
 
@@ -15,6 +19,7 @@ namespace GUI {
 	public ref class Profile : public System::Windows::Forms::Form
 	{
 	public:
+		User* currentUser = new User();
 		Profile(void)
 		{
 			InitializeComponent();
@@ -22,6 +27,11 @@ namespace GUI {
 			//TODO: Add the constructor code here
 			//
 			this->CenterToScreen();
+
+			this->usernameLabel->Text = msclr::interop::marshal_as<System::String^>(currentUser->username);
+			this->IDLabel->Text = currentUser->id.ToString();
+			this->sentCountLabel->Text = currentUser->msgCount.ToString();
+			// this->recCountLabel->Text = currentUser->recMsgCount.ToString();
 		}
 
 	protected:
@@ -48,6 +58,14 @@ namespace GUI {
 	private: System::Windows::Forms::Panel^ scrollable_transaction_panel;
 	private: System::Windows::Forms::PictureBox^ pictureBox3;
 	private: System::Windows::Forms::Label^ label5;
+	private: System::Windows::Forms::Label^ usernameLabel;
+	private: System::Windows::Forms::Label^ IDLabel;
+	private: System::Windows::Forms::Label^ recCountLabel;
+	private: System::Windows::Forms::Label^ sentCountLabel;
+
+
+
+
 
 	private:
 		/// <summary>
@@ -72,6 +90,10 @@ namespace GUI {
 			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
+			this->recCountLabel = (gcnew System::Windows::Forms::Label());
+			this->sentCountLabel = (gcnew System::Windows::Forms::Label());
+			this->IDLabel = (gcnew System::Windows::Forms::Label());
+			this->usernameLabel = (gcnew System::Windows::Forms::Label());
 			this->scrollable_transaction_panel = (gcnew System::Windows::Forms::Panel());
 			this->pictureBox3 = (gcnew System::Windows::Forms::PictureBox());
 			this->label5 = (gcnew System::Windows::Forms::Label());
@@ -130,9 +152,9 @@ namespace GUI {
 			this->label1->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
 			this->label1->Location = System::Drawing::Point(206, 15);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(152, 32);
+			this->label1->Size = System::Drawing::Size(161, 32);
 			this->label1->TabIndex = 9;
-			this->label1->Text = L"Username";
+			this->label1->Text = L"Username:";
 			// 
 			// label2
 			// 
@@ -143,9 +165,9 @@ namespace GUI {
 			this->label2->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
 			this->label2->Location = System::Drawing::Point(206, 54);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(43, 32);
+			this->label2->Size = System::Drawing::Size(52, 32);
 			this->label2->TabIndex = 9;
-			this->label2->Text = L"ID";
+			this->label2->Text = L"ID:";
 			// 
 			// label3
 			// 
@@ -156,9 +178,9 @@ namespace GUI {
 			this->label3->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
 			this->label3->Location = System::Drawing::Point(206, 94);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(222, 32);
+			this->label3->Size = System::Drawing::Size(231, 32);
 			this->label3->TabIndex = 9;
-			this->label3->Text = L"Messages Sent";
+			this->label3->Text = L"Messages Sent:";
 			// 
 			// label4
 			// 
@@ -169,9 +191,9 @@ namespace GUI {
 			this->label4->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
 			this->label4->Location = System::Drawing::Point(206, 133);
 			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(286, 32);
+			this->label4->Size = System::Drawing::Size(295, 32);
 			this->label4->TabIndex = 9;
-			this->label4->Text = L"Messages Received";
+			this->label4->Text = L"Messages Received:";
 			// 
 			// panel1
 			// 
@@ -181,6 +203,10 @@ namespace GUI {
 			this->panel1->Controls->Add(this->label2);
 			this->panel1->Controls->Add(this->pictureBox1);
 			this->panel1->Controls->Add(this->label3);
+			this->panel1->Controls->Add(this->recCountLabel);
+			this->panel1->Controls->Add(this->sentCountLabel);
+			this->panel1->Controls->Add(this->IDLabel);
+			this->panel1->Controls->Add(this->usernameLabel);
 			this->panel1->Controls->Add(this->label1);
 			this->panel1->Location = System::Drawing::Point(96, 3);
 			this->panel1->Name = L"panel1";
@@ -196,6 +222,58 @@ namespace GUI {
 			this->pictureBox2->SizeMode = System::Windows::Forms::PictureBoxSizeMode::CenterImage;
 			this->pictureBox2->TabIndex = 9;
 			this->pictureBox2->TabStop = false;
+			// 
+			// recCountLabel
+			// 
+			this->recCountLabel->AutoSize = true;
+			this->recCountLabel->BackColor = System::Drawing::SystemColors::HotTrack;
+			this->recCountLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->recCountLabel->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->recCountLabel->Location = System::Drawing::Point(505, 133);
+			this->recCountLabel->Name = L"recCountLabel";
+			this->recCountLabel->Size = System::Drawing::Size(114, 32);
+			this->recCountLabel->TabIndex = 9;
+			this->recCountLabel->Text = L"Number";
+			// 
+			// sentCountLabel
+			// 
+			this->sentCountLabel->AutoSize = true;
+			this->sentCountLabel->BackColor = System::Drawing::SystemColors::HotTrack;
+			this->sentCountLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->sentCountLabel->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->sentCountLabel->Location = System::Drawing::Point(441, 94);
+			this->sentCountLabel->Name = L"sentCountLabel";
+			this->sentCountLabel->Size = System::Drawing::Size(114, 32);
+			this->sentCountLabel->TabIndex = 9;
+			this->sentCountLabel->Text = L"Number";
+			// 
+			// IDLabel
+			// 
+			this->IDLabel->AutoSize = true;
+			this->IDLabel->BackColor = System::Drawing::SystemColors::HotTrack;
+			this->IDLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->IDLabel->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->IDLabel->Location = System::Drawing::Point(255, 54);
+			this->IDLabel->Name = L"IDLabel";
+			this->IDLabel->Size = System::Drawing::Size(41, 32);
+			this->IDLabel->TabIndex = 9;
+			this->IDLabel->Text = L"ID";
+			// 
+			// usernameLabel
+			// 
+			this->usernameLabel->AutoSize = true;
+			this->usernameLabel->BackColor = System::Drawing::SystemColors::HotTrack;
+			this->usernameLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->usernameLabel->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
+			this->usernameLabel->Location = System::Drawing::Point(360, 15);
+			this->usernameLabel->Name = L"usernameLabel";
+			this->usernameLabel->Size = System::Drawing::Size(144, 32);
+			this->usernameLabel->TabIndex = 9;
+			this->usernameLabel->Text = L"Username";
 			// 
 			// scrollable_transaction_panel
 			// 

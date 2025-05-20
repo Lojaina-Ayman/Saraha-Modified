@@ -52,11 +52,9 @@ namespace GUI {
 				senderPic->Size = System::Drawing::Size(40, 40);
 				senderPic->Location = System::Drawing::Point(10, 10);
 				senderPic->SizeMode = PictureBoxSizeMode::StretchImage;
-				String^ imagePath = System::IO::Path::Combine(Application::StartupPath, "Images", "icon.png");
-				imagePath = imagePath->Replace("/", "\\\\");
-				senderPic->Image = System::Drawing::Image::FromFile("C:\\Users\\DELL\\Desktop\\Projects\\OregaCPP\\SarahaMod\\Images\\icon.png");
+				senderPic->Image = System::Drawing::Image::FromFile("Images\\icon.png");
 				senderPic->BorderStyle = BorderStyle::FixedSingle;
-				// "C:\\Users\\DELL\\Desktop\\Projects\\OregaCPP\\SarahaMod\\Images\\icon.png"
+
 
 				Label^ senderIdLabel = gcnew Label();
 				senderIdLabel->Text = it.getSenderId().ToString();
