@@ -182,8 +182,8 @@ namespace GUI {
 			this->button3->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button3.Image")));
 			this->button3->ImageAlign = System::Drawing::ContentAlignment::MiddleRight;
 			this->button3->Location = System::Drawing::Point(676, 227);
-			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(176, 46);
+			this->button3->Name = L"Set Receiver";
+			this->button3->Size = System::Drawing::Size(250, 46);
 			this->button3->TabIndex = 4;
 			this->button3->Text = L"Search";
 			this->button3->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
@@ -270,8 +270,17 @@ namespace GUI {
 }
 
 	private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
-		r_id = System::Convert::ToInt32(textBox2->Text);
+	if (String::IsNullOrWhiteSpace(textBox2->Text)) {
+		MessageBox::Show("Please enter a user ID", "Empty ID",
+			MessageBoxButtons::OK, MessageBoxIcon::Information);
+		return;
 	}
+	else {
+		r_id = System::Convert::ToInt32(textBox2->Text);
+		MessageBox::Show("Receiver id: " + r_id, "Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
+
+	}
+}
 
 	public: System::String^ msg;
 	private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e) {
