@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include "Contact.h"
+#include "Message.h"
 #include <unordered_map>
 #include <queue>
 #include <stack>

@@ -5,6 +5,7 @@
 #include "Message.h"
 #include "Sent.h"
 #include "Login.h"
+
 namespace GUI {
 
 	using namespace System;
@@ -30,6 +31,7 @@ namespace GUI {
 			//
 			std::list<::Message> messageList;
 			this->CenterToScreen();
+			//this->label1->Text = msclr::interop::marshal_as<System::String^>(Login::currentUser->username);
 		}
 
 	protected:

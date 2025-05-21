@@ -389,7 +389,7 @@ private: System::Void Favourite_Load(System::Object^ sender, System::EventArgs^ 
 	{
 		FavStar->Show();
 		FavMess->Show();
-	
+		scrollable_panel->Hide();
 	}
 
 }

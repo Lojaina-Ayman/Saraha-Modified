@@ -48,6 +48,7 @@ namespace GUI {
 				PictureBox^ senderPic = gcnew PictureBox();
 				senderPic->Size = System::Drawing::Size(40, 40);
 				senderPic->Location = System::Drawing::Point(10, 10);
+				senderPic->Image = System::Drawing::Image::FromFile("Images\\icon.png");
 				senderPic->SizeMode = PictureBoxSizeMode::StretchImage;
 				senderPic->BorderStyle = BorderStyle::FixedSingle;
 
@@ -108,7 +109,7 @@ namespace GUI {
 				buttonB->Name = senderIdLabel->Text + "|" + FavContent->Text + "|" + Timelabel->Text;
 				buttonB->Text = "";
 				buttonB->Size = System::Drawing::Size(40, 40);
-				buttonB->Location = System::Drawing::Point(210, 80);
+				buttonB->Location = System::Drawing::Point(180, 80);
 				buttonB->Tag = it.messageid; 
 				buttonB->Click += gcnew System::EventHandler(this, &Messages::favButton_Click);
 
@@ -144,14 +145,6 @@ namespace GUI {
 				i++;
 			}
 		}
-
-
-
-
-
-
-
-
 
 
 	protected:
