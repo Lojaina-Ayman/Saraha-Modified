@@ -301,6 +301,7 @@ namespace GUI {
 			// 
 			this->scrollable_panel->AutoScroll = true;
 			this->scrollable_panel->BackColor = System::Drawing::Color::White;
+			this->scrollable_panel->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"scrollable_panel.BackgroundImage")));
 			this->scrollable_panel->Location = System::Drawing::Point(10, 50);
 			this->scrollable_panel->Name = L"scrollable_panel";
 			this->scrollable_panel->Size = System::Drawing::Size(950, 620);

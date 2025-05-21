@@ -92,6 +92,7 @@ namespace GUI {
 			// 
 			// splitContainer1.Panel2
 			// 
+			this->splitContainer1->Panel2->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"splitContainer1.Panel2.BackgroundImage")));
 			this->splitContainer1->Panel2->Controls->Add(this->button2);
 			this->splitContainer1->Panel2->Controls->Add(this->button1);
 			this->splitContainer1->Panel2->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &Welcome::splitContainer1_Panel2_Paint);

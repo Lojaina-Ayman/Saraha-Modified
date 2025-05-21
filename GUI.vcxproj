@@ -122,7 +122,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Chat.cpp" />
     <ClCompile Include="Contact.cpp" />
     <ClCompile Include="Favourite.cpp" />
     <ClCompile Include="Login.cpp" />
@@ -136,9 +135,6 @@
     <ClCompile Include="Welcome.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Chat.h">
-      <FileType>CppForm</FileType>
-    </ClInclude>
     <ClInclude Include="Contact.h" />
     <ClInclude Include="Favourite.h">
       <FileType>CppForm</FileType>
@@ -168,9 +164,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Chat.resx">
-      <DependentUpon>Chat.h</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Favourite.resx">
       <DependentUpon>Favourite.h</DependentUpon>
       <SubType>Designer</SubType>

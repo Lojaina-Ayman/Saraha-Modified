@@ -303,6 +303,7 @@ namespace GUI {
 			// 
 			this->scrollable_transaction_panel->AutoScroll = true;
 			this->scrollable_transaction_panel->BackColor = System::Drawing::Color::White;
+			this->scrollable_transaction_panel->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"scrollable_transaction_panel.BackgroundImage")));
 			this->scrollable_transaction_panel->Controls->Add(this->pictureBox3);
 			this->scrollable_transaction_panel->Controls->Add(this->label5);
 			this->scrollable_transaction_panel->Location = System::Drawing::Point(17, 185);

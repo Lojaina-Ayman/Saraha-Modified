@@ -91,6 +91,7 @@ namespace GUI {
 			// 
 			// splitContainer1.Panel2
 			// 
+			this->splitContainer1->Panel2->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"splitContainer1.Panel2.BackgroundImage")));
 			this->splitContainer1->Panel2->Controls->Add(this->button2);
 			this->splitContainer1->Panel2->Controls->Add(this->textBox2);
 			this->splitContainer1->Panel2->Controls->Add(this->label2);
@@ -159,9 +160,11 @@ namespace GUI {
 			// label2
 			// 
 			this->label2->AutoSize = true;
+			this->label2->BackColor = System::Drawing::SystemColors::Desktop;
 			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label2->Location = System::Drawing::Point(12, 150);
+			this->label2->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->label2->Location = System::Drawing::Point(9, 150);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(144, 32);
 			this->label2->TabIndex = 4;
@@ -180,8 +183,10 @@ namespace GUI {
 			// label3
 			// 
 			this->label3->AutoSize = true;
+			this->label3->BackColor = System::Drawing::SystemColors::Desktop;
 			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
+			this->label3->ForeColor = System::Drawing::SystemColors::ControlLightLight;
 			this->label3->Location = System::Drawing::Point(12, 293);
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(138, 32);

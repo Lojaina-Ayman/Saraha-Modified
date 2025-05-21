@@ -182,7 +182,7 @@ namespace GUI {
 			this->button3->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button3.Image")));
 			this->button3->ImageAlign = System::Drawing::ContentAlignment::MiddleRight;
 			this->button3->Location = System::Drawing::Point(676, 227);
-			this->button3->Name = L"Set Receiver";
+			this->button3->Name = L"button3";
 			this->button3->Size = System::Drawing::Size(250, 46);
 			this->button3->TabIndex = 4;
 			this->button3->Text = L"Search";
@@ -208,6 +208,7 @@ namespace GUI {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->ClientSize = System::Drawing::Size(982, 803);
 			this->Controls->Add(this->viewProfile);
 			this->Controls->Add(this->textBox2);

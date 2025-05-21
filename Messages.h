@@ -1,6 +1,6 @@
 #pragma once
 #include "User.h"
-#include"Login.h"
+#include "Login.h"
 #include "Message.h"
 #include <msclr/marshal_cppstd.h>
 #include <vector>
@@ -92,13 +92,13 @@ namespace GUI {
 				Button^ buttonA = gcnew Button();
 				buttonA->Name = it.messageid.ToString();
 				buttonA->Text = "";
-				buttonA->Size = System::Drawing::Size(80, 30);
+				buttonA->Size = System::Drawing::Size(40, 40);
 				buttonA->Location = System::Drawing::Point(120, 80);
 				buttonA->Tag = panel; 
 				buttonA->Click += gcnew System::EventHandler(this, &Messages::deleteButton_Click);
 
 				// Set image for the Delete button
-				buttonA->Image = System::Drawing::Image::FromFile("C:\\Users\\20102\\source\\repos\\Saraha-Modifiedss\\Images\\delete icon.png");
+				buttonA->Image = System::Drawing::Image::FromFile("Images\\delete icon.png");
 				buttonA->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
 				panel->Controls->Add(buttonA);
 
@@ -107,13 +107,13 @@ namespace GUI {
 				Button^ buttonB = gcnew Button();
 				buttonB->Name = senderIdLabel->Text + "|" + FavContent->Text + "|" + Timelabel->Text;
 				buttonB->Text = "";
-				buttonB->Size = System::Drawing::Size(80, 30);
+				buttonB->Size = System::Drawing::Size(40, 40);
 				buttonB->Location = System::Drawing::Point(210, 80);
 				buttonB->Tag = it.messageid; 
 				buttonB->Click += gcnew System::EventHandler(this, &Messages::favButton_Click);
 
 				// Set image for the Favorite button
-				//buttonB->Image = System::Drawing::Image::FromFile("C:\\Users\\20102\\source\\repos\\Saraha-Modi\\Images\\icons_star_30px.png");
+				buttonB->Image = System::Drawing::Image::FromFile("Images\\icons_star_30px.png");
 				buttonB->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft; 
 
 				panel->Controls->Add(buttonB);
@@ -132,7 +132,7 @@ namespace GUI {
 					RemoveContactButton->Size = System::Drawing::Size(40, 40);
 					RemoveContactButton->Location = System::Drawing::Point(panel->Width - RemoveContactButton->Width - 10, panel->Height - RemoveContactButton->Height - 10);
 					RemoveContactButton->Anchor = static_cast<AnchorStyles>(AnchorStyles::Bottom | AnchorStyles::Right);
-					//RemoveContactButton->Image = System::Drawing::Image::FromFile("C:\\Users\\20102\\source\\repos\\Saraha-Modi\\Images\\3 dots icon.jpg");
+					RemoveContactButton->Image = System::Drawing::Image::FromFile("Images\\3_dots_icon.png");
 					RemoveContactButton->ImageAlign = System::Drawing::ContentAlignment::MiddleCenter;
 					RemoveContactButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 					RemoveContactButton->Tag = gcnew Tuple<int, Panel^>(senderId, panel);
@@ -178,7 +178,7 @@ namespace GUI {
 	private: System::Windows::Forms::Panel^ scrollable_panel;
 
 
-	private: System::Windows::Forms::Button^ button6;
+
 
 
 
@@ -209,7 +209,6 @@ namespace GUI {
 			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->button4 = (gcnew System::Windows::Forms::Button());
 			this->button5 = (gcnew System::Windows::Forms::Button());
-			this->button6 = (gcnew System::Windows::Forms::Button());
 			this->panel1->SuspendLayout();
 			this->panel2->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
@@ -239,9 +238,9 @@ namespace GUI {
 			this->button2->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
 			this->button2->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button2.Image")));
 			this->button2->ImageAlign = System::Drawing::ContentAlignment::MiddleRight;
-			this->button2->Location = System::Drawing::Point(650, 0);
+			this->button2->Location = System::Drawing::Point(650, -1);
 			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(320, 46);
+			this->button2->Size = System::Drawing::Size(320, 47);
 			this->button2->TabIndex = 3;
 			this->button2->Text = L"Incoming Messages";
 			this->button2->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
@@ -263,6 +262,7 @@ namespace GUI {
 			this->scrollable_panel->AutoScroll = true;
 			this->scrollable_panel->BackColor = System::Drawing::Color::White;
 			this->scrollable_panel->Location = System::Drawing::Point(13, 24);
+			this->scrollable_panel->BackgroundImage = System::Drawing::Image::FromFile("Images\\chat_back.png");
 			this->scrollable_panel->Name = L"scrollable_panel";
 			this->scrollable_panel->Size = System::Drawing::Size(950, 620);
 			this->scrollable_panel->TabIndex = 2;
@@ -321,9 +321,9 @@ namespace GUI {
 			this->button3->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
 			this->button3->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button3.Image")));
 			this->button3->ImageAlign = System::Drawing::ContentAlignment::MiddleRight;
-			this->button3->Location = System::Drawing::Point(375, 0);
+			this->button3->Location = System::Drawing::Point(375, 1);
 			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(270, 46);
+			this->button3->Size = System::Drawing::Size(270, 44);
 			this->button3->TabIndex = 3;
 			this->button3->Text = L"Favourite";
 			this->button3->UseVisualStyleBackColor = false;
@@ -365,24 +365,11 @@ namespace GUI {
 			this->button5->UseVisualStyleBackColor = false;
 			this->button5->Click += gcnew System::EventHandler(this, &Messages::button5_Click);
 			// 
-			// button6
-			// 
-			this->button6->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->button6->Location = System::Drawing::Point(16, 752);
-			this->button6->Name = L"button6";
-			this->button6->Size = System::Drawing::Size(121, 39);
-			this->button6->TabIndex = 12;
-			this->button6->Text = L"Chat";
-			this->button6->UseVisualStyleBackColor = true;
-			this->button6->Click += gcnew System::EventHandler(this, &Messages::button6_Click);
-			// 
 			// Messages
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(982, 803);
-			this->Controls->Add(this->button6);
 			this->Controls->Add(this->panel1);
 			this->Controls->Add(this->button4);
 			this->Controls->Add(this->button3);
@@ -405,12 +392,10 @@ namespace GUI {
 
 	public: bool switchToWelcome = false;
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
-		
 		this->switchToWelcome = true;
 		this->Close();
 	}
 
-	public: bool switchToMessage = false;
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
 	}
 
@@ -495,14 +480,6 @@ namespace GUI {
 		}
 			MessageBox::Show("Saved As Favorite Successfully", "Info", MessageBoxButtons::OK, MessageBoxIcon::Information);
 		
-	}
-
-
-
-	public: bool switchToChat = false;
-	private: System::Void button6_Click(System::Object^ sender, System::EventArgs^ e) {
-		this->switchToChat = true; 
-		this->Close();
 	}
 
 
@@ -622,7 +599,7 @@ namespace GUI {
 					RemoveContactButton->Size = System::Drawing::Size(40, 40);
 					RemoveContactButton->Location = System::Drawing::Point(parentPanel->Width - RemoveContactButton->Width - 10, parentPanel->Height - RemoveContactButton->Height - 10);
 					RemoveContactButton->Anchor = static_cast<AnchorStyles>(AnchorStyles::Bottom | AnchorStyles::Right);
-					RemoveContactButton->Image = System::Drawing::Image::FromFile("C:\\Users\\20102\\source\\repos\\Saraha-Modifiedddd\\Images\\3 dots icon.jpg");
+					RemoveContactButton->Image = System::Drawing::Image::FromFile("Images\\3_dots_icon.png");
 					RemoveContactButton->ImageAlign = System::Drawing::ContentAlignment::MiddleCenter;
 					RemoveContactButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 					RemoveContactButton->Tag = gcnew Tuple<int, Panel^>(senderId, parentPanel);
