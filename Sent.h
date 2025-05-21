@@ -35,14 +35,14 @@ namespace GUI {
 
 			this->scrollable_panel->Controls->Clear();
 
-			int i = 0;
+			int y = 0;
 			for (auto it :Login :: currentUser->sentMsg)
 			{
 
 				Panel^ panel = gcnew Panel();
 				panel->Size = System::Drawing::Size(680, 118);
 				panel->BackColor = System::Drawing::SystemColors::ControlLight;
-				panel->Location = System::Drawing::Point(0, (i * 135));
+				panel->Location = System::Drawing::Point(0, y);
 
 				// PictureBox to the left of senderIdLabel
 				// PictureBox to the left of senderIdLabel
@@ -69,8 +69,10 @@ namespace GUI {
 				Label^ FavContent = gcnew Label();
 				FavContent->Text = msclr::interop::marshal_as<System::String^>(it.getContent());
 				FavContent->Location = System::Drawing::Point(10, 60);
+				FavContent->MaximumSize = System::Drawing::Size(660, 0);
 				FavContent->AutoSize = true;
-				FavContent->Font = gcnew System::Drawing::Font("Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold);
+				FavContent->Font = gcnew System::Drawing::Font("Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular);
+				FavContent->AutoEllipsis = false;
 
 				panel->Controls->Add(senderPic);      // Add PictureBox first (at the back)
 				panel->Controls->Add(senderIdLabel);  // Then the label
@@ -78,8 +80,9 @@ namespace GUI {
 				panel->Controls->Add(FavContent);
 
 				this->Controls->Add(panel);
+				panel->Height = FavContent->Bottom + 50;
 				this->scrollable_panel->Controls->Add(panel);
-				i++;
+				y += panel->Height + 10;
 			}
 		}
 

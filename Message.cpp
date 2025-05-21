@@ -17,7 +17,6 @@ Message::Message(string data, int sender, int receiver) {
 }
 
 
-
 string Message::getContent() const { return content; }
 int Message::getSenderId() const { return senderid; }
 int Message::getReceiver() const { return receiver; }
@@ -42,23 +41,6 @@ int Message::generateRandomId() {
     usedIDs.insert(randomId);
     return randomId;
 }
-
-string Message::returnAllMessages(list<Message> messages) {
-    string result;
-    for (auto it = messages.rbegin(); it != messages.rend(); ++it) {
-        const Message& message = *it;
-        result += "Message ID: " + to_string(message.getMessageId()) + "\n";
-        result += "Date: " + message.getDateInText() + "\n";
-        result += "Content: " + message.getContent() + "\n";
-        result += "------------------------\n";
-    }
-
-    return result;
-}
-
-
-
-
 
 
 void Message::serialize(ostream& os) const {

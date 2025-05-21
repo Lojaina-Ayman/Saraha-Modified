@@ -37,13 +37,13 @@ namespace GUI {
 		{
 			this->scrollable_panel->Controls->Clear();
 
-			int i = 0;
+			int y = 0;
 			for (auto it : Login::currentUser->recMsg)
 			{
 				Panel^ panel = gcnew Panel();
 				panel->Size = System::Drawing::Size(680, 118);
 				panel->BackColor = System::Drawing::SystemColors::ControlLight;
-				panel->Location = System::Drawing::Point(0, (i * 135));
+				panel->Location = System::Drawing::Point(0, y);
 
 				PictureBox^ senderPic = gcnew PictureBox();
 				senderPic->Size = System::Drawing::Size(40, 40);
@@ -85,8 +85,10 @@ namespace GUI {
 				Label^ FavContent = gcnew Label();
 				FavContent->Text = msclr::interop::marshal_as<System::String^>(it.getContent());
 				FavContent->Location = System::Drawing::Point(10, 60);
+				FavContent->MaximumSize = System::Drawing::Size(660, 0);
 				FavContent->AutoSize = true;
-				FavContent->Font = gcnew System::Drawing::Font("Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold);
+				FavContent->Font = gcnew System::Drawing::Font("Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular);
+				FavContent->AutoEllipsis = false;
 
 				
 				// Add Delete Button 
@@ -94,7 +96,7 @@ namespace GUI {
 				buttonA->Name = it.messageid.ToString();
 				buttonA->Text = "";
 				buttonA->Size = System::Drawing::Size(40, 40);
-				buttonA->Location = System::Drawing::Point(120, 80);
+				buttonA->Location = System::Drawing::Point(580, 200);
 				buttonA->Tag = panel; 
 				buttonA->Click += gcnew System::EventHandler(this, &Messages::deleteButton_Click);
 
@@ -109,7 +111,7 @@ namespace GUI {
 				buttonB->Name = senderIdLabel->Text + "|" + FavContent->Text + "|" + Timelabel->Text;
 				buttonB->Text = "";
 				buttonB->Size = System::Drawing::Size(40, 40);
-				buttonB->Location = System::Drawing::Point(180, 80);
+				buttonB->Location = System::Drawing::Point(540, 200);
 				buttonB->Tag = it.messageid; 
 				buttonB->Click += gcnew System::EventHandler(this, &Messages::favButton_Click);
 
@@ -119,19 +121,12 @@ namespace GUI {
 
 				panel->Controls->Add(buttonB);
 
-
-				panel->Controls->Add(senderPic);
-				panel->Controls->Add(Timelabel);
-				panel->Controls->Add(FavContent);
-				panel->Controls->Add(senderIdLabel);
-
-
 				// Add 3-dot button only if sender is a contact
 				if (isContact) {
 					Button^ RemoveContactButton = gcnew Button();
 					RemoveContactButton->Text = "";
 					RemoveContactButton->Size = System::Drawing::Size(40, 40);
-					RemoveContactButton->Location = System::Drawing::Point(panel->Width - RemoveContactButton->Width - 10, panel->Height - RemoveContactButton->Height - 10);
+					RemoveContactButton->Location = System::Drawing::Point(panel->Width - RemoveContactButton->Width - 10, panel->Height - 50);
 					RemoveContactButton->Anchor = static_cast<AnchorStyles>(AnchorStyles::Bottom | AnchorStyles::Right);
 					RemoveContactButton->Image = System::Drawing::Image::FromFile("Images\\3_dots_icon.png");
 					RemoveContactButton->ImageAlign = System::Drawing::ContentAlignment::MiddleCenter;
@@ -141,8 +136,15 @@ namespace GUI {
 					panel->Controls->Add(RemoveContactButton);
 				}
 
+				panel->Controls->Add(senderPic);
+				panel->Controls->Add(Timelabel);
+				panel->Controls->Add(FavContent);
+				panel->Controls->Add(senderIdLabel);
+
 				this->scrollable_panel->Controls->Add(panel);
-				i++;
+				panel->Height = FavContent->Bottom + 50;
+				y += panel->Height + 10;
+
 			}
 		}
 

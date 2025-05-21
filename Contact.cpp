@@ -27,14 +27,6 @@ int Contact::getContactId() const {
 void Contact::setContactId(int id) {
     this->contactId = id;
 }
-void Contact::addMessage(const Message& message) {
-    messages.push_back(message);
-}
-void Contact::removeMessage(int messageId) {
-    messages.remove_if([messageId](const Message& msg) { return msg.getMessageId() == messageId; });
-}
-
-
 
 
 void Contact::serialize(ostream& os) const {

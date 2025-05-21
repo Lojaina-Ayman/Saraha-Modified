@@ -11,7 +11,7 @@ User::User() {
     msgCount = 0;
 
     // Testing
-    recMsg.push_back(Message("How Are Youu??", 10, 0));
+    recMsg.push_back(Message("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", 10, 0));
     recMsg.push_back(Message("Welcome to Our Project", 22, 0));
     recMsg.push_back(Message("This is my First Saraha Message", 22, 0));
     recMsg.push_back(Message("Hello World", 22, 0));
@@ -48,18 +48,12 @@ User::User(int id, string user, string pass, vector<Contact> mycontacts,
 int User::getId() {
     return this->id;
 }
+
 void User::reci_msg(vector<string> msg) {
     cout << "Received Messages:\n";
     for (int i = msgCount; i < msg.size(); i++) {
         cout << msg[i] << endl;
         msgCount++;
-    }
-}
-
-void User::favorites(vector<string> msg) {
-    cout << "Your Favorites Messages:\n";
-    for (const auto& m : msg) {
-        cout << m << endl;
     }
 }
 
@@ -156,76 +150,9 @@ void User::redo_msg() {
     }
 }
 
-void User::delete_msg(int msgID) {
-    auto it = find_if(sentMsg.begin(), sentMsg.end(),
-        [msgID](const Message& msg) {
-            return msg.getMessageId() == msgID;
-        });
-
-    if (it != sentMsg.end()) {
-        cout << "Found: " << it->getMessageId() << endl;
-
-        undoMsgs.push(*it);
-        sentMsg.erase(it);
-        cout << "Deleting completed";
-    }
-    else {
-
-        cout << "Not found." << endl;
-    }
-}
-
-
-
-void User::viewMessagesFromContact(int id) {
-    auto it = contacts.find(id);
-    if (it == contacts.end()) {
-        return;
-        // Contact not found
-    }
-
-    Contact& contact = it->second;
-    cout << "Messages with " << contact.getName() << ":\n";
-
-    bool msgFound = false;
-    for (const auto& msg : sentMsg) {
-        if (msg.getReceiver() == id) {
-            msgFound = true;
-            // View messages
-        }
-    }
-
-    if (!msgFound) {
-        // This contact has no messages
-    }
-}
-
 void User::markMessageAsFavorite(Message msg) {
     favMsg.push(msg);
 }
-
-void User::viewAllfavoriteMessages() {
-    queue <Message> helperqueue = favMsg;
-    Message iteration;
-    string output;
-    if (!helperqueue.empty()) {
-        cout << "here are " << username << "'s Favorite Messsages" << endl;
-        while (!helperqueue.empty()) {
-            iteration = helperqueue.front();
-            output += "Message ID: " + to_string(iteration.getMessageId()) + "\n";
-            output += "Date: " + iteration.getDateInText() + "\n";
-            output += "Content: " + iteration.getContent() + "\n";
-            output += "------------------------\n";
-        }
-        cout << output;
-    }
-    else {
-        cout << "No favorite messages exist for " << username << endl;
-    }
-
-}
-
-
 
 
 vector<Contact> User::viewContactsSortedByMsgCount() const {
@@ -236,8 +163,6 @@ vector<Contact> User::viewContactsSortedByMsgCount() const {
     sort(sorted.begin(), sorted.end(), CompareByMsgCount());
     return sorted;
 }
-
-
 
 
 void User::serialize(ostream& os) const {

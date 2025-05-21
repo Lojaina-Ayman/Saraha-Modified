@@ -31,7 +31,6 @@ public:
     void deleteContent();
     void setSenderId(int i);
     void setReceiver(int r);
-    string returnAllMessages(list<Message> messages);
     int generateRandomId();
     void MsgTime();
     void serialize(ostream& os) const;

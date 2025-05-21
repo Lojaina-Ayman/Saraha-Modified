@@ -5,7 +5,6 @@
 #include <iostream>
 #include <vector>
 #include "Contact.h"
-#include "Message.h"
 #include <unordered_map>
 #include <queue>
 #include <stack>
@@ -40,10 +39,7 @@ public:
 		list<Message> sentMsg, list<Message> recMsg);
 
 	int getId();
-	void favorites(vector<string> msg);
 	void rmcontact(int contactid);
-	
-	void viewMessagesFromContact(int contactId);
 	void removeOldestFavoriteMessage();
 	void deleteMessageById(int messageId);
 	bool searchContact(int contactId) const;
@@ -52,8 +48,6 @@ public:
 	void snd_msg(Message msg);
 	void undo_msg();
 	void redo_msg();
-	void delete_msg(int);
-	void viewAllfavoriteMessages();
 	vector<Contact> viewContactsSortedByMsgCount() const;
 	void serialize(ostream& os) const;
 	void deserialize(istream& is);
