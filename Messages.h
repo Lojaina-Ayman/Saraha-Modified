@@ -88,33 +88,33 @@ namespace GUI {
 				FavContent->Font = gcnew System::Drawing::Font("Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold);
 
 				
-				// --- Add Delete Button ---
+				// Add Delete Button 
 				Button^ buttonA = gcnew Button();
 				buttonA->Name = it.messageid.ToString();
 				buttonA->Text = "";
 				buttonA->Size = System::Drawing::Size(80, 30);
 				buttonA->Location = System::Drawing::Point(120, 80);
-				buttonA->Tag = panel; // or any relevant data
+				buttonA->Tag = panel; 
 				buttonA->Click += gcnew System::EventHandler(this, &Messages::deleteButton_Click);
 
 				// Set image for the Delete button
 				buttonA->Image = System::Drawing::Image::FromFile("C:\\Users\\20102\\source\\repos\\Saraha-Modifiedss\\Images\\delete icon.png");
-				buttonA->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft; // Adjust as needed
+				buttonA->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft;
 				panel->Controls->Add(buttonA);
 
-				// --- Add Button B ---
-				// --- Add Button B ---
+				
+				//  Add Favorite Button  
 				Button^ buttonB = gcnew Button();
 				buttonB->Name = senderIdLabel->Text + "|" + FavContent->Text + "|" + Timelabel->Text;
 				buttonB->Text = "";
 				buttonB->Size = System::Drawing::Size(80, 30);
 				buttonB->Location = System::Drawing::Point(210, 80);
-				buttonB->Tag = it.messageid; // Store the message ID
+				buttonB->Tag = it.messageid; 
 				buttonB->Click += gcnew System::EventHandler(this, &Messages::favButton_Click);
 
 				// Set image for the Favorite button
 				//buttonB->Image = System::Drawing::Image::FromFile("C:\\Users\\20102\\source\\repos\\Saraha-Modi\\Images\\icons_star_30px.png");
-				buttonB->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft; // or another alignment as you prefer
+				buttonB->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft; 
 
 				panel->Controls->Add(buttonB);
 
@@ -405,8 +405,7 @@ namespace GUI {
 
 	public: bool switchToWelcome = false;
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
-		for (auto it : Login::currentUser->contacts) {
-		MessageBox::Show(it.first.ToString(), "Info", MessageBoxButtons::OK, MessageBoxIcon::Information);		}
+		
 		this->switchToWelcome = true;
 		this->Close();
 	}
@@ -482,13 +481,15 @@ namespace GUI {
 		try {
 			::Message msg(content_str, stoi(id_str), Login::currentUser->id);
 			Login::currentUser->markMessageAsFavorite(msg);
+			Login::currentUser->saveAllUsers("users.dat");
+
 		}
 		catch(exception){
 			for (auto it : Login::currentUser->contacts) {
 				if (it.second.contactName == id_str) {
-					MessageBox::Show(it.second.contactId.ToString(), "Info", MessageBoxButtons::OK, MessageBoxIcon::Information);
 					::Message msg(content_str, it.second.contactId, Login::currentUser->id);
 					Login::currentUser->markMessageAsFavorite(msg);
+					Login::currentUser->saveAllUsers("users.dat");
 				}
 			}
 		}
@@ -588,14 +589,14 @@ namespace GUI {
 					Contact newContact = Contact(nameStd);
 					newContact.setContactId(senderId);
 
-					// Count messages from this sender
+					// msgC0unt calculation
 					int msgCounter = 0;
 					for (const auto& msg : Login::currentUser->recMsg) {
 						if (msg.getSenderId() == senderId) {
 							++msgCounter;
 						}
 					}
-					newContact.msgCount=msgCounter; // Make sure Contact has setMsgCount(int) method
+					newContact.msgCount=msgCounter; 
 
 					Login::currentUser->contacts[senderId] = newContact;
 					User::saveAllUsers("users.dat");
@@ -605,7 +606,7 @@ namespace GUI {
 					parentPanel->Controls->Remove(saveBtn);
 
 
-					// Add a new label with the contact name (no click handler)
+					// Add a new label with the contact name instead of showing the id
 					Label^ contactNameLabel = gcnew Label();
 					contactNameLabel->Text = contactName;
 					contactNameLabel->Location = textBox->Location;
@@ -672,7 +673,7 @@ namespace GUI {
 					}
 					parentPanel->Controls->Remove(btn);
 
-					// Add senderId label again 
+					// Add senderId label again  like we started
 					Label^ senderIdLabel = gcnew Label();
 					senderIdLabel->Text = senderId.ToString();
 					senderIdLabel->Location = System::Drawing::Point(60, 10);

@@ -35,7 +35,7 @@ namespace GUI {
 		void generateFavMessages()
 		{
 			
-			this->scrollable_transaction_panel->Controls->Clear();
+			this->scrollable_panel->Controls->Clear();
 
 			int i = 0;
 			for (auto it : Login::currentUser->queueTolist(Login::currentUser->favMsg))
@@ -46,8 +46,7 @@ namespace GUI {
 				panel->BackColor = System::Drawing::SystemColors::ControlLight;
 				panel->Location = System::Drawing::Point(0, (i * 135));
 
-				// PictureBox to the left of senderIdLabel
-				// PictureBox to the left of senderIdLabel
+				
 				PictureBox^ senderPic = gcnew PictureBox();
 				senderPic->Size = System::Drawing::Size(40, 40);
 				senderPic->Location = System::Drawing::Point(10, 10);
@@ -57,16 +56,16 @@ namespace GUI {
 
 
 				Label^ senderIdLabel = gcnew Label();
-				// Try to find the sender in contacts
+				// Trying to find if the sender is a contact or not conditions
 				auto& contacts = Login::currentUser->contacts;
 				int senderId = it.getSenderId();
 				auto itContact = contacts.find(senderId);
 				if (itContact != contacts.end()) {
-					// Found: use contact name
+					//  If we Found the contact use contact name
 					senderIdLabel->Text = msclr::interop::marshal_as<System::String^>(itContact->second.getName());
 				}
 				else {
-					// Not found: use sender ID
+					
 					senderIdLabel->Text = senderId.ToString();
 				}
 
@@ -86,13 +85,13 @@ namespace GUI {
 				FavContent->AutoSize = true;
 				FavContent->Font = gcnew System::Drawing::Font("Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold);
 
-				panel->Controls->Add(senderPic);      // Add PictureBox first (at the back)
-				panel->Controls->Add(senderIdLabel);  // Then the label
+				panel->Controls->Add(senderPic);      
+				panel->Controls->Add(senderIdLabel);  
 				panel->Controls->Add(favTimelabel);
 				panel->Controls->Add(FavContent);
 
 				this->Controls->Add(panel);
-				this->scrollable_transaction_panel->Controls->Add(panel);
+				this->scrollable_panel->Controls->Add(panel);
 				i++;
 			}
 		}
@@ -126,7 +125,7 @@ namespace GUI {
 
 	private: System::Windows::Forms::RichTextBox^ richTextBox1;
 	private: System::Windows::Forms::Button^ deleteButton;
-  private: System::Windows::Forms::Panel^ scrollable_transaction_panel;
+  private: System::Windows::Forms::Panel^ scrollable_panel;
 	protected:
 
 	private:
@@ -153,7 +152,7 @@ namespace GUI {
 			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->button4 = (gcnew System::Windows::Forms::Button());
 			this->button5 = (gcnew System::Windows::Forms::Button());
-			this->scrollable_transaction_panel = (gcnew System::Windows::Forms::Panel());
+			this->scrollable_panel = (gcnew System::Windows::Forms::Panel());
 			this->deleteButton = (gcnew System::Windows::Forms::Button());
 			this->panel1->SuspendLayout();
 			this->panel2->SuspendLayout();
@@ -298,15 +297,15 @@ namespace GUI {
 			this->button5->UseVisualStyleBackColor = false;
 			this->button5->Click += gcnew System::EventHandler(this, &Favourite::button5_Click);
 			// 
-			// scrollable_transaction_panel
+			// scrollable_panel
 			// 
-			this->scrollable_transaction_panel->AutoScroll = true;
-			this->scrollable_transaction_panel->BackColor = System::Drawing::Color::White;
-			this->scrollable_transaction_panel->Location = System::Drawing::Point(10, 50);
-			this->scrollable_transaction_panel->Name = L"scrollable_transaction_panel";
-			this->scrollable_transaction_panel->Size = System::Drawing::Size(950, 620);
-			this->scrollable_transaction_panel->TabIndex = 2;
-			this->scrollable_transaction_panel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &Favourite::scrollable_transaction_panel_Paint);
+			this->scrollable_panel->AutoScroll = true;
+			this->scrollable_panel->BackColor = System::Drawing::Color::White;
+			this->scrollable_panel->Location = System::Drawing::Point(10, 50);
+			this->scrollable_panel->Name = L"scrollable_panel";
+			this->scrollable_panel->Size = System::Drawing::Size(950, 620);
+			this->scrollable_panel->TabIndex = 2;
+			this->scrollable_panel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &Favourite::scrollable_panel_Paint);
 			// 
 			// deleteButton
 			// 
@@ -328,7 +327,7 @@ namespace GUI {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(982, 803);
 			this->Controls->Add(this->deleteButton);
-			this->Controls->Add(this->scrollable_transaction_panel);
+			this->Controls->Add(this->scrollable_panel);
 			this->Controls->Add(this->panel1);
 			this->Controls->Add(this->button4);
 			this->Controls->Add(this->button3);
@@ -389,6 +388,7 @@ private: System::Void Favourite_Load(System::Object^ sender, System::EventArgs^ 
 	{
 		FavStar->Show();
 		FavMess->Show();
+	
 	}
 
 }
@@ -397,22 +397,25 @@ private: System::Void deleteButton_Click(System::Object^ sender, System::EventAr
 	if(Login::currentUser->favMsg.size() == 1){ //To remove the last message
 		// Remove the oldest favorite message
 		Login::currentUser->removeOldestFavoriteMessage();
-		// Regenerate the favorite messages UI
-		generateFavMessages();
+		Login::currentUser->saveAllUsers("users.dat");
+		// Refresh
 		FavStar->Show();
 		FavMess->Show();
-		scrollable_transaction_panel->Hide();
+		scrollable_panel->Hide();
 		deleteButton->Hide();
+		generateFavMessages();
+		
 	}
 	if (!Login::currentUser->favMsg.empty()) {
 		// Remove the oldest favorite message
 		Login::currentUser->removeOldestFavoriteMessage();
-		// Regenerate the favorite messages UI
+		Login::currentUser->saveAllUsers("users.dat");
+		// Refresh
 		generateFavMessages();
 	}
 		
 }
-private: System::Void scrollable_transaction_panel_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+private: System::Void scrollable_panel_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 }
 };
 }

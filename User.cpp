@@ -11,20 +11,15 @@ User::User() {
     msgCount = 0;
 
     // Testing
+    recMsg.push_back(Message("How Are Youu??", 10, 0));
+    recMsg.push_back(Message("Welcome to Our Project", 22, 0));
+    recMsg.push_back(Message("This is my First Saraha Message", 22, 0));
+    recMsg.push_back(Message("Hello World", 22, 0));
+    recMsg.push_back(Message("Hii My Name is Ahmed", 13, 0));
+    recMsg.push_back(Message("Can i Ask You Something", 12, 0));
+    recMsg.push_back(Message("This is our second year in college", 10, 0));
+    recMsg.push_back(Message("This is My Data Structure Project", 12, 0));
 
-    recMsg.push_back(Message("AHlan", 22, 33));
-    favMsg.push(Message("Hello My name is youssef", 1, 2));
-    favMsg.push(Message("Hello My name is Ahmed", 1, 2));
-    favMsg.push(Message("Hello My name is Ali", 1, 2));
-    favMsg.push(Message("Hello My name is Aya", 1, 2));
-    favMsg.push(Message("Hello My name is Hamdy", 1, 2));
-    recMsg.push_back(Message("HELLOOOO", 23, 0));
-    recMsg.push_back(Message("HELLOOOO", 23, 0));
-    recMsg.push_back(Message("dasdasdas", 22, 0));
-    recMsg.push_back(Message("ssssssssssss", 22, 0));
-    recMsg.push_back(Message("zzzzzzzzzzzz", 22, 0));
-
-    sentMsg.push_back(Message("To hell with Archi", 1, 2));
 }
 
 User::User(int id, string user, string pass, vector<Contact> mycontacts,

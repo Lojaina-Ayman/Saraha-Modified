@@ -33,7 +33,7 @@ namespace GUI {
 		void generatelabel1ages()
 		{
 
-			this->scrollable_transaction_panel->Controls->Clear();
+			this->scrollable_panel->Controls->Clear();
 
 			int i = 0;
 			for (auto it :Login :: currentUser->sentMsg)
@@ -78,7 +78,7 @@ namespace GUI {
 				panel->Controls->Add(FavContent);
 
 				this->Controls->Add(panel);
-				this->scrollable_transaction_panel->Controls->Add(panel);
+				this->scrollable_panel->Controls->Add(panel);
 				i++;
 			}
 		}
@@ -104,7 +104,7 @@ namespace GUI {
 	private: System::Windows::Forms::Panel^ panel2;
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::PictureBox^ pictureBox1;
-	private: System::Windows::Forms::Panel^ scrollable_transaction_panel;
+	private: System::Windows::Forms::Panel^ scrollable_panel;
 	private: System::Windows::Forms::Button^ undoButton;
 
 	private: System::Windows::Forms::Button^ redoButton;
@@ -131,7 +131,7 @@ namespace GUI {
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
-			this->scrollable_transaction_panel = (gcnew System::Windows::Forms::Panel());
+			this->scrollable_panel = (gcnew System::Windows::Forms::Panel());
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
@@ -180,22 +180,22 @@ namespace GUI {
 			// 
 			// panel1
 			// 
-			this->panel1->Controls->Add(this->scrollable_transaction_panel);
+			this->panel1->Controls->Add(this->scrollable_panel);
 			this->panel1->Controls->Add(this->panel2);
 			this->panel1->Location = System::Drawing::Point(3, 51);
 			this->panel1->Name = L"panel1";
 			this->panel1->Size = System::Drawing::Size(976, 679);
 			this->panel1->TabIndex = 4;
 			// 
-			// scrollable_transaction_panel
+			// scrollable_panel
 			// 
-			this->scrollable_transaction_panel->AutoScroll = true;
-			this->scrollable_transaction_panel->BackColor = System::Drawing::Color::White;
-			this->scrollable_transaction_panel->Location = System::Drawing::Point(14, 28);
-			this->scrollable_transaction_panel->Name = L"scrollable_transaction_panel";
-			this->scrollable_transaction_panel->Size = System::Drawing::Size(950, 620);
-			this->scrollable_transaction_panel->TabIndex = 3;
-			this->scrollable_transaction_panel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &Sent::scrollable_transaction_panel_Paint);
+			this->scrollable_panel->AutoScroll = true;
+			this->scrollable_panel->BackColor = System::Drawing::Color::White;
+			this->scrollable_panel->Location = System::Drawing::Point(14, 28);
+			this->scrollable_panel->Name = L"scrollable_panel";
+			this->scrollable_panel->Size = System::Drawing::Size(950, 620);
+			this->scrollable_panel->TabIndex = 3;
+			this->scrollable_panel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &Sent::scrollable_panel_Paint);
 			// 
 			// panel2
 			// 
@@ -366,10 +366,12 @@ namespace GUI {
 
 	private: System::Void undoButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		Login::currentUser->undo_msg();
+		Login::currentUser->saveAllUsers("users.dat");
 	}
 
 	private: System::Void redoButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		Login::currentUser->redo_msg();
+		Login::currentUser->saveAllUsers("users.dat");
 	}
 
 	private: System::Void Messages_Load(System::Object^ sender, System::EventArgs^ e) {
@@ -378,7 +380,7 @@ namespace GUI {
 		}
 		else
 		{
-			scrollable_transaction_panel->Hide();
+			scrollable_panel->Hide();
 		}
 
 	}
@@ -388,6 +390,8 @@ namespace GUI {
 			Login::currentUser->undoMsgs.push(Login::currentUser->sentMsg.back());
 			Login::currentUser->sentMsg.pop_back();
 			reload = true;
+			Login::currentUser->saveAllUsers("users.dat");
+
 			this->Close();
 		}
 	}
@@ -396,10 +400,12 @@ namespace GUI {
 			Login::currentUser->sentMsg.push_back(Login::currentUser->undoMsgs.top());
 			Login::currentUser->undoMsgs.pop();
 			reload = true;
+			Login::currentUser->saveAllUsers("users.dat");
+
 			this->Close();
 		}
 	}
-	private: System::Void scrollable_transaction_panel_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+	private: System::Void scrollable_panel_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 	}
 };
 }
