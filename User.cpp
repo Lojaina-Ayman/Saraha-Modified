@@ -18,8 +18,12 @@ User::User() {
     favMsg.push(Message("Hello My name is Ali", 1, 2));
     favMsg.push(Message("Hello My name is Aya", 1, 2));
     favMsg.push(Message("Hello My name is Hamdy", 1, 2));
-    recMsg.push_back(Message("HELLOOOO", 22, 0));
-    recMsg.push_back(Message("HELLOOOO", 22, 0));
+    recMsg.push_back(Message("HELLOOOO", 23, 0));
+    recMsg.push_back(Message("HELLOOOO", 23, 0));
+    recMsg.push_back(Message("dasdasdas", 22, 0));
+    recMsg.push_back(Message("ssssssssssss", 22, 0));
+    recMsg.push_back(Message("zzzzzzzzzzzz", 22, 0));
+
     sentMsg.push_back(Message("To hell with Archi", 1, 2));
 }
 
@@ -176,30 +180,7 @@ void User::delete_msg(int msgID) {
     }
 }
 
-bool User::login(string user, string pass) {
-    auto it = users.find(user);
-    if (it != users.end() && it->second.pass == pass) {
-        return true;
-        // Logged in
-    }
-    return false;
-    // Username or password not found
-}
 
-bool User::regist(string user, string pass) {
-    if (users.find(user) != users.end()) {
-        return false;
-        // Username's taken
-    }
-
-    User newUser;
-    newUser.username = user;
-    newUser.pass = pass;
-
-    users[user] = newUser;
-    return true;
-    // Register done
-}
 
 void User::viewMessagesFromContact(int id) {
     auto it = contacts.find(id);
@@ -224,12 +205,8 @@ void User::viewMessagesFromContact(int id) {
     }
 }
 
-void User::markMessageAsFavorite(int messageId) {
-    for (auto& msg : sentMsg) {
-        if (msg.getMessageId() == messageId) {
-            favMsg.push(msg);
-        }
-    }
+void User::markMessageAsFavorite(Message msg) {
+    favMsg.push(msg);
 }
 
 void User::viewAllfavoriteMessages() {
@@ -253,27 +230,18 @@ void User::viewAllfavoriteMessages() {
 
 }
 
-bool User::checkcontactcreationeligibility(int contactid) {
-    list<Message> iteree = recMsg;
-    for (const Message msg : iteree) {
-        if (msg.getReceiver() == contactid)
-            return true;
-    }
-    return false;
-}
 
 
-set<Contact, comparing> User::viewContSorted() {
-    set<Contact, comparing> sortedContacts;
-    for (const auto& it : contacts) {
-        const Contact& contact = it.second;
-        sortedContacts.insert(contact);
-    }
-    for (auto it : sortedContacts) {
-        cout << "Name: " << it.getName() << "  Id: " << it.getContactId() << "  Message Counter: " << it.getMsgCount() << endl;
-    }
-    return sortedContacts;
+
+vector<Contact> User::viewContactsSortedByMsgCount() const {
+    vector<Contact> sorted;
+    for (const auto& pair : contacts)
+        sorted.push_back(pair.second);
+
+    sort(sorted.begin(), sorted.end(), CompareByMsgCount());
+    return sorted;
 }
+
 
 
 

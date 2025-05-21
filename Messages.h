@@ -35,7 +35,7 @@ namespace GUI {
 
 		void generatelabel1ages()
 		{
-			this->scrollable_transaction_panel->Controls->Clear();
+			this->scrollable_panel->Controls->Clear();
 
 			int i = 0;
 			for (auto it : Login::currentUser->recMsg)
@@ -75,11 +75,11 @@ namespace GUI {
 				senderIdLabel->Font = gcnew System::Drawing::Font("Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold);
 				senderIdLabel->Tag = panel;
 
-				Label^ favTimelabel = gcnew Label();
-				favTimelabel->Text = msclr::interop::marshal_as<System::String^>(it.timeStr);
-				favTimelabel->Location = System::Drawing::Point(570, 10);
-				favTimelabel->AutoSize = true;
-				favTimelabel->Font = gcnew System::Drawing::Font("Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold);
+				Label^ Timelabel = gcnew Label();
+				Timelabel->Text = msclr::interop::marshal_as<System::String^>(it.timeStr);
+				Timelabel->Location = System::Drawing::Point(570, 10);
+				Timelabel->AutoSize = true;
+				Timelabel->Font = gcnew System::Drawing::Font("Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold);
 
 				Label^ FavContent = gcnew Label();
 				FavContent->Text = msclr::interop::marshal_as<System::String^>(it.getContent());
@@ -87,8 +87,8 @@ namespace GUI {
 				FavContent->AutoSize = true;
 				FavContent->Font = gcnew System::Drawing::Font("Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold);
 
-				// --- Add Button A ---
-		// --- Add Button A ---
+				
+				// --- Add Delete Button ---
 				Button^ buttonA = gcnew Button();
 				buttonA->Name = it.messageid.ToString();
 				buttonA->Text = "";
@@ -98,29 +98,29 @@ namespace GUI {
 				buttonA->Click += gcnew System::EventHandler(this, &Messages::deleteButton_Click);
 
 				// Set image for the Delete button
-				buttonA->Image = System::Drawing::Image::FromFile("C:\\Users\\20102\\source\\repos\\Saraha-Modi\\Images\\delete icon.png");
+				buttonA->Image = System::Drawing::Image::FromFile("C:\\Users\\20102\\source\\repos\\Saraha-Modifiedss\\Images\\delete icon.png");
 				buttonA->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft; // Adjust as needed
 				panel->Controls->Add(buttonA);
 
 				// --- Add Button B ---
 				// --- Add Button B ---
 				Button^ buttonB = gcnew Button();
-				buttonB->Name = senderIdLabel->Text + "|" + FavContent->Text + "|" + favTimelabel->Text;
+				buttonB->Name = senderIdLabel->Text + "|" + FavContent->Text + "|" + Timelabel->Text;
 				buttonB->Text = "";
 				buttonB->Size = System::Drawing::Size(80, 30);
 				buttonB->Location = System::Drawing::Point(210, 80);
-				buttonB->Tag = panel; // or any relevant data
+				buttonB->Tag = it.messageid; // Store the message ID
 				buttonB->Click += gcnew System::EventHandler(this, &Messages::favButton_Click);
 
 				// Set image for the Favorite button
-				buttonB->Image = System::Drawing::Image::FromFile("C:\\Users\\20102\\source\\repos\\Saraha-Modi\\Images\\icons_star_30px.png");
+				//buttonB->Image = System::Drawing::Image::FromFile("C:\\Users\\20102\\source\\repos\\Saraha-Modi\\Images\\icons_star_30px.png");
 				buttonB->ImageAlign = System::Drawing::ContentAlignment::MiddleLeft; // or another alignment as you prefer
 
 				panel->Controls->Add(buttonB);
 
 
 				panel->Controls->Add(senderPic);
-				panel->Controls->Add(favTimelabel);
+				panel->Controls->Add(Timelabel);
 				panel->Controls->Add(FavContent);
 				panel->Controls->Add(senderIdLabel);
 
@@ -132,7 +132,7 @@ namespace GUI {
 					RemoveContactButton->Size = System::Drawing::Size(40, 40);
 					RemoveContactButton->Location = System::Drawing::Point(panel->Width - RemoveContactButton->Width - 10, panel->Height - RemoveContactButton->Height - 10);
 					RemoveContactButton->Anchor = static_cast<AnchorStyles>(AnchorStyles::Bottom | AnchorStyles::Right);
-					RemoveContactButton->Image = System::Drawing::Image::FromFile("C:\\Users\\20102\\source\\repos\\Saraha-Modi\\Images\\3 dots icon.jpg");
+					//RemoveContactButton->Image = System::Drawing::Image::FromFile("C:\\Users\\20102\\source\\repos\\Saraha-Modi\\Images\\3 dots icon.jpg");
 					RemoveContactButton->ImageAlign = System::Drawing::ContentAlignment::MiddleCenter;
 					RemoveContactButton->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 					RemoveContactButton->Tag = gcnew Tuple<int, Panel^>(senderId, panel);
@@ -140,7 +140,7 @@ namespace GUI {
 					panel->Controls->Add(RemoveContactButton);
 				}
 
-				this->scrollable_transaction_panel->Controls->Add(panel);
+				this->scrollable_panel->Controls->Add(panel);
 				i++;
 			}
 		}
@@ -175,7 +175,7 @@ namespace GUI {
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::PictureBox^ pictureBox1;
 	private: System::Windows::Forms::RichTextBox^ richTextBox1;
-	private: System::Windows::Forms::Panel^ scrollable_transaction_panel;
+	private: System::Windows::Forms::Panel^ scrollable_panel;
 
 
 	private: System::Windows::Forms::Button^ button6;
@@ -201,7 +201,7 @@ namespace GUI {
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
-			this->scrollable_transaction_panel = (gcnew System::Windows::Forms::Panel());
+			this->scrollable_panel = (gcnew System::Windows::Forms::Panel());
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
@@ -250,7 +250,7 @@ namespace GUI {
 			// 
 			// panel1
 			// 
-			this->panel1->Controls->Add(this->scrollable_transaction_panel);
+			this->panel1->Controls->Add(this->scrollable_panel);
 			this->panel1->Controls->Add(this->panel2);
 			this->panel1->Location = System::Drawing::Point(3, 51);
 			this->panel1->Name = L"panel1";
@@ -258,15 +258,15 @@ namespace GUI {
 			this->panel1->TabIndex = 4;
 			this->panel1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &Messages::panel1_Paint);
 			// 
-			// scrollable_transaction_panel
+			// scrollable_panel
 			// 
-			this->scrollable_transaction_panel->AutoScroll = true;
-			this->scrollable_transaction_panel->BackColor = System::Drawing::Color::White;
-			this->scrollable_transaction_panel->Location = System::Drawing::Point(13, 24);
-			this->scrollable_transaction_panel->Name = L"scrollable_transaction_panel";
-			this->scrollable_transaction_panel->Size = System::Drawing::Size(950, 620);
-			this->scrollable_transaction_panel->TabIndex = 2;
-			this->scrollable_transaction_panel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &Messages::scrollable_transaction_panel_Paint);
+			this->scrollable_panel->AutoScroll = true;
+			this->scrollable_panel->BackColor = System::Drawing::Color::White;
+			this->scrollable_panel->Location = System::Drawing::Point(13, 24);
+			this->scrollable_panel->Name = L"scrollable_panel";
+			this->scrollable_panel->Size = System::Drawing::Size(950, 620);
+			this->scrollable_panel->TabIndex = 2;
+			this->scrollable_panel->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &Messages::scrollable_panel_Paint);
 			// 
 			// panel2
 			// 
@@ -447,34 +447,53 @@ namespace GUI {
 		}
 		else
 		{
-			scrollable_transaction_panel->Hide();
+			scrollable_panel->Hide();
 		}
-		for (auto it : Login::currentUser->contacts) {
-			MessageBox::Show(it.first.ToString(), "Info", MessageBoxButtons::OK, MessageBoxIcon::Information);
-		}
+		
 	}
 
-	private: System::Void scrollable_transaction_panel_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+	private: System::Void scrollable_panel_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 	}
 
 	private: System::Void deleteButton_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		if (Login::currentUser->recMsg.size() == 1) {
+			scrollable_panel->Hide();
+		}
+
 		Button^ buttonA = dynamic_cast<Button^>(sender);
 		
 			// Convert the Name property (which holds the message id) to int
 			int messageId = System::Convert::ToInt32(buttonA->Name);
 			Login::currentUser->deleteMessageById(messageId);
-				generatelabel1ages(); // Refresh the UI
+			Login::currentUser->saveAllUsers("users.dat");
+			generatelabel1ages(); 
 	}
 
 	private: System::Void favButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		Button^ buttonB = dynamic_cast<Button^>(sender);
 		String^ name = buttonB->Name;
 		System::String^ id = name->Split('|')[0];
-		string id_str = msclr::interop::marshal_as<std::string>(id);	
+		string id_str = msclr::interop::marshal_as<std::string>(id);
 		System::String^ content = name->Split('|')[1];
 		string content_str = msclr::interop::marshal_as<std::string>(content);
 		System::String^ time = name->Split('|')[2];
 		string time_str = msclr::interop::marshal_as<string>(time);
+		try {
+			::Message msg(content_str, stoi(id_str), Login::currentUser->id);
+			Login::currentUser->markMessageAsFavorite(msg);
+		}
+		catch(exception){
+			for (auto it : Login::currentUser->contacts) {
+				if (it.second.contactName == id_str) {
+					MessageBox::Show(it.second.contactId.ToString(), "Info", MessageBoxButtons::OK, MessageBoxIcon::Information);
+					::Message msg(content_str, it.second.contactId, Login::currentUser->id);
+					Login::currentUser->markMessageAsFavorite(msg);
+				}
+			}
+		}
+			MessageBox::Show("Saved As Favorite Successfully", "Info", MessageBoxButtons::OK, MessageBoxIcon::Information);
+		
 	}
 
 
@@ -494,8 +513,9 @@ namespace GUI {
 				MessageBox::Show("Contact already exists.", "Info", MessageBoxButtons::OK, MessageBoxIcon::Information);
 				return;
 			}
-			Panel^ parentPanel = dynamic_cast<Panel^>(clickedLabel->Tag);
-			if (parentPanel != nullptr) {
+			 
+			 Panel^ parentPanel = dynamic_cast<Panel^>(clickedLabel->Tag);
+			
 				// Remove the label
 				parentPanel->Controls->Remove(clickedLabel);
 
@@ -524,7 +544,7 @@ namespace GUI {
 				parentPanel->Controls->Add(button);
 				textBox->BringToFront();
 				button->BringToFront();
-			}
+			
 		}
 	}
 
@@ -557,15 +577,29 @@ namespace GUI {
 						senderIdLabel->Tag = parentPanel;
 						parentPanel->Controls->Add(senderIdLabel);
 						senderIdLabel->BringToFront();
+						generatelabel1ages();
 						return;
+
 					}
+					
 
 					// Create and add the contact
 					std::string nameStd = msclr::interop::marshal_as<std::string>(contactName);
 					Contact newContact = Contact(nameStd);
 					newContact.setContactId(senderId);
-					Login::currentUser->contacts[senderId]=newContact;
+
+					// Count messages from this sender
+					int msgCounter = 0;
+					for (const auto& msg : Login::currentUser->recMsg) {
+						if (msg.getSenderId() == senderId) {
+							++msgCounter;
+						}
+					}
+					newContact.msgCount=msgCounter; // Make sure Contact has setMsgCount(int) method
+
+					Login::currentUser->contacts[senderId] = newContact;
 					User::saveAllUsers("users.dat");
+
 					// Remove the TextBox and Button
 					parentPanel->Controls->Remove(textBox);
 					parentPanel->Controls->Remove(saveBtn);
@@ -602,9 +636,10 @@ namespace GUI {
 				}
 			}
 		}
+		generatelabel1ages();
 	}
-
-
+		   
+		   
 
 	private: System::Void removeContactButton_Click(System::Object^ sender, System::EventArgs^ e) {
 		Button^ btn = dynamic_cast<Button^>(sender);
@@ -622,7 +657,7 @@ namespace GUI {
 				if (result == System::Windows::Forms::DialogResult::Yes) {
 					// Remove contact from user
 					Login::currentUser->rmcontact(senderId);
-
+					Login::currentUser->saveAllUsers("users.dat");
 					// Remove the contact name label and 3-dot button
 					Label^ contactNameLabel = nullptr;
 					for each (Control ^ ctrl in parentPanel->Controls) {
@@ -637,7 +672,7 @@ namespace GUI {
 					}
 					parentPanel->Controls->Remove(btn);
 
-					// Add senderId label again (clickable)
+					// Add senderId label again 
 					Label^ senderIdLabel = gcnew Label();
 					senderIdLabel->Text = senderId.ToString();
 					senderIdLabel->Location = System::Drawing::Point(60, 10);
@@ -648,9 +683,10 @@ namespace GUI {
 					parentPanel->Controls->Add(senderIdLabel);
 					senderIdLabel->BringToFront();
 				}
-				// If No, do nothing
+				
 			}
 		}
+		generatelabel1ages();
 	}
 
 

@@ -11,19 +11,9 @@
 #include <set>
 #include <functional>
 
-struct comparing {
+struct CompareByMsgCount {
 	bool operator()(const Contact& a, const Contact& b) const {
-
-		if (a.getMsgCount() > b.getMsgCount())
-			return true;
-		else if (a.getMsgCount() < b.getMsgCount())
-			return false;
-		else {
-			if (a.getName() < b.getName())
-				return true;
-			else
-				return false;
-		}
+		return a.getMsgCount() > b.getMsgCount(); 
 	}
 };
 
@@ -51,22 +41,19 @@ public:
 	int getId();
 	void favorites(vector<string> msg);
 	void rmcontact(int contactid);
-	bool login(string username, string password);
-	bool regist(string username, string password);
+	
 	void viewMessagesFromContact(int contactId);
 	void removeOldestFavoriteMessage();
 	void deleteMessageById(int messageId);
 	bool searchContact(int contactId) const;
-	void markMessageAsFavorite(int messageid);
+	void markMessageAsFavorite(Message msg);
 	void reci_msg(vector<string> msg);
 	void snd_msg(Message msg);
 	void undo_msg();
 	void redo_msg();
 	void delete_msg(int);
 	void viewAllfavoriteMessages();
-	bool checkcontactcreationeligibility(int contactid);
-	set<Contact, comparing> viewContSorted();
-
+	vector<Contact> viewContactsSortedByMsgCount() const;
 	void serialize(ostream& os) const;
 	void deserialize(istream& is);
 	void static saveAllUsers(const string& filename);

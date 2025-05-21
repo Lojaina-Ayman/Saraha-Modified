@@ -3,6 +3,7 @@
 #include "Message.h"
 #include <msclr/marshal_cppstd.h>
 #include <vector>
+#include"Login.h"
 
 namespace GUI {
 
@@ -20,7 +21,6 @@ namespace GUI {
 	public ref class Favourite : public System::Windows::Forms::Form
 	{
 	public:
-		User* currentUser=new User();
 		Favourite(void)
 		{
 			InitializeComponent();
@@ -38,9 +38,9 @@ namespace GUI {
 			this->scrollable_transaction_panel->Controls->Clear();
 
 			int i = 0;
-			for (auto it : currentUser->queueTolist(currentUser->favMsg))
+			for (auto it : Login::currentUser->queueTolist(Login::currentUser->favMsg))
 			{
-				
+					
 				Panel^ panel = gcnew Panel();
 				panel->Size = System::Drawing::Size(680, 118);
 				panel->BackColor = System::Drawing::SystemColors::ControlLight;
@@ -57,7 +57,19 @@ namespace GUI {
 
 
 				Label^ senderIdLabel = gcnew Label();
-				senderIdLabel->Text = it.getSenderId().ToString();
+				// Try to find the sender in contacts
+				auto& contacts = Login::currentUser->contacts;
+				int senderId = it.getSenderId();
+				auto itContact = contacts.find(senderId);
+				if (itContact != contacts.end()) {
+					// Found: use contact name
+					senderIdLabel->Text = msclr::interop::marshal_as<System::String^>(itContact->second.getName());
+				}
+				else {
+					// Not found: use sender ID
+					senderIdLabel->Text = senderId.ToString();
+				}
+
 				senderIdLabel->Location = System::Drawing::Point(60, 10); // Shifted right to make space for PictureBox
 				senderIdLabel->AutoSize = true;
 				senderIdLabel->Font = gcnew System::Drawing::Font("Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold);
@@ -368,7 +380,7 @@ namespace GUI {
 private: System::Void panel1_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 }
 private: System::Void Favourite_Load(System::Object^ sender, System::EventArgs^ e) {
-	if(!currentUser->favMsg.empty()){
+	if(!Login::currentUser->favMsg.empty()){
 		FavStar->Hide();
 		FavMess->Hide();
 		generateFavMessages();
@@ -382,9 +394,9 @@ private: System::Void Favourite_Load(System::Object^ sender, System::EventArgs^ 
 }
 
 private: System::Void deleteButton_Click(System::Object^ sender, System::EventArgs^ e) {
-	if(currentUser->favMsg.size() == 1){ //To remove the last message
+	if(Login::currentUser->favMsg.size() == 1){ //To remove the last message
 		// Remove the oldest favorite message
-		currentUser->removeOldestFavoriteMessage();
+		Login::currentUser->removeOldestFavoriteMessage();
 		// Regenerate the favorite messages UI
 		generateFavMessages();
 		FavStar->Show();
@@ -392,9 +404,9 @@ private: System::Void deleteButton_Click(System::Object^ sender, System::EventAr
 		scrollable_transaction_panel->Hide();
 		deleteButton->Hide();
 	}
-	if (!currentUser->favMsg.empty()) {
+	if (!Login::currentUser->favMsg.empty()) {
 		// Remove the oldest favorite message
-		currentUser->removeOldestFavoriteMessage();
+		Login::currentUser->removeOldestFavoriteMessage();
 		// Regenerate the favorite messages UI
 		generateFavMessages();
 	}

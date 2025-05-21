@@ -39,7 +39,7 @@ namespace GUI {
 			this->scrollable_transaction_panel->Controls->Clear();
 
 			int i = 0;
-			for (auto it :Login:: currentUser->contacts)
+			for (auto it :Login:: currentUser->viewContactsSortedByMsgCount())
 			{
 				Panel^ panel = gcnew Panel();
 				panel->Size = System::Drawing::Size(680, 118);
@@ -48,7 +48,7 @@ namespace GUI {
 
 			
 				Label^ ContactNameLabel = gcnew Label();
-				ContactNameLabel->Text = msclr::interop::marshal_as<System::String^>(it.second.contactName);
+				ContactNameLabel->Text = msclr::interop::marshal_as<System::String^>(it.contactName);
 				ContactNameLabel->Location = System::Drawing::Point(60, 10);
 				ContactNameLabel->AutoSize = true;
 				ContactNameLabel->Font = gcnew System::Drawing::Font("Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold);
