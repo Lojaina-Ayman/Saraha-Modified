@@ -96,7 +96,7 @@ namespace GUI {
 				buttonA->Name = it.messageid.ToString();
 				buttonA->Text = "";
 				buttonA->Size = System::Drawing::Size(40, 40);
-				buttonA->Location = System::Drawing::Point(580, 200);
+				buttonA->Location = System::Drawing::Point(520, 5);
 				buttonA->Tag = panel; 
 				buttonA->Click += gcnew System::EventHandler(this, &Messages::deleteButton_Click);
 
@@ -111,7 +111,7 @@ namespace GUI {
 				buttonB->Name = senderIdLabel->Text + "|" + FavContent->Text + "|" + Timelabel->Text;
 				buttonB->Text = "";
 				buttonB->Size = System::Drawing::Size(40, 40);
-				buttonB->Location = System::Drawing::Point(540, 200);
+				buttonB->Location = System::Drawing::Point(480, 5);
 				buttonB->Tag = it.messageid; 
 				buttonB->Click += gcnew System::EventHandler(this, &Messages::favButton_Click);
 
