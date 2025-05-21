@@ -34,6 +34,7 @@ namespace GUI {
 			this->sentCountLabel->Text = Login::currentUser->sentMsg.size().ToString();
 			this->recCountLabel->Text = Login::currentUser->recMsg.size().ToString();
 		}
+
 		void generatelabel1ages()
 		{
 			this->scrollable_transaction_panel->Controls->Clear();
@@ -46,14 +47,21 @@ namespace GUI {
 				panel->BackColor = System::Drawing::SystemColors::ControlLight;
 				panel->Location = System::Drawing::Point(0, (i * 135));
 
+				PictureBox^ senderPic = gcnew PictureBox();
+				senderPic->Size = System::Drawing::Size(80, 80);
+				senderPic->Location = System::Drawing::Point(10, 20);
+				senderPic->Image = System::Drawing::Image::FromFile("Images\\icon.png");
+				senderPic->SizeMode = PictureBoxSizeMode::StretchImage;
+				senderPic->BorderStyle = BorderStyle::FixedSingle;
 			
 				Label^ ContactNameLabel = gcnew Label();
 				ContactNameLabel->Text = msclr::interop::marshal_as<System::String^>(it.contactName);
-				ContactNameLabel->Location = System::Drawing::Point(60, 10);
+				ContactNameLabel->Location = System::Drawing::Point(100, 40);
 				ContactNameLabel->AutoSize = true;
-				ContactNameLabel->Font = gcnew System::Drawing::Font("Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold);
+				ContactNameLabel->Font = gcnew System::Drawing::Font("Microsoft Sans Serif", 24, System::Drawing::FontStyle::Bold);
 				ContactNameLabel->Tag = panel;
 				panel->Controls->Add(ContactNameLabel);
+				panel->Controls->Add(senderPic);
 				this->scrollable_transaction_panel->Controls->Add(panel);
 				i++;
 			}

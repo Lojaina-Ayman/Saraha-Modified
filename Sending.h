@@ -31,7 +31,7 @@ namespace GUI {
 			//
 			std::list<::Message> messageList;
 			this->CenterToScreen();
-			//this->label1->Text = msclr::interop::marshal_as<System::String^>(Login::currentUser->username);
+			this->label1->Text = msclr::interop::marshal_as<System::String^>(Login::currentUser->username);
 		}
 
 	protected:
